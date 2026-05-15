@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "youtube-to-infographic": {
+      "source": "nickautomations/skills",
+      "sourceType": "github",
+      "skillPath": "skills/youtube-to-infographic/SKILL.md",
+      "computedHash": "d21ab42f14ce39e434efd82c8cdb0e962f7c17cffbd768956a270291dd95ef95"
+    }
+  }
+}

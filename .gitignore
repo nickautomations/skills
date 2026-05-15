@@ -39,6 +39,7 @@ desktop.ini
 dist/
 build/
 out/
+.agents/
 
 # Logs
 *.log
