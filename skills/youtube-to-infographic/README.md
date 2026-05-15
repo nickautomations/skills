@@ -26,13 +26,13 @@ The skill needs a RapidAPI key to fetch YouTube transcripts. One-time setup:
 1. Sign up at [https://rapidapi.com](https://rapidapi.com) (free)
 2. Subscribe to **[yt-api by ytjar](https://rapidapi.com/ytjar/api/yt-api)** — there's a free tier
 3. Copy your API key from the RapidAPI dashboard
-4. Export it as an environment variable:
+4. Create `scripts/.env`:
 
-   ```bash
-   export RAPIDAPI_KEY=your_key_here
+   ```dotenv
+   RAPIDAPI_KEY=your_key_here
    ```
 
-   For persistence, add that line to `~/.zshrc`, `~/.bashrc`, or `~/.claude/.env`.
+The `.env` file is ignored by Git, so your key stays local.
 
 ## Usage
 
@@ -76,7 +76,7 @@ Edit any of these to fork the design for your own brand.
 
 ## Troubleshooting
 
-**"RAPIDAPI_KEY environment variable is not set"** → Run `export RAPIDAPI_KEY=your_key` in the shell where Claude runs. Verify with `echo $RAPIDAPI_KEY`.
+**"RAPIDAPI_KEY is not set"** → Create `skills/youtube-to-infographic/scripts/.env` with `RAPIDAPI_KEY=your_key_here`, then run the script again.
 
 **"RapidAPI returned HTTP 403"** → Your subscription expired or the key is wrong. Check the RapidAPI dashboard.
 

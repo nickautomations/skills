@@ -1,6 +1,6 @@
 ---
 name: youtube-to-infographic
-description: Generate a Nick Automations branded editorial infographic from a YouTube video URL, article URL, or pasted text. Use this skill whenever the user wants to turn long-form content into a visual infographic, including phrases like "make an infographic from this video", "turn this article into an infographic", "summarize this in a visual", "build a Nick Automations infographic", or any time the user pastes a URL or text and asks for a shareable graphic. Always produces output in the Nick Automations design system — heavy display typography (Satoshi/Geist), orange-slash separators, three-column editorial layout, monospace command labels, the Nick Automations logo in the header, and a soft CTA in the footer. Brand voice is factual and direct: no invented facts, no fake company logos, no source tags cluttering cards.
+description: Generate a Nick Automations branded editorial infographic from a YouTube video URL, article URL, or pasted text. Use this skill whenever the user wants to turn long-form content into a visual infographic, including phrases like "make an infographic from this video", "turn this article into an infographic", "summarize this in a visual", "build a Nick Automations infographic", or any time the user pastes a URL or text and asks for a shareable graphic. Always produces output in the Nick Automations design system — heavy display typography (Satoshi/Geist), orange-slash separators, three-column editorial layout, monospace command labels, the Nick Automations logo in the header, and a soft CTA in the footer. Brand voice is factual and direct, with no invented facts, no fake company logos, and no source tags cluttering cards.
 ---
 
 # Nick Automations Infographic Generator
@@ -97,18 +97,18 @@ Call the bundled Python script. It hits the RapidAPI yt-api service and returns 
 python3 scripts/fetch_transcript.py "VIDEO_URL" > /tmp/transcript.json
 ```
 
-The script requires `RAPIDAPI_KEY` to be set as an environment variable. If it isn't set, the script exits with code 1 and prints a clear error explaining how to get a key.
+The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script exits with code 1 and prints a clear error explaining how to get a key.
 
 **Setting up RAPIDAPI_KEY (one-time, per environment):**
 
 1. Sign up at https://rapidapi.com (free)
 2. Subscribe to **yt-api by ytjar** at https://rapidapi.com/ytjar/api/yt-api — there's a free tier
 3. Copy your API key from the RapidAPI dashboard
-4. Export it in your shell:
-   ```bash
-   export RAPIDAPI_KEY=your_key_here
+4. Create `scripts/.env`:
+   ```dotenv
+   RAPIDAPI_KEY=your_key_here
    ```
-   For persistence, add that line to `~/.zshrc` or `~/.bashrc`. In Claude Code, you can also add it to `~/.claude/.env`.
+   The `.env` file is ignored by Git, so the key stays local.
 
 **Response shape** (on success):
 ```json
@@ -144,7 +144,7 @@ If `jq` isn't available, parse with Python: `python3 -c "import json; print(json
 **Failure handling:**
 
 - If the script returns `"success": false`, read the `error` field and act accordingly:
-  - "RAPIDAPI_KEY environment variable is not set" → tell the user how to set it (see above)
+  - "RAPIDAPI_KEY is not set" → tell the user to create `scripts/.env` (see above)
   - "Could not extract a YouTube video ID" → ask the user to verify the URL
   - "RapidAPI returned HTTP 429" → rate limited, suggest waiting or upgrading their RapidAPI plan
   - "RapidAPI returned HTTP 403" → invalid key or subscription required

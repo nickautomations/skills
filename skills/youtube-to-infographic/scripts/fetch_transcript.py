@@ -3,7 +3,7 @@
 Fetch a YouTube transcript via the RapidAPI yt-api service.
 
 Usage:
-    RAPIDAPI_KEY=xxx python fetch_transcript.py <youtube_url>
+    python fetch_transcript.py <youtube_url>
 
 Outputs (stdout): JSON with the shape:
     {
@@ -21,12 +21,13 @@ Outputs (stdout): JSON with the shape:
 On failure, prints a JSON error to stdout and exits with code 1:
     {"success": false, "error": "..."}
 
-Requires: RAPIDAPI_KEY environment variable.
+Requires: RAPIDAPI_KEY in scripts/.env.
 Subscription: https://rapidapi.com/ytjar/api/yt-api
 """
 
 import json
 import os
+from pathlib import Path
 import re
 import sys
 import urllib.error
@@ -34,6 +35,30 @@ import urllib.parse
 import urllib.request
 
 RAPIDAPI_HOST = "yt-api.p.rapidapi.com"
+SCRIPT_DIR = Path(__file__).resolve().parent
+ENV_PATH = SCRIPT_DIR / ".env"
+
+
+def parse_env_value(raw_value: str) -> str:
+    value = raw_value.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+        value = value[1:-1]
+    return value.strip()
+
+
+def load_api_key() -> str:
+    if not ENV_PATH.is_file():
+        return ""
+
+    for line in ENV_PATH.read_text(encoding="utf-8-sig").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        key, sep, value = stripped.partition("=")
+        if sep and key.strip() == "RAPIDAPI_KEY":
+            return parse_env_value(value)
+
+    return ""
 
 
 def extract_video_id(url_or_id: str) -> str | None:
@@ -151,11 +176,11 @@ def main() -> int:
         print(json.dumps({"success": False, "error": "Usage: fetch_transcript.py <youtube_url>"}))
         return 1
 
-    api_key = os.environ.get("RAPIDAPI_KEY", "").strip()
+    api_key = load_api_key()
     if not api_key:
         print(json.dumps({
             "success": False,
-            "error": "RAPIDAPI_KEY environment variable is not set. Subscribe to yt-api at https://rapidapi.com/ytjar/api/yt-api and export RAPIDAPI_KEY=your_key."
+            "error": "RAPIDAPI_KEY is not set. Subscribe to yt-api at https://rapidapi.com/ytjar/api/yt-api, then add RAPIDAPI_KEY=your_key to scripts/.env."
         }))
         return 1
 
