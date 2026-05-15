@@ -26,7 +26,7 @@ The skill needs a RapidAPI key to fetch YouTube transcripts. One-time setup:
 1. Sign up at [https://rapidapi.com](https://rapidapi.com) (free)
 2. Subscribe to **[yt-api by ytjar](https://rapidapi.com/ytjar/api/yt-api)** — there's a free tier
 3. Copy your API key from the RapidAPI dashboard
-4. Create `scripts/.env`:
+4. Copy `scripts/.env.example` to `scripts/.env`, then replace the placeholder:
 
    ```dotenv
    RAPIDAPI_KEY=your_key_here
@@ -44,7 +44,7 @@ Make an infographic from https://www.youtube.com/watch?v=VIDEO_ID
 
 The skill will:
 1. Fetch the transcript via the RapidAPI yt-api service
-2. Distill the content into 6-9 cards across three editorial columns
+2. Distill the content into the strongest 4-9 ideas
 3. Generate an HTML infographic in the Nick Automations design system
 4. Save the file to your outputs and tell you how to screenshot it for posting
 
@@ -54,7 +54,7 @@ You can also paste an article URL or raw text — the skill handles all three in
 
 A single self-contained HTML file with:
 - Heavy display typography (Satoshi → Geist → Cabinet Grotesk cascade)
-- Three-column editorial grid with cards
+- A source-driven editorial layout: compact brief, timeline, checklist, comparison split, hero + evidence, or a balanced card grid
 - Hand-coded SVG illustrations matching each concept
 - Orange-slash separator treatment in headlines
 - Contextual category label (`BREAKDOWN`, `PLAYBOOK`, `TOOLKIT`, etc.) top-left
@@ -76,7 +76,7 @@ Edit any of these to fork the design for your own brand.
 
 ## Troubleshooting
 
-**"RAPIDAPI_KEY is not set"** → Create `skills/youtube-to-infographic/scripts/.env` with `RAPIDAPI_KEY=your_key_here`, then run the script again.
+**"RAPIDAPI_KEY is not set"** → Copy `skills/youtube-to-infographic/scripts/.env.example` to `skills/youtube-to-infographic/scripts/.env`, replace the placeholder key, then run the script again.
 
 **"RapidAPI returned HTTP 403"** → Your subscription expired or the key is wrong. Check the RapidAPI dashboard.
 
@@ -84,7 +84,7 @@ Edit any of these to fork the design for your own brand.
 
 **"No transcript content was returned"** → The video has captions disabled. Paste a manual summary instead.
 
-**Cards aren't lining up in columns** → All columns must have the same number of cards (2/2/2 or 3/3/3, never asymmetric). See the "Alignment discipline" section in `references/design_principles.md`.
+**Cards aren't lining up in columns** → If you use a column grid, keep columns balanced (2/2/2 or 3/3/3). If the content does not fit evenly, use a timeline, checklist, comparison split, or compact brief instead.
 
 ## Cost
 

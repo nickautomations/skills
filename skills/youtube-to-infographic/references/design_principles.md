@@ -238,10 +238,11 @@ Every card is a flexbox column with reserved minimum heights for each region. Th
 
 The `.columns` grid container needs `align-items: stretch` (the default — just don't override it) so all three columns stretch to the height of the tallest. Cards inside each column then distribute using `flex: 1 1 auto` on `.card`.
 
-But there's a catch: if column A has 2 cards and column B has 3 cards, column A's cards will stretch into the extra space. To prevent that, either:
+But there's a catch: if column A has 2 cards and column B has 3 cards, column A's cards will stretch into the extra space. For a column grid, either:
 
-- **Preferred**: ensure all columns have the same number of cards (2 each → 6 total, 3 each → 9 total)
-- **Fallback**: add `flex: 0 0 auto` to `.card` to disable stretching, accept that columns may end at different heights but rows will still line up
+- **Preferred for grids**: ensure all columns have the same number of cards (2 each → 6 total, 3 each → 9 total)
+- **Better alternative**: if the source does not naturally balance into equal columns, switch to a timeline, checklist, comparison split, compact brief, or hero + evidence layout instead of forcing filler cards
+- **Fallback inside custom layouts**: add `flex: 0 0 auto` to `.card` to disable stretching, accept that sections may end at different heights but rows will still line up
 
 ### Rule 3: Constrain body copy length
 
@@ -255,15 +256,21 @@ The most reliable way to keep cards aligned is to keep the *content* uniform. En
 
 If a point can't be expressed in 50 words, split it into two cards. If a title needs three lines, shorten it. This is the brand discipline.
 
-### Rule 4: Same number of cards per column
+### Rule 4: Choose the right layout before forcing columns
 
-For visual coherence, **every column should have the same number of cards**. Common configurations:
+For visual coherence, **every column grid should have the same number of cards**. Common configurations:
 
 - 2 cards × 3 columns = 6 cards total (recommended for most pieces)
 - 3 cards × 3 columns = 9 cards total (use for comprehensive "X features" pieces)
 - 4 cards × 3 columns = 12 cards total (only for very dense content; consider splitting into two pieces)
 
-Asymmetric layouts (2-3-2) break the editorial grid and look like an accident. Never use them. If a column genuinely doesn't have enough content for the same count, the topic isn't ready to be split that way — restructure the column themes.
+Asymmetric column grids (2-3-2) break the editorial grid and look like an accident. If a source does not naturally support equal columns, do not pad it into 6 or 9 cards. Use a different layout shape:
+
+- **Compact brief**: 1 hero insight + 3-5 supporting cards
+- **Timeline/process map**: 5-7 ordered steps
+- **Checklist/playbook**: 4-8 tactical checks in one or two columns
+- **Comparison split**: two opposing sides + a takeaway band
+- **Hero + evidence**: one large thesis, 3-6 proof points, and a CTA
 
 ### Rule 5: Visual verification before delivering
 

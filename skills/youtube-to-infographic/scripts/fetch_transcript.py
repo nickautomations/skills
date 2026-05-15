@@ -26,13 +26,14 @@ Subscription: https://rapidapi.com/ytjar/api/yt-api
 """
 
 import json
-import os
+import html
 from pathlib import Path
 import re
 import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 
 RAPIDAPI_HOST = "yt-api.p.rapidapi.com"
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -109,7 +110,14 @@ def call_rapidapi(path: str, params: dict, api_key: str) -> dict:
         return json.loads(body)
 
 
-def normalize_subtitles(raw: dict) -> tuple[str, list[dict]]:
+def first_string(*values) -> str:
+    for value in values:
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return ""
+
+
+def normalize_subtitles(raw) -> tuple[str, list[dict]]:
     """
     The yt-api subtitles endpoint returns a structure that varies a bit by request.
     Common shapes:
@@ -119,10 +127,11 @@ def normalize_subtitles(raw: dict) -> tuple[str, list[dict]]:
     Normalize to (fullText, segments) regardless of which one came back.
     """
     candidates = []
-    for key in ("subtitles", "transcript", "events", "captions"):
-        if isinstance(raw.get(key), list):
-            candidates = raw[key]
-            break
+    if isinstance(raw, dict):
+        for key in ("subtitles", "transcript", "events", "captions", "data"):
+            if isinstance(raw.get(key), list):
+                candidates = raw[key]
+                break
 
     if not candidates:
         # Sometimes the response is just a list at the top level
@@ -134,23 +143,126 @@ def normalize_subtitles(raw: dict) -> tuple[str, list[dict]]:
     for entry in candidates:
         if not isinstance(entry, dict):
             continue
-        text = entry.get("text") or entry.get("snippet") or ""
+        text = first_string(entry.get("text"), entry.get("snippet"), entry.get("utf8"))
         if not text:
             continue
         try:
-            start = float(entry.get("start", entry.get("startTime", 0)))
+            start = float(entry.get("start", entry.get("startTime", entry.get("offset", 0))))
         except (TypeError, ValueError):
             start = 0.0
         try:
-            duration = float(entry.get("dur", entry.get("duration", 0)))
+            duration = float(entry.get("dur", entry.get("duration", entry.get("d", 0))))
+        except (TypeError, ValueError):
+            duration = 0.0
+
+        clean_text = html.unescape(re.sub(r"\s+", " ", text)).strip()
+        if clean_text:
+            segments.append({"start": start, "duration": duration, "text": clean_text})
+            text_parts.append(clean_text)
+
+    full_text = " ".join(t.strip() for t in text_parts if t.strip())
+    return full_text, segments
+
+
+def iter_dicts(value):
+    if isinstance(value, dict):
+        yield value
+        for child in value.values():
+            yield from iter_dicts(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from iter_dicts(child)
+
+
+def find_subtitle_track_url(raw) -> str:
+    tracks = []
+    for entry in iter_dicts(raw):
+        url = first_string(
+            entry.get("url"),
+            entry.get("link"),
+            entry.get("href"),
+            entry.get("baseUrl"),
+            entry.get("subtitleUrl"),
+            entry.get("downloadUrl"),
+        )
+        if not url:
+            continue
+
+        language = first_string(
+            entry.get("languageCode"),
+            entry.get("lang"),
+            entry.get("language"),
+            entry.get("name"),
+            entry.get("vssId"),
+        ).lower()
+        kind = first_string(entry.get("kind"), entry.get("trackKind")).lower()
+        score = 0
+        if language in {"en", "en-us", "english"} or "english" in language:
+            score += 20
+        if language.startswith("en"):
+            score += 10
+        if "auto" in kind or "asr" in kind:
+            score += 1
+        tracks.append((score, url))
+
+    if not tracks:
+        return ""
+    tracks.sort(key=lambda item: item[0], reverse=True)
+    return tracks[0][1]
+
+
+def fetch_url_text(url: str) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def parse_timedtext(body: str) -> tuple[str, list[dict]]:
+    try:
+        data = json.loads(body)
+    except json.JSONDecodeError:
+        data = None
+    if data is not None:
+        return normalize_subtitles(data)
+
+    try:
+        root = ET.fromstring(body)
+    except ET.ParseError:
+        return "", []
+
+    segments = []
+    text_parts = []
+    for elem in root.iter():
+        tag = elem.tag.rsplit("}", 1)[-1]
+        if tag not in {"text", "p"}:
+            continue
+        text = html.unescape(re.sub(r"\s+", " ", "".join(elem.itertext()))).strip()
+        if not text:
+            continue
+        try:
+            start = float(elem.attrib.get("start", elem.attrib.get("t", 0)))
+            if "t" in elem.attrib and "start" not in elem.attrib:
+                start = start / 1000
+        except (TypeError, ValueError):
+            start = 0.0
+        try:
+            duration = float(elem.attrib.get("dur", elem.attrib.get("d", 0)))
+            if "d" in elem.attrib and "dur" not in elem.attrib:
+                duration = duration / 1000
         except (TypeError, ValueError):
             duration = 0.0
 
         segments.append({"start": start, "duration": duration, "text": text})
         text_parts.append(text)
 
-    full_text = " ".join(t.strip() for t in text_parts if t.strip())
-    return full_text, segments
+    return " ".join(text_parts), segments
+
+
+def fetch_linked_subtitles(raw) -> tuple[str, list[dict]]:
+    track_url = find_subtitle_track_url(raw)
+    if not track_url:
+        return "", []
+    return parse_timedtext(fetch_url_text(track_url))
 
 
 def fetch_video_info(video_id: str, api_key: str) -> dict:
@@ -180,7 +292,7 @@ def main() -> int:
     if not api_key:
         print(json.dumps({
             "success": False,
-            "error": "RAPIDAPI_KEY is not set. Subscribe to yt-api at https://rapidapi.com/ytjar/api/yt-api, then add RAPIDAPI_KEY=your_key to scripts/.env."
+            "error": "RAPIDAPI_KEY is not set. Subscribe to yt-api at https://rapidapi.com/ytjar/api/yt-api, then copy scripts/.env.example to scripts/.env and replace the placeholder key."
         }))
         return 1
 
@@ -206,11 +318,21 @@ def main() -> int:
         return 1
 
     full_text, segments = normalize_subtitles(subs)
+    if not full_text:
+        try:
+            full_text, segments = fetch_linked_subtitles(subs)
+        except Exception as e:
+            print(json.dumps({
+                "success": False,
+                "error": f"Subtitle track was found, but could not be fetched or parsed: {e}",
+                "videoId": video_id,
+            }))
+            return 1
 
     if not full_text:
         print(json.dumps({
             "success": False,
-            "error": "No transcript content was returned. The video may have captions disabled, or the API response shape is unexpected.",
+            "error": "No transcript content was returned. The video may have captions disabled, or no usable subtitle track URL was returned.",
             "videoId": video_id,
             "raw_keys": list(subs.keys()) if isinstance(subs, dict) else None,
         }))

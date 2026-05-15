@@ -104,7 +104,7 @@ The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script
 1. Sign up at https://rapidapi.com (free)
 2. Subscribe to **yt-api by ytjar** at https://rapidapi.com/ytjar/api/yt-api — there's a free tier
 3. Copy your API key from the RapidAPI dashboard
-4. Create `scripts/.env`:
+4. Copy `scripts/.env.example` to `scripts/.env`, then replace the placeholder:
    ```dotenv
    RAPIDAPI_KEY=your_key_here
    ```
@@ -144,7 +144,7 @@ If `jq` isn't available, parse with Python: `python3 -c "import json; print(json
 **Failure handling:**
 
 - If the script returns `"success": false`, read the `error` field and act accordingly:
-  - "RAPIDAPI_KEY is not set" → tell the user to create `scripts/.env` (see above)
+  - "RAPIDAPI_KEY is not set" → tell the user to copy `scripts/.env.example` to `scripts/.env` and replace the placeholder key (see above)
   - "Could not extract a YouTube video ID" → ask the user to verify the URL
   - "RapidAPI returned HTTP 429" → rate limited, suggest waiting or upgrading their RapidAPI plan
   - "RapidAPI returned HTTP 403" → invalid key or subscription required
@@ -172,9 +172,12 @@ Read the full content, then decide the layout variant based on what's actually i
 
 | Source pattern | Variant |
 |----------------|---------|
-| "X tips/features/skills/steps" | **list** (most common) |
-| "X vs Y" or before/after | **comparison** |
-| Single concept deep-dive | **deep-dive** |
+| "X tips/features/skills/steps" | **modular list** |
+| "X vs Y" or before/after | **comparison split** |
+| Single concept deep-dive | **hero + evidence** |
+| Process/tutorial | **timeline/process map** |
+| Dense tactical advice | **checklist/playbook** |
+| Short or thin source | **compact brief** |
 
 For all variants, extract:
 
@@ -189,8 +192,13 @@ For all variants, extract:
   Don't use the same label twice in a row across pieces — pick what fits the actual content.
 - **Main headline**: 4-10 words with at least one orange slash. Punchy. Editorial. Not clickbait.
 - **Subtitle paragraph**: 2-3 sentences explaining the piece. State what the reader gets out of it.
-- **Column themes**: For list variant, group items into 2-3 themed columns with names like "LEARN / REPACKAGE / DISTRIBUTE". Each column gets a `COLUMN 01 / 03` label.
-- **Cards**: 6-9 main items. Each card:
+- **Layout shape**: Pick a structure that fits the source. Do not default to the same three-column card grid every time. Valid shapes include:
+  - 4-6 item compact brief with one large hero insight and supporting cards
+  - 5-7 step vertical timeline or process map
+  - 6 item two-column checklist/playbook
+  - 6 or 9 item three-column editorial grid for list-heavy content
+  - Comparison split with two sides plus a bottom takeaway band
+- **Sections/cards**: Use only as many content units as the source can honestly support, usually 4-9. Each unit:
   - Item number (`01`, `02`...)
   - Item name in a monospace tag/badge (e.g., `/clear`, `SKILL.md`, `value-first DM`, `10h minimum`)
   - 2-5 word title with optional orange slash
@@ -227,8 +235,8 @@ Use `assets/templates/infographic.html` as the base. It includes:
 - Striped diagonal header pattern (orange diagonal lines, ~6px wide)
 - Contextual category label (`BREAKDOWN / [topic]`, `PLAYBOOK / [topic]`, etc.) top-left
 - Nick Automations logo (top-right, embedded from `assets/logos/logo-white-bg.svg`)
-- Three-column layout with column headers
-- Card grid with consistent spacing
+- Flexible editorial layout chosen from the source structure
+- Cards/sections with consistent spacing
 - **Clean cards: number, badge, illustration, title, body. No source tags.**
 - Soft CTA footer: `See how we automate / nickautomations.com`
 
@@ -264,9 +272,9 @@ The Nick Automations logo must appear at top-right of every infographic. Embed i
 
 7. **Contextual category label** in top-left of every piece. Pick from `BREAKDOWN`, `PLAYBOOK`, `TOOLKIT`, `BRIEFING`, `GUIDE`, `COMPARED`, `TAKE` based on what the content actually is. Format: `BREAKDOWN / [topic]` in mono caps. Don't use the same label twice in a row — vary based on content.
 
-8. **Alignment discipline is non-negotiable.** Every column must contain the same number of cards (2/2/2 or 3/3/3, never asymmetric like 2/3/2). Every card body must be 25-50 words across 2-3 sentences — no more, no less. Every card title must fit in 1-2 lines (4-8 words max). Every command badge must be 1-3 short tokens. If a point needs more space than these limits, split it into two cards or cut it. The visual grid only works if the content respects the box.
+8. **Layout variety is required.** Do not reuse the same 9-card, three-column composition by default. Choose the structure from the source pattern: compact brief, timeline, checklist, comparison split, hero + evidence, or editorial grid. Only use a three-column grid when the content is clearly list-heavy and has enough substance for equal columns.
 
-9. **Always load the design_principles.md "Alignment discipline" section before writing HTML.** The CSS rules in that section (fixed `.card-illustration` height, `min-height` on titles and bodies, `margin-top: auto` on footers) are what physically lock the cards to a shared row baseline. Skip them and cards will drift.
+9. **Alignment discipline still applies inside the chosen layout.** For column grids, keep columns balanced (2/2/2 or 3/3/3) unless using a deliberate non-grid layout. Card bodies should usually be 25-50 words across 2-3 sentences, card titles should fit in 1-2 lines, and command badges should be 1-3 short tokens. If a point needs more space, switch layout shape instead of padding the grid.
 
 ## Reference files
 
@@ -283,8 +291,8 @@ The Nick Automations logo must appear at top-right of every infographic. Embed i
 **You**:
 1. Briefly acknowledge: "Pulling the transcript and building the infographic now."
 2. Run `fetch_transcript.py`, extract transcript, title, channel
-3. Read transcript, identify 6-9 distinct concepts grounded in what the source actually says
-4. Group concepts into 2-3 thematic columns
+3. Read transcript, identify the strongest 4-9 concepts grounded in what the source actually says
+4. Choose a layout variant from the source pattern instead of defaulting to a three-column grid
 5. Pick a contextual category label (`BREAKDOWN`, `PLAYBOOK`, etc.) based on content type
 6. Draft headline using the slash treatment
 7. Build the HTML, embedding the logo SVG and custom illustrations
