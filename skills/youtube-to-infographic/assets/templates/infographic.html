@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>{{TITLE}}</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800;900&family=Cabinet+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --na-orange: #FF6B35;
+    --na-orange-soft: #FFE8DA;
+    --na-ink: #1A1A1A;
+    --na-body: #3F3F50;
+    --na-muted: #8A8578;
+    --na-cream: #FAF7F2;
+    --na-card: #FFFFFF;
+    --na-subtle: #F5EFE8;
+    --na-divider: #E8E4DD;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Satoshi', 'Geist', 'Cabinet Grotesk', system-ui, -apple-system, sans-serif;
+    background: var(--na-cream);
+    color: var(--na-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .infographic {
+    max-width: 1080px;
+    margin: 0 auto;
+    background: var(--na-cream);
+    padding-bottom: 24px;
+  }
+
+  /* Diagonal stripes header — brand signature */
+  .brand-stripes {
+    height: 18px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--na-orange) 0 6px,
+      transparent 6px 12px
+    );
+  }
+
+  /* Page header: category label (left) + logo (right) */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 48px 24px;
+    border-bottom: 1px solid var(--na-divider);
+  }
+
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--na-muted);
+    line-height: 1.6;
+  }
+
+  .meta-label.accent { color: var(--na-orange); }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-mark svg { width: 28px; height: 28px; }
+
+  .wordmark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--na-ink);
+    letter-spacing: 0.04em;
+  }
+
+  .brand-slash {
+    color: var(--na-orange);
+    font-weight: 900;
+    font-style: normal;
+    margin: 0 0.02em;
+  }
+
+  /* Hero: headline left, lede right, bottom-aligned */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 48px;
+    padding: 56px 48px 56px;
+    align-items: end;
+    border-bottom: 1px solid var(--na-divider);
+  }
+
+  .headline-xl {
+    font-size: clamp(48px, 6.5vw, 80px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--na-ink);
+  }
+
+  .lede {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--na-body);
+    align-self: end;
+    max-width: 360px;
+  }
+
+  .lede strong { color: var(--na-ink); font-weight: 700; }
+
+  /* Three column grid */
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    padding: 48px 48px 24px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .column-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--na-divider);
+  }
+
+  .column-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--na-subtle);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .column-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--na-ink);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .column-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--na-ink);
+    letter-spacing: -0.01em;
+    margin-top: 8px;
+  }
+
+  /* Card — clean, no footer, no source tags */
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .item-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--na-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .command-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--na-ink);
+    background: var(--na-card);
+    border: 1px solid var(--na-divider);
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+
+  .command-badge.filled {
+    background: var(--na-orange);
+    color: var(--na-card);
+    border-color: var(--na-orange);
+    font-weight: 700;
+  }
+
+  /* HARD-LOCKED illustration height — see Alignment Discipline */
+  .card-illustration {
+    background: var(--na-card);
+    border: 1px solid var(--na-divider);
+    border-radius: 10px;
+    padding: 16px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-illustration svg {
+    max-width: 100%;
+    max-height: 128px;
+    height: auto;
+  }
+
+  /* min-height reserves 2 lines so 1-line titles don't shift body up */
+  .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--na-ink);
+    min-height: calc(22px * 1.2 * 2);
+  }
+
+  /* min-height reserves 3 lines so short bodies don't pull the page up */
+  .body-text {
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--na-body);
+    min-height: calc(14.5px * 1.55 * 3);
+  }
+
+  .body-text code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--na-subtle);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--na-ink);
+  }
+
+  /* Soft CTA footer — only thing at the bottom */
+  .page-footer {
+    padding: 32px 48px 40px;
+    border-top: 1px solid var(--na-divider);
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--na-ink);
+  }
+
+  .footer-cta .cta-link {
+    color: var(--na-orange);
+    font-weight: 700;
+  }
+
+  @media print {
+    body { background: white; }
+    .infographic { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="infographic">
+
+  <!-- DIAGONAL STRIPES -->
+  <div class="brand-stripes"></div>
+
+  <!-- PAGE HEADER: contextual category label + logo -->
+  <header class="page-header">
+    <div class="meta-left">
+      <!-- Category options: BREAKDOWN, PLAYBOOK, TOOLKIT, BRIEFING, GUIDE, COMPARED, TAKE -->
+      <div class="meta-label accent">{{CATEGORY}} / {{TOPIC}}</div>
+    </div>
+    <div class="brand-mark">
+      <!-- Embed assets/logos/logo-white-bg.svg inline here -->
+      {{LOGO_SVG}}
+      <span class="wordmark">Nick<span class="brand-slash">/</span>AUTOMATIONS</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="headline-xl">{{HEADLINE_HTML}}</h1>
+    <p class="lede">{{LEDE_HTML}}</p>
+  </section>
+
+  <!-- THREE COLUMN GRID -->
+  <main class="columns">
+
+    <!-- COLUMN 1 -->
+    <div class="column">
+      <div class="column-header">
+        <div class="column-icon">{{COLUMN_1_ICON_SVG}}</div>
+        <div class="meta-label">COLUMN 01 / 03</div>
+        <h2 class="column-title">{{COLUMN_1_TITLE_HTML}}</h2>
+      </div>
+
+      <!-- Card 1 -->
+      <article class="card">
+        <div class="card-top">
+          <span class="item-number">01</span>
+          <span class="command-badge">{{CARD_1_BADGE}}</span>
+        </div>
+        <div class="card-illustration">{{CARD_1_ILLUSTRATION_SVG}}</div>
+        <h3 class="card-title">{{CARD_1_TITLE_HTML}}</h3>
+        <p class="body-text">{{CARD_1_BODY}}</p>
+      </article>
+
+      <!-- More cards as needed (same pattern) -->
+    </div>
+
+    <!-- COLUMN 2 -->
+    <div class="column">
+      <div class="column-header">
+        <div class="column-icon">{{COLUMN_2_ICON_SVG}}</div>
+        <div class="meta-label">COLUMN 02 / 03</div>
+        <h2 class="column-title">{{COLUMN_2_TITLE_HTML}}</h2>
+      </div>
+      <!-- Cards for column 2 -->
+    </div>
+
+    <!-- COLUMN 3 -->
+    <div class="column">
+      <div class="column-header">
+        <div class="column-icon">{{COLUMN_3_ICON_SVG}}</div>
+        <div class="meta-label">COLUMN 03 / 03</div>
+        <h2 class="column-title">{{COLUMN_3_TITLE_HTML}}</h2>
+      </div>
+      <!-- Cards for column 3 -->
+    </div>
+
+  </main>
+
+  <!-- SOFT CTA FOOTER — single line, centered -->
+  <footer class="page-footer">
+    <div class="footer-cta">
+      See how we automate<span class="brand-slash">/</span><span class="cta-link">nickautomations.com</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

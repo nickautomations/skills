@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Node / npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cursorignore
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+*.skill
+dist/
+build/
+out/
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+/tmp/
+.coverage
+htmlcov/
