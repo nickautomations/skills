@@ -9,6 +9,7 @@ Skills are folders of instructions, scripts, and resources that Claude loads dyn
 | Skill | Description | Install |
 |-------|-------------|---------|
 | [youtube-to-infographic](./skills/youtube-to-infographic) | Turn a YouTube video, article, or text into a branded editorial infographic in the Nick Automations design system | `npx skills add nickautomations/skills --skill youtube-to-infographic` |
+| [voice-forge](./skills/voice-forge) | Clone any LinkedIn creator's writing voice into a reusable skill — scrape, analyze, and install a drafting skill | `npx skills add nickautomations/skills --skill voice-forge` |
 
 More coming soon. See [CONTRIBUTING.md](./CONTRIBUTING.md) if you want to add one.
 

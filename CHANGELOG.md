@@ -4,6 +4,11 @@ All notable changes to this repository are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `voice-forge` skill: clone any LinkedIn creator's writing voice into a reusable Agent Skill. Scrapes posts via Apify, distills deterministic features, analyzes voice, then delegates to the built-in skill-creator to install the output skill. Claude Code only.
+
 ## [0.1.0] — 2026-05-15
 
 ### Added
