@@ -5,7 +5,13 @@
       "source": "nickautomations/skills",
       "sourceType": "github",
       "skillPath": "skills/youtube-to-infographic/SKILL.md",
-      "computedHash": "d21ab42f14ce39e434efd82c8cdb0e962f7c17cffbd768956a270291dd95ef95"
+      "computedHash": "607555c97e65f3a53644079b7c7518d40f3f9a51e2c753086b46c658ab1d1afb"
+    },
+    "voice-forge": {
+      "source": "nickautomations/skills",
+      "sourceType": "github",
+      "skillPath": "skills/voice-forge/SKILL.md",
+      "computedHash": "cf0cf47e29e95b4218a311b68c63b9881dbb73612c10e492aa265da27798e3f7"
     }
   }
 }

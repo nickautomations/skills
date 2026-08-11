@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `scripts/validate_skills.py` now fails CI when `skills/` and `.claude-plugin/marketplace.json` disagree — a new skill can no longer ship invisible to marketplace installs.
 
 ### Fixed
+- `skills-lock.json` had no `voice-forge` entry, and its `youtube-to-infographic` hash had been stale since the commit that introduced it — the recorded value matched the skill folder two commits earlier. Both entries now carry hashes reproduced with the CLI's own `computeSkillFolderHash` algorithm and verified against a clean clone.
 - `youtube-to-infographic` step 5 saved only to `/mnt/user-data/outputs/` and called `present_files` — neither exists in Claude Code, the runtime the skill recommends, so the final step failed there. It now picks the output location from the environment.
 - `youtube-to-infographic` hardcoded `python3` and `/tmp`, neither of which works on Windows (bare `python3` opens the Microsoft Store). The launcher fallbacks are documented and the transcript now lands in `outputs/`.
 - `youtube-to-infographic/README.md` declared MIT while the repository, root README, and marketplace manifest all declare Apache-2.0. Corrected to Apache 2.0.
