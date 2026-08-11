@@ -42,6 +42,9 @@ build/
 out/
 .agents/
 
+# Local agent config and worktrees (machine-specific, never published)
+.claude/
+
 # Skill run artifacts (generated locally, never committed)
 skills/*/outputs/
 skills/*/data/

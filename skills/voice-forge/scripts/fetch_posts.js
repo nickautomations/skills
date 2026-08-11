@@ -215,6 +215,22 @@ async function main() {
   const items = await getDatasetItems(token, datasetId);
   console.log(`Got ${items.length} raw posts.`);
 
+  // A run can SUCCEED with zero posts — the actor swallows upstream rate limits
+  // (429s) and still exits 0. Writing that empty result would poison the resume
+  // cache: every later run would hit the SKIP branch and never re-scrape. So
+  // treat "succeeded but empty" as a failure and leave no output behind.
+  if (items.length === 0) {
+    console.error(
+      `Error: the run succeeded but returned 0 posts for "${username}".\n` +
+        "Nothing was written, so a re-run will scrape again rather than resume an empty cache.\n" +
+        "Usual causes:\n" +
+        "  - LinkedIn rate-limited the scraper (the actor retries, then gives up quietly).\n" +
+        "  - The profile has no public posts, or the username is wrong.\n" +
+        `Check the run log at https://console.apify.com/actors/runs/${runId} and retry.`
+    );
+    process.exit(5);
+  }
+
   // Persist
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(items, null, 2), "utf8");

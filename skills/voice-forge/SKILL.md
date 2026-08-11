@@ -78,6 +78,7 @@ node scripts/fetch_posts.js --username "<username>" --max 100 --out "data/<usern
 - The script exits early with a `SKIP:` notice when the output already exists. Add `--force` only when the user explicitly asks to re-scrape — a forced run re-charges Apify.
 - It polls the run to completion. Expect 1–3 minutes for 100 posts.
 - Done when the script prints `Wrote <n> posts` or `SKIP:`. A non-zero exit means stop and report, not proceed.
+- **Exit 5 means the run succeeded but returned zero posts.** The actor swallows LinkedIn rate limits (429s) and still exits 0, so a "successful" empty run is normal enough to plan for. Nothing is written in that case — deliberately, so the resume check can't lock in an empty cache. Tell the user it was likely rate-limited and retry; if a retry also returns zero, check that the profile has public posts before blaming the actor.
 
 ### Step 4 — Extract features
 Run the feature extractor. It writes the deterministic digest the analysis step reads.
