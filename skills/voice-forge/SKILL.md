@@ -1,16 +1,17 @@
 ---
 name: voice-forge
-description: Clone a LinkedIn creator's writing voice into a reusable <name>-voice skill — scrape their posts, extract the voice mechanics, install the generated skill. Use when the user wants to sound like a specific creator, or turn someone's LinkedIn writing into a drafting skill.
+description: Clone a LinkedIn creator's writing voice into a reusable <name>-voice drafting skill. Use when the user names a creator they want to write like, or points at a LinkedIn profile and asks for a skill built from it.
 ---
 
 # Voice Forge: Clone a LinkedIn Voice Into a Reusable Skill
 
-This skill is a **meta-skill**: its output is *another* skill. The user invokes `voice-forge` once per target creator; `voice-forge` then scrapes, distills, analyzes, and — at the final step — writes and installs a new `<name>-voice` skill. The user never pastes a prompt, never opens a spreadsheet, never runs a script by hand.
+This skill is a **meta-skill**: its output is *another* skill. The user invokes `voice-forge` once per target creator; `voice-forge` then scrapes, distills, analyzes, and — at the final step — writes and installs a new `<name>-voice` skill. `voice-forge` runs every command and writes every file itself; the user answers questions and nothing else.
 
 ## Requirements
 
 - **Node.js 18+** — the scripts use the built-in `fetch`, so there's no `npm install`. If `node --version` is below 18, tell the user before running anything; the scripts will otherwise fail mid-run with an unhelpful error.
-- **`APIFY_API_TOKEN`** — in the environment, or in `scripts/.env` beside the fetch script. See Step 2. Never collected through chat or a form field.
+- **`APIFY_API_TOKEN`** — in the environment, or in `scripts/.env` beside the fetch script. See Step 2.
+
 **No other skill is required.** Step 6 writes the generated skill itself and carries everything it needs inline. Two skills make it better if they happen to be installed, and neither is worth installing solely for this:
 
 - **`writing-for-agents`** (`mattpocock-skills` plugin) — the reference Step 6's structure was derived from. Reading it adds the reasoning behind the structure; skipping it costs nothing, because the structure is spelled out.
@@ -52,9 +53,7 @@ If you ever find yourself about to ask the LLM to count, sum, average, or rank, 
 
 1. **Target creator's LinkedIn URL or username** — ask: "Which LinkedIn creator do you want to sound like? Paste their profile URL."
 2. **Skill name** — ask: "What should I call the new skill? (e.g. `marios-voice`, `hormozi-voice`)". Default to `<username>-voice` if they don't care.
-3. **Post count** — default `maxPostsPerProfile: 100`. Only ask if the user wants more; 100 is the sweet spot and costs ~$0.31.
-
-API credentials are **never** collected through a field. The Apify token must already live in the environment. See step 2.
+3. **Post count** — default `maxPostsPerProfile: 120`, costing ~$0.37. Only ask if the user wants more. The default is set above the 80-post volume floor on purpose: roughly a quarter of any scrape is written by other people and gets dropped, so 120 raw lands near 92 usable. Scraping exactly 100 clears the floor only if nothing is dropped, which does not happen. See *Source Actor Contract*.
 
 ## Step-by-Step Orchestration
 
@@ -63,7 +62,9 @@ Run every command from the `voice-forge` skill directory. Artifacts land under `
 Each script skips its own work when its output already exists, and redoes it when passed `--force`. That makes the pipeline idempotent: a re-run after a failure resumes where it stopped, and nothing re-charges Apify unless you explicitly force it.
 
 ### Step 1 — Resolve the target
-Parse the profile URL/username the user gave you. The actor's `usernames` field accepts a username (`satyanadella`), member ID, or full URL. Extract the username segment (`linkedin.com/in/<this>`). Confirm the skill name.
+Parse the profile URL/username the user gave you. The actor's `usernames` field accepts a username (`satyanadella`), member ID, or full URL. Extract the username segment (`linkedin.com/in/<this>`).
+
+**Done when** you can state the bare username and the target skill name, both confirmed with the user.
 
 ### Step 2 — Check the Apify token
 The token comes from one of two places, checked in this order: the `APIFY_API_TOKEN` environment variable, then `scripts/.env` beside the fetch script. A shell variable always overrides the file. The script resolves `.env` relative to its own location, so it is found regardless of which directory you invoke from.
@@ -75,11 +76,11 @@ The token comes from one of two places, checked in this order: the `APIFY_API_TO
 Run the fetch script. It calls the Apify HTTP API directly (no MCP dependency) and writes the raw dataset.
 
 ```bash
-node scripts/fetch_posts.js --username "<username>" --max 100 --out "data/<username>/raw_posts.json"
+node scripts/fetch_posts.js --username "<username>" --max 120 --out "data/<username>/raw_posts.json"
 ```
 
 - The script exits early with a `SKIP:` notice when the output already exists. Add `--force` only when the user explicitly asks to re-scrape — a forced run re-charges Apify.
-- It polls the run to completion. Expect 1–3 minutes for 100 posts.
+- It polls the run to completion. Expect 1–3 minutes for 120 posts.
 - Done when the script prints `Wrote <n> posts` or `SKIP:`. A non-zero exit means stop and report, not proceed.
 - **Exit 5 means the run succeeded but returned zero posts.** The actor swallows LinkedIn rate limits (429s) and still exits 0, so a "successful" empty run is normal enough to plan for. Nothing is written in that case — deliberately, so the resume check can't lock in an empty cache. Tell the user it was likely rate-limited and retry; if a retry also returns zero, check that the profile has public posts before blaming the actor.
 
@@ -90,11 +91,11 @@ Run the feature extractor. It writes the deterministic digest the analysis step 
 node scripts/extract_features.js --in "data/<username>/raw_posts.json" --out "data/<username>/features.json"
 ```
 
-What it does, in one pass: drops reposts, text-less posts and **posts written by someone other than the target creator**, dedups on `share_urn` (falling back to exact post text when the URN is missing), keeps the 14 fields listed under *Source Actor Contract*, and computes every stat. Same `--force` semantics as step 3.
-
-The foreign-author drop is the one to watch. Read the `authorship` block it writes into `features.json` and report `dropped_foreign_author` to the user — if it is a large share of the scrape, the creator's own post count may fall under the volume floor even though the raw scrape looked big enough. See *Guardrails*.
+What it does, in one pass: drops reposts, text-less posts and **posts written by someone other than the target creator**, dedups on `share_urn` (falling back to exact post text when the URN is missing), keeps the fields in `SELECT_FIELDS`, and computes every stat. Same `--force` semantics as step 3.
 
 This step replaces what would otherwise be a "cleaning" stage — the source actor already pre-enriches 55 fields, so we only *select + dedup*, never transform.
+
+**Done when** `features.json` exists and you have read two numbers out of it and reported both to the user: `volume_check.posts` and `authorship.dropped_foreign_author`. The second is the one to watch — when a large share of the scrape was written by other people, the creator's own post count can land under the volume floor even though the raw scrape looked big enough. See *Guardrails*.
 
 ### Step 5 — Analyze the voice (the one LLM step)
 This is the **only** place the LLM does heavy semantic work.
@@ -104,6 +105,8 @@ This is the **only** place the LLM does heavy semantic work.
 - Apply the prompt in `references/voice_analysis_prompt.md` to it.
 - Save the output — a single block titled **VOICE PROFILE**, under 600 words — to `data/<username>/voice_profile.md`.
 - Skip this step when that file already exists, unless the user wants to re-analyze. Re-analysis is free: it reads the cached digest, so there is no re-scrape and no re-extract.
+
+**Done when** every section the prompt asks for is present, and every claim about the voice carries a quoted line from `top_30_posts` or `stratified_sample_20` behind it. A claim with no quote is the failure mode here — it is where an invented voice gets in. Step 6 is mechanical assembly and will wait; this is the step that decides whether the generated skill is any good, so finish it properly before moving on.
 
 ### Step 6 — Write the skill
 
@@ -152,18 +155,16 @@ Step 6 has no skip check — it always runs, regenerating from the cached voice 
 The scraper is **`capable_cauldron/linkedin-profile-posts-scraper`**. Hard facts, from its public Apify page:
 
 - **Input sent by `fetch_posts.js`:** `{ "usernames": ["<username>"], "maxPostsPerProfile": <max>, "maxDatasetItems": <max> }` — the dataset cap is pinned to the post limit so a run can't overrun its cost.
-- **Pricing:** $0.003/post + $0.01/profile → 100 posts ≈ $0.31.
+- **Pricing:** $0.003/post + $0.01/profile → the default 120-post scrape ≈ $0.37.
 - **No cookies required** — public-profile scraping only.
-- **55 pre-enriched fields** per post. We use only 14 (`SELECT_FIELDS` in `scripts/extract_features.js` is the source of truth). Read the fields the actor already provides — engagement totals, word counts, ISO dates, format flags — rather than recomputing them.
+- **55 pre-enriched fields** per post, of which the digest keeps a small subset. `SELECT_FIELDS` in `scripts/extract_features.js` is the source of truth — read it there rather than from a list here, which would go stale the first time the subset changes. Use the fields the actor already provides (engagement totals, word counts, ISO dates, format flags) instead of recomputing them.
 - **The scrape is not single-author.** The actor returns everything on the profile's activity feed, which includes posts *written by other people*. They arrive with `is_repost: false`, so the repost filter never catches them. A 150-post `satyanadella` scrape contained 34 posts (23%) by fourteen other people — colleagues and fellow executives. `extract_features.js` drops them by comparing `author_username` against `profile_username`, both of which the actor supplies per post. Budget for the loss: scrape roughly 1.4× the number of posts you actually need.
-
-The 14 fields used: `text`, `posted_date_iso`, `content_category`, `media_type`, `total_engagement`, `reaction_like`, `reaction_love`, `reaction_celebrate`, `reaction_insight`, `num_comments`, `word_count`, `is_repost`, `share_urn`, `post_url`.
 
 ## Guardrails
 
 - **Volume floor.** `features.json` reports `volume_check.meets_floor`, true at 80+ usable posts. When it is `false`, tell the user the count, say plainly that voice patterns won't surface reliably at that size, and ask whether to proceed. The output is only as distinctive as the sample behind it — a weak sample gets an explicit warning, never a silent build.
 - **Dedup is mandatory.** LinkedIn emits multiple activity URNs per share (edits, re-feeds). Dedup stays inside `extract_features.js`, keyed on `share_urn` — without it engagement double-counts and the top-30 list repeats posts.
-- **One author, or it isn't a voice.** Every post in the digest must be written by the target creator. This is not a nicety: on the `satyanadella` run, leaving the other authors in moved median words from 38.5 to 50.5, and — worse — inflated the emoji rate from 0.01 to 0.14 per post and the hashtag rate from 0 to 0.1, because the colleagues use emojis and hashtags and he does not. The profile would have taught the generated skill habits the creator simply does not have. Never relax the author filter to hit the volume floor; scrape more posts instead.
+- **One author, or it isn't a voice.** Every post in the digest must be written by the target creator — the mechanism is in *Source Actor Contract*. What it costs when it slips, measured on the `satyanadella` run: median words moved 38.5 → 50.5, and the emoji rate 0.01 → 0.14 per post with hashtags 0 → 0.1, because the colleagues use emojis and hashtags and he does not. The generated skill would have been taught habits the creator demonstrably does not have. When the filter leaves you under the volume floor, the fix is a larger scrape.
 - **No credential leakage.** The token stays in the environment. It never appears in chat, in logs, in a comment, or in a generated file.
-- **Tool scope.** This skill is built for the Claude skill ecosystem (Claude Code / Cowork). The generated `<name>-voice` skill installs into the same place. Don't claim it works somewhere it doesn't.
-- **Honesty.** If a step fails (actor down, profile too small, token invalid), say so plainly. Don't fabricate a voice profile from thin air.
+- **Tool scope.** This skill is built for the Claude skill ecosystem (Claude Code / Cowork), and the generated `<name>-voice` skill installs into the same place. Describe its reach as exactly that.
+- **Honesty.** When a step fails — actor down, profile too small, token invalid — report the failure and stop there. Every VOICE PROFILE traces back to scraped posts; where there are no posts, there is no profile to write.
