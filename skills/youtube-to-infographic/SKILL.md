@@ -7,7 +7,7 @@ description: Turn a YouTube video, article URL, or pasted text into a Nick Autom
 
 Turn any YouTube video, article URL, or pasted text into a polished editorial-style infographic in the Nick Automations design system.
 
-This skill does NOT produce generic infographics. It produces a specific editorial aesthetic — heavy display headlines with the orange slash as a typographic device, monospace command/tag labels, hand-coded SVG illustrations per item, and a clean soft CTA footer driving to nickautomations.com.
+It produces one specific editorial aesthetic — heavy display headlines with the orange slash as a typographic device, monospace command/tag labels, hand-coded SVG illustrations per item, and a clean soft CTA footer driving to nickautomations.com. `design_principles.md` puts it best: what you'd get if *The Economist* designed a developer documentation page. When two options are open, take the more restrained one.
 
 **Nick Automations** is the brand. Domain: `nickautomations.com`. The logo is an "N / A" mark where the diagonal orange slash between the letters IS the signature element. The slash isn't decoration — it's the brand's visual DNA, and it reappears as a separator inside headlines (`features/that`, `read-only/pass`, `Summarize/without forgetting`).
 
@@ -20,8 +20,8 @@ This file is the **workflow**. The design system it produces is specified in the
 | `references/design_principles.md` | Color tokens, type scale, layout grid, alignment discipline, header/card/footer markup, common mistakes |
 | `references/voice_guide.md` | Headline patterns, the slash treatment, card copy, command badges, the category label, words to embrace and avoid |
 | `references/illustrations.md` | Ready-to-use SVG illustrations plus the rules every illustration follows |
-| `assets/templates/infographic.html` | Base HTML template — start here, don't rebuild from scratch |
-| `assets/logos/` | Logo SVGs (light bg, dark bg, favicon) — embed inline, never link |
+| `assets/templates/infographic.html` | Base HTML template — every page starts as a copy of this file |
+| `assets/logos/` | Logo SVGs (light bg, dark bg, favicon) — pasted inline, so the page stays portable |
 
 ## Runtime requirements
 
@@ -49,18 +49,7 @@ python3 scripts/fetch_transcript.py "VIDEO_URL" > outputs/transcript.json   # py
 
 Write the transcript to `outputs/` (gitignored) rather than `/tmp`, which doesn't exist on Windows.
 
-The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script exits 1 with a JSON error explaining how to get a key.
-
-**Setting up RAPIDAPI_KEY (one-time, per environment):**
-
-1. Sign up at https://rapidapi.com (free)
-2. Subscribe to **yt-api by ytjar** at https://rapidapi.com/ytjar/api/yt-api — there's a free tier
-3. Copy your API key from the RapidAPI dashboard
-4. Copy `scripts/.env.example` to `scripts/.env`, then replace the placeholder:
-   ```dotenv
-   RAPIDAPI_KEY=your_key_here
-   ```
-   `.env` is gitignored, so the key stays local.
+The script reads `RAPIDAPI_KEY` from `scripts/.env` (gitignored, so the key stays local). When it is missing the script exits 1 with a JSON error carrying the whole setup walkthrough — which API to subscribe to, and where the key goes. Relay that message to the user; it is the single source of truth for the setup, and `scripts/.env.example` is the template to copy.
 
 **Response shape** (on success):
 ```json
@@ -87,17 +76,19 @@ python3 -c "import json; print(json.load(open('outputs/transcript.json'))['fullT
 
 | Error | Action |
 |-------|--------|
-| `RAPIDAPI_KEY is not set` | Walk the user through the setup above |
+| `RAPIDAPI_KEY is not set` | Relay the script's own setup message |
 | `Could not extract a YouTube video ID` | Ask the user to verify the URL |
 | `RapidAPI returned HTTP 429` | Rate limited — suggest waiting or upgrading their RapidAPI plan |
 | `RapidAPI returned HTTP 403` | Invalid key, or the subscription is missing |
 | `No transcript content` | Captions are likely disabled — ask the user to paste the content |
 
-Report the failure and stop. A missing transcript is never filled in from memory.
+Report the failure and stop there. Every fact on the finished page traces back to source text you actually hold.
 
 **Article URLs**: Use `web_fetch`. Extract the main body, skip nav/footer/ads.
 
 **Pasted text**: Use directly.
+
+**Done when** you hold the full source text and can state its length. A source you could not retrieve is a stop, not a smaller infographic.
 
 ### Step 2: Distill into infographic structure
 
@@ -119,17 +110,21 @@ For all variants, extract:
 - **Top-left category label** — `BREAKDOWN`, `PLAYBOOK`, `TOOLKIT`, `BRIEFING`, `GUIDE`, `COMPARED`, or `TAKE`, formatted `LABEL / [topic]` in mono caps. Pick the one matching the content, and vary it between consecutive pieces. `voice_guide.md` defines when each applies.
 - **Main headline** — 4-10 words with at least one orange slash. Punchy, editorial, not clickbait.
 - **Subtitle paragraph** — 2-3 sentences stating what the reader gets.
-- **Sections/cards** — only as many content units as the source honestly supports, usually 4-9. Each carries an item number (`01`, `02`…), a monospace badge (`/clear`, `SKILL.md`, `value-first DM`), a 2-5 word title with optional slash, a 2-3 sentence body, and one inline SVG illustration. Cards end clean at the body: no source tags, no attribution badges.
+- **Sections/cards** — only as many content units as the source honestly supports. Each carries an item number (`01`, `02`…), a monospace badge (`/clear`, `SKILL.md`, `value-first DM`), a title with optional slash, a short body, and one inline SVG illustration. A card ends at its body — the body is the last element inside it.
 
-Card titles fit two lines and bodies run 25-50 words — those limits are what keep a grid aligned, and `design_principles.md` Rule 3 is the source of truth. When a point needs more room, change the layout shape rather than padding the grid.
+`design_principles.md` Rule 3 owns the title and body limits, Rule 4 owns the card counts. Take both from there rather than from memory or from this file, which states neither on purpose. The limits exist to hold **the grid**: every column carries the same number of cards, and every card in a row ends at the same height. When a point needs more room, change the layout shape rather than padding the grid.
+
+**Done when** you can name the variant, the category label, the headline, and a card count that divides evenly across the columns.
 
 ### Step 3: Illustrations
 
-Use **small, hand-built SVG illustrations** that depict the concept: flat, two-color (`#1A1A1A` outlines and fills, `#FF6B35` for the one accent element), 2-3px strokes, rounded caps. Each sits in the 160px-tall illustration box from the template, with the SVG itself capped at 128px tall and roughly 280px wide.
+Every illustration is a small, hand-built SVG that depicts the concept: flat, two-colour, technical-schematic rather than cartoon.
 
-`references/illustrations.md` has a ready-made library — reach for it first, and hand-build in the same style when no entry matches.
+`references/illustrations.md` owns the palette, stroke widths and viewBox, and ships a ready-made library — reach for the library first, and hand-build in the same style when no entry matches. Take the numbers from there. This file states none of them, because a second copy drifts from the first and then quietly wins.
 
-Guardrails, because each of these has produced a broken piece before: no AI-generated raster images (wrong logos, garbled text, off-palette color), no stock-photo icons, no emoji as the primary visual, and no third-party company logos. Where a real company must be named, set its name as text.
+Each visual on the page is one of exactly two things: an SVG built to that spec, or a company's name set as text. That is the entire set — and it is what keeps raster generation, stock icons, emoji-as-visual and third-party marks off the page, each of which has produced a broken piece before.
+
+**Done when** every card carries its own illustration, no two cards share one, and each renders inside the template's illustration box.
 
 ### Step 4: Assemble the HTML
 
@@ -137,8 +132,10 @@ Start from `assets/templates/infographic.html` and fill it in. It already carrie
 
 Two things the template can't do for you:
 
-- Embed the Nick Automations logo inline from `assets/logos/logo-white-bg.svg` at top-right of page 1, paired with the wordmark `Nick / AUTOMATIONS` in mono caps with an orange slash. Inline SVG only — an external link breaks portability.
-- End with exactly the one-line CTA footer: `See how we automate / nickautomations.com`. Nothing else goes at the bottom — no source list, no volume label.
+- Embed the Nick Automations logo inline from `assets/logos/logo-white-bg.svg` at top-right of page 1, paired with the wordmark `Nick / AUTOMATIONS` in mono caps with an orange slash. Inline SVG keeps the file portable; an external link breaks it.
+- End with exactly the one-line CTA footer: `See how we automate / nickautomations.com`. That line is the entire footer.
+
+**Done when** the logo is inline, the footer is that single line, and the page carries every asset inside the file — the font `<link>` tags are the only external references it makes.
 
 ### Step 5: Save and present
 
@@ -154,12 +151,14 @@ Name the file `[topic-slug]-infographic.html` either way. Then brief the user:
 - 1080px wide is optimal for social; the design is responsive
 - For a LinkedIn carousel, screenshot each page separately
 
-**Done when** the file exists at the reported path and the user has been told how to view it.
+**Done when** the file exists at the reported path, every alignment check in `design_principles.md` Rule 5 passes, and the user has been told how to view it.
+
+Rule 5 is the step that gets skipped, and it is the one that decides whether the piece reads as designed or as assembled. **The grid** breaking — cards in a row ending at different heights — is invisible in the markup and obvious the moment anyone looks at the page. Render the file and check it rather than reasoning about the CSS: a single card body wrapping to one more line than its neighbours is enough to throw a whole row out, and nothing in the HTML will tell you.
 
 ## Content integrity rules
 
 These three are the skill's own; everything else about quality lives in the references.
 
-1. **No invented facts.** Every point comes from the source content. A thin source gets a shorter infographic — six honest cards beat nine padded ones.
-2. **No fake company logos.** Never draw the OpenAI, Anthropic, Google, or any other company mark. Use a text label or an abstract SVG.
-3. **Real, legible text only.** No placeholder copy, no gibberish inside illustrations. If you draw a diff, the code in it is real code.
+1. **Every point traces to the source.** A thin source earns a shorter infographic — six honest cards beat nine padded ones.
+2. **A company appears as its name in text.** That is how brands are rendered here, in place of any drawn mark, so the page stays free of approximated logos.
+3. **Every character on the page is real text.** Copy is finished copy, and any code inside an illustration is code that would run.
