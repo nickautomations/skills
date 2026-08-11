@@ -9,6 +9,10 @@ Checks each skill folder has:
 - name matches the folder name
 - description is non-empty and a reasonable length
 
+Also checks that skills/ and .claude-plugin/marketplace.json agree: every skill
+folder is listed in some plugin, and every listed skill has a folder. Without
+this, a new skill ships invisible to anyone installing via the marketplace.
+
 Exit codes:
   0 = all skills valid
   1 = one or more validation errors
@@ -17,12 +21,14 @@ Usage:
   python scripts/validate_skills.py
 """
 
+import json
 import re
 import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / "skills"
+MARKETPLACE_JSON = REPO_ROOT / ".claude-plugin" / "marketplace.json"
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
 NAME_RE = re.compile(r"^name:\s*(.+?)\s*$", re.MULTILINE)
@@ -101,6 +107,41 @@ def validate_skill(skill_dir: Path) -> list[str]:
     return errors
 
 
+def validate_marketplace(skill_names: list[str]) -> list[str]:
+    """Return list of error messages for skills/ vs marketplace.json drift."""
+    errors: list[str] = []
+
+    if not MARKETPLACE_JSON.is_file():
+        return [f"marketplace: {MARKETPLACE_JSON.relative_to(REPO_ROOT)} not found"]
+
+    try:
+        manifest = json.loads(MARKETPLACE_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"marketplace: marketplace.json is not valid JSON ({exc})"]
+
+    listed: dict[str, str] = {}  # skill name -> plugin that lists it
+    for plugin in manifest.get("plugins", []):
+        plugin_name = plugin.get("name", "<unnamed plugin>")
+        for skill in plugin.get("skills", []):
+            listed[skill] = plugin_name
+
+    for name in skill_names:
+        if name not in listed:
+            errors.append(
+                f"marketplace: skill `{name}` exists in skills/ but is listed in no plugin "
+                f"— add it to a plugin's `skills` array in marketplace.json"
+            )
+
+    for name, plugin_name in listed.items():
+        if name not in skill_names:
+            errors.append(
+                f"marketplace: plugin `{plugin_name}` lists skill `{name}`, "
+                f"but skills/{name}/ does not exist"
+            )
+
+    return errors
+
+
 def main() -> int:
     if not SKILLS_DIR.is_dir():
         print(f"ERROR: skills/ directory not found at {SKILLS_DIR}", file=sys.stderr)
@@ -122,6 +163,15 @@ def main() -> int:
                 all_errors.append(err)
         else:
             print(f"  ✓ {skill_dir.name}")
+
+    print("\nChecking marketplace.json coverage...\n")
+    marketplace_errors = validate_marketplace([d.name for d in skill_dirs])
+    if marketplace_errors:
+        for err in marketplace_errors:
+            print(f"  ✗ {err}")
+            all_errors.append(err)
+    else:
+        print("  ✓ every skill is listed in marketplace.json")
 
     print()
     if all_errors:

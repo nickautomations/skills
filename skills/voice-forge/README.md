@@ -26,21 +26,31 @@ The pipeline deliberately splits work between **deterministic scripts** (fetch, 
 Posts come from [`capable_cauldron/linkedin-profile-posts-scraper`](https://apify.com/capable_cauldron/linkedin-profile-posts-scraper) on Apify.
 
 - No cookies, no login — public profiles only.
-- 55 pre-enriched fields per post; `voice-forge` uses just 13.
+- 55 pre-enriched fields per post; `voice-forge` uses just 14.
 - 100 posts ≈ $0.31 per run.
 
 ## 🔑 Setup
 
 Node.js 18+ is required (the scripts use the built-in `fetch`; no `npm install`).
 
-The Apify token lives in your environment — it is **never** collected through a form or pasted in chat.
+The Apify token is **never** collected through a form, pasted in chat, or passed as a CLI argument. Create one at https://console.apify.com/account/integrations, then pick either option:
 
-1. Create a token at https://console.apify.com/account/integrations
-2. Set it as an environment variable:
-   ```bash
-   export APIFY_API_TOKEN=your_token_here
-   ```
-3. Restart your Claude client so it picks up the variable.
+**Option A — `.env` file** (no restart needed):
+
+```bash
+cp scripts/.env.example scripts/.env
+# then edit scripts/.env and replace the placeholder
+```
+
+`scripts/.env` is gitignored, so the key stays local. The script resolves it relative to its own directory, so it works from any working directory.
+
+**Option B — environment variable** (takes precedence over the file):
+
+```bash
+export APIFY_API_TOKEN=your_token_here     # setx on Windows
+```
+
+Then restart your Claude client so it picks up the variable.
 
 ## ▶️ Usage
 
@@ -62,17 +72,18 @@ Then it runs scrape → extract → analyze → build, and tells you the new ski
 voice-forge/
 ├── SKILL.md                        # Orchestration: the brain
 ├── scripts/
-│   ├── fetch_posts.js              # Apify HTTP API call (token from env var)
-│   └── extract_features.js         # Select 13 fields + dedup + compute → features.json
+│   ├── .env.example                # Copy to .env and add your Apify token
+│   ├── fetch_posts.js              # Apify HTTP API call (token from env or .env)
+│   └── extract_features.js         # Select 14 fields + dedup + compute → features.json
 ├── references/
 │   └── voice_analysis_prompt.md    # Refined voice-mechanics extraction prompt
 └── README.md
 ```
 
-When the skill runs, it also creates a `data/` folder for cached artifacts:
+When the skill runs, it also creates a `data/` folder for cached artifacts, namespaced per creator:
 
 ```
-data/
+data/<username>/
 ├── raw_posts.json      # Raw scrape output (skipped on re-run)
 ├── features.json       # Deterministic feature digest (skipped on re-run)
 └── voice_profile.md    # The synthesized voice (skipped on re-run)
@@ -80,10 +91,11 @@ data/
 
 ## ♻️ Resume logic
 
-Every step is idempotent. If an artifact already exists, the step is skipped. This means:
+Every step is idempotent. If an artifact already exists, the step is skipped; pass `--force` to a script to redo its work. This means:
 
 - Re-running after a failure picks up where it left off.
 - Disliking the voice profile? Re-run the analysis step for free — no re-scrape, no re-paying Apify.
+- Cloning a second creator never collides with the first — each gets its own `data/<username>/` folder.
 
 ## 🛡️ Guardrails
 

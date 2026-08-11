@@ -1,89 +1,39 @@
 ---
 name: youtube-to-infographic
-description: Generate a Nick Automations branded editorial infographic from a YouTube video URL, article URL, or pasted text. Use this skill whenever the user wants to turn long-form content into a visual infographic, including phrases like "make an infographic from this video", "turn this article into an infographic", "summarize this in a visual", "build a Nick Automations infographic", or any time the user pastes a URL or text and asks for a shareable graphic. Always produces output in the Nick Automations design system — heavy display typography (Satoshi/Geist), orange-slash separators, three-column editorial layout, monospace command labels, the Nick Automations logo in the header, and a soft CTA in the footer. Brand voice is factual and direct, with no invented facts, no fake company logos, and no source tags cluttering cards.
+description: Turn a YouTube video, article URL, or pasted text into a Nick Automations branded editorial infographic. Use when the user wants long-form content turned into a shareable visual, or pastes a link or transcript and asks for a graphic.
 ---
 
 # Nick Automations Infographic Generator
 
 Turn any YouTube video, article URL, or pasted text into a polished editorial-style infographic in the Nick Automations design system.
 
-This skill does NOT produce generic infographics. It produces a specific editorial aesthetic — three-column grid, heavy display headlines with the orange slash as a typographic device, monospace command/tag labels, hand-coded SVG illustrations per item, and a clean soft CTA footer driving to nickautomations.com.
+This skill does NOT produce generic infographics. It produces a specific editorial aesthetic — heavy display headlines with the orange slash as a typographic device, monospace command/tag labels, hand-coded SVG illustrations per item, and a clean soft CTA footer driving to nickautomations.com.
 
-## When to trigger
+**Nick Automations** is the brand. Domain: `nickautomations.com`. The logo is an "N / A" mark where the diagonal orange slash between the letters IS the signature element. The slash isn't decoration — it's the brand's visual DNA, and it reappears as a separator inside headlines (`features/that`, `read-only/pass`, `Summarize/without forgetting`).
 
-Trigger on any of:
-- "Make an infographic from this video: [URL]"
-- "Turn this article into an infographic"
-- "Create an infographic from this"
-- "Build a Nick Automations infographic about..."
-- A URL (YouTube or article) plus any visualization request
-- A pasted transcript or article with a request to summarize visually
+## Where the design system lives
 
-## Brand identity (memorize this)
+This file is the **workflow**. The design system it produces is specified in the references, and each is the single source of truth for its area — read the relevant one before writing HTML rather than working from memory:
 
-**Nick Automations** is the brand. Domain: `nickautomations.com`. The logo is an "N / A" mark where the diagonal orange slash between the letters IS the signature element. The slash isn't decoration — it's the brand's visual DNA, and it shows up throughout the design as a separator in headlines (`features/that`, `read-only/pass`, `Summarize/without forgetting`).
+| Reference | Owns |
+|-----------|------|
+| `references/design_principles.md` | Color tokens, type scale, layout grid, alignment discipline, header/card/footer markup, common mistakes |
+| `references/voice_guide.md` | Headline patterns, the slash treatment, card copy, command badges, the category label, words to embrace and avoid |
+| `references/illustrations.md` | Ready-to-use SVG illustrations plus the rules every illustration follows |
+| `assets/templates/infographic.html` | Base HTML template — start here, don't rebuild from scratch |
+| `assets/logos/` | Logo SVGs (light bg, dark bg, favicon) — embed inline, never link |
 
-**Voice**: editorial, confident, direct. No hype, no hustle-culture claims, no "vibe coding." Concrete language over filler words. The brand sells AI/automation consulting to businesses — so the tone is "we do this work, here's the breakdown" rather than "you NEED to know!!!"
+## Runtime requirements
 
-## Brand colors (use these exact hex codes — no others)
+Python 3 and network access to `rapidapi.com`, needed only for the YouTube path. Article URLs and pasted text need neither.
 
-```
-Primary accent (orange):     #FF6B35
-Heading / dark text:         #1A1A1A
-Body text:                   #3F3F50
-Background (cream):          #FAF7F2
-Card background:             #FFFFFF
-Subtle fill:                 #F5EFE8
-Divider lines:               #E8E4DD
-Muted label text:            #8A8578
-```
+- **Claude Code** on a laptop/server — works (recommended)
+- **claude.ai web/mobile** — works if the sandbox reaches `*.rapidapi.com` (may require an allowlist update)
+- **Air-gapped environments** — the YouTube path won't work; ask the user to paste the content instead
 
-Rule: 70% cream/white surfaces, 25% dark text, 5% orange. Orange is precious — use it on slashes, command names, key callouts, and the signature mark. Never on body text. Never gradients. Never additional accent colors.
+`fetch_transcript.py` uses only the Python standard library, so there is no `pip install`.
 
-## Typography (locked, no substitutions)
-
-**Headline & body font cascade**: `'Satoshi', 'Geist', 'Cabinet Grotesk', system-ui, sans-serif`. Satoshi is primary (loaded from Fontshare), Geist is the Google Fonts fallback, Cabinet Grotesk is the secondary fallback, then system. Inter is **not** in the cascade — banned by the design-taste check.
-
-Use weights `800-900` for the main headline, `700` for card titles. Tight letter-spacing (`-0.03em`) on the big headline. The fonts pair well with this tracking because they're geometric sans serifs with similar x-heights — fallbacks won't visibly jolt the layout.
-
-**Monospace font** (for command names, file paths, badges, category labels): `'JetBrains Mono', 'SF Mono', 'Menlo', 'Consolas', monospace`. Every command like `/clear`, every file like `SKILL.md`, every category label like `BREAKDOWN / [topic]` gets the mono treatment. This signals "this is a real, technical thing."
-
-Load Satoshi from Fontshare and Geist + Cabinet Grotesk + JetBrains Mono from Google Fonts:
-
-```html
-<link rel="preconnect" href="https://api.fontshare.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800;900&family=Cabinet+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-```
-
-**Why this cascade**: Satoshi has the strongest editorial character (slightly humanist proportions, premium feel). Geist is Vercel's geometric sans and falls back cleanly if Fontshare is slow. Cabinet Grotesk is another high-end editorial sans as a third tier. System UI catches everything else without visible degradation.
-
-## The slash treatment (the most important brand element)
-
-In headlines, use the orange slash as a separator inside phrases. Examples from the reference design:
-
-- "9 features `/` that actually exist"
-- "A read-only `/` pass on your diff"
-- "Summarize `/` without forgetting"
-- "Vulnerabilities `/` before the PR"
-
-Implementation: wrap the slash in a span and color it orange:
-
-```html
-<h1>9 features<span class="brand-slash">/</span>that actually exist</h1>
-```
-
-```css
-.brand-slash {
-  color: #FF6B35;
-  font-weight: 900;
-  margin: 0 0.05em;
-}
-```
-
-Pick natural breakpoints in the headline where a slash adds rhythm. Not every headline needs one, but the main title and 2-4 card titles should use it. Don't overdo it.
+The launcher differs by platform. Use whichever resolves: `python3` on macOS/Linux, `py -3` on Windows, `python` as the fallback. On Windows, bare `python3` opens the Microsoft Store instead of running the script — if you see that, switch to `py -3`.
 
 ## Workflow
 
@@ -91,13 +41,15 @@ Pick natural breakpoints in the headline where a slash adds rhythm. Not every he
 
 **YouTube URLs** (`youtube.com/watch?v=...`, `youtu.be/...`, `youtube.com/shorts/...`):
 
-Call the bundled Python script. It hits the RapidAPI yt-api service and returns a normalized JSON response on stdout.
+Call the bundled script. It hits the RapidAPI yt-api service and prints a normalized JSON response on stdout.
 
 ```bash
-python3 scripts/fetch_transcript.py "VIDEO_URL" > /tmp/transcript.json
+python3 scripts/fetch_transcript.py "VIDEO_URL" > outputs/transcript.json   # py -3 on Windows
 ```
 
-The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script exits with code 1 and prints a clear error explaining how to get a key.
+Write the transcript to `outputs/` (gitignored) rather than `/tmp`, which doesn't exist on Windows.
+
+The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script exits 1 with a JSON error explaining how to get a key.
 
 **Setting up RAPIDAPI_KEY (one-time, per environment):**
 
@@ -108,7 +60,7 @@ The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script
    ```dotenv
    RAPIDAPI_KEY=your_key_here
    ```
-   The `.env` file is ignored by Git, so the key stays local.
+   `.env` is gitignored, so the key stays local.
 
 **Response shape** (on success):
 ```json
@@ -120,55 +72,36 @@ The script reads `RAPIDAPI_KEY` from `scripts/.env`. If it isn't set, the script
   "segmentCount": 239,
   "fullText": "Full spoken transcript as one string...",
   "segments": [
-    {"start": 0.08, "duration": 5.36, "text": "..."},
-    ...
+    {"start": 0.08, "duration": 5.36, "text": "..."}
   ]
 }
 ```
 
-**Parsing the response:**
+Read `fullText` for the content, and `title` / `channel` for headline context only — neither becomes a source tag on the page. Parse with `jq -r '.fullText' outputs/transcript.json`, or with Python when `jq` is absent:
 
 ```bash
-# Get the full transcript text
-jq -r '.fullText' /tmp/transcript.json
-
-# Get title (for the headline context, not for sources)
-jq -r '.title' /tmp/transcript.json
-
-# Get channel name (for headline context, not for sources)
-jq -r '.channel' /tmp/transcript.json
+python3 -c "import json; print(json.load(open('outputs/transcript.json'))['fullText'])"
 ```
 
-If `jq` isn't available, parse with Python: `python3 -c "import json; print(json.load(open('/tmp/transcript.json'))['fullText'])"`
+**When `success` is `false`**, read the `error` field and act on it:
 
-**Failure handling:**
+| Error | Action |
+|-------|--------|
+| `RAPIDAPI_KEY is not set` | Walk the user through the setup above |
+| `Could not extract a YouTube video ID` | Ask the user to verify the URL |
+| `RapidAPI returned HTTP 429` | Rate limited — suggest waiting or upgrading their RapidAPI plan |
+| `RapidAPI returned HTTP 403` | Invalid key, or the subscription is missing |
+| `No transcript content` | Captions are likely disabled — ask the user to paste the content |
 
-- If the script returns `"success": false`, read the `error` field and act accordingly:
-  - "RAPIDAPI_KEY is not set" → tell the user to copy `scripts/.env.example` to `scripts/.env` and replace the placeholder key (see above)
-  - "Could not extract a YouTube video ID" → ask the user to verify the URL
-  - "RapidAPI returned HTTP 429" → rate limited, suggest waiting or upgrading their RapidAPI plan
-  - "RapidAPI returned HTTP 403" → invalid key or subscription required
-  - "No transcript content" → the video likely has captions disabled; ask the user to paste content
-- Never invent transcript content if the fetch fails.
+Report the failure and stop. A missing transcript is never filled in from memory.
 
 **Article URLs**: Use `web_fetch`. Extract the main body, skip nav/footer/ads.
 
 **Pasted text**: Use directly.
 
-### Runtime requirements
-
-This skill requires Python 3 and an internet connection that reaches `rapidapi.com`. It works anywhere those two are satisfied:
-
-- **Claude Code** on a laptop/server — works (recommended)
-- **claude.ai web/mobile** — works if the sandbox allows network access to `*.rapidapi.com` (may require allowlist update)
-- **Self-hosted Claude** — works
-- **Air-gapped environments** — won't work; ask the user to paste content directly
-
-The skill has no other external dependencies — `fetch_transcript.py` uses only the Python standard library, so no `pip install` is needed.
-
 ### Step 2: Distill into infographic structure
 
-Read the full content, then decide the layout variant based on what's actually in the source:
+Read the full content, then pick the layout variant from what the source actually is:
 
 | Source pattern | Variant |
 |----------------|---------|
@@ -179,122 +112,54 @@ Read the full content, then decide the layout variant based on what's actually i
 | Dense tactical advice | **checklist/playbook** |
 | Short or thin source | **compact brief** |
 
+Reuse of one composition across every piece is the failure mode here — pick the shape the source earns. `design_principles.md` Rule 4 has the card-count configurations for each.
+
 For all variants, extract:
 
-- **Top-left label**: a contextual category tag in mono caps. Pick the one that matches the content:
-  - `BREAKDOWN / [topic]` — explainers, "how X works", deep-dives
-  - `PLAYBOOK / [topic]` — numbered playbooks, "how to do X"
-  - `TOOLKIT / [topic]` — tool/feature roundups, "X tools for Y"
-  - `BRIEFING / [topic]` — trends, news, market analysis
-  - `GUIDE / [topic]` — step-by-step processes, tutorials
-  - `COMPARED / [topic]` — comparisons, "X vs Y"
-  - `TAKE / [topic]` — opinion pieces, hot takes
-  Don't use the same label twice in a row across pieces — pick what fits the actual content.
-- **Main headline**: 4-10 words with at least one orange slash. Punchy. Editorial. Not clickbait.
-- **Subtitle paragraph**: 2-3 sentences explaining the piece. State what the reader gets out of it.
-- **Layout shape**: Pick a structure that fits the source. Do not default to the same three-column card grid every time. Valid shapes include:
-  - 4-6 item compact brief with one large hero insight and supporting cards
-  - 5-7 step vertical timeline or process map
-  - 6 item two-column checklist/playbook
-  - 6 or 9 item three-column editorial grid for list-heavy content
-  - Comparison split with two sides plus a bottom takeaway band
-- **Sections/cards**: Use only as many content units as the source can honestly support, usually 4-9. Each unit:
-  - Item number (`01`, `02`...)
-  - Item name in a monospace tag/badge (e.g., `/clear`, `SKILL.md`, `value-first DM`, `10h minimum`)
-  - 2-5 word title with optional orange slash
-  - 2-3 sentence body
-  - A simple inline illustration (see illustration rules below)
-  - **No source tags. No attribution badges. Clean card bottom.**
+- **Top-left category label** — `BREAKDOWN`, `PLAYBOOK`, `TOOLKIT`, `BRIEFING`, `GUIDE`, `COMPARED`, or `TAKE`, formatted `LABEL / [topic]` in mono caps. Pick the one matching the content, and vary it between consecutive pieces. `voice_guide.md` defines when each applies.
+- **Main headline** — 4-10 words with at least one orange slash. Punchy, editorial, not clickbait.
+- **Subtitle paragraph** — 2-3 sentences stating what the reader gets.
+- **Sections/cards** — only as many content units as the source honestly supports, usually 4-9. Each carries an item number (`01`, `02`…), a monospace badge (`/clear`, `SKILL.md`, `value-first DM`), a 2-5 word title with optional slash, a 2-3 sentence body, and one inline SVG illustration. Cards end clean at the body: no source tags, no attribution badges.
+
+Card titles fit two lines and bodies run 25-50 words — those limits are what keep a grid aligned, and `design_principles.md` Rule 3 is the source of truth. When a point needs more room, change the layout shape rather than padding the grid.
 
 ### Step 3: Illustrations
 
-Do NOT use:
-- AI-generated raster images (they produce wrong logos, garbled text, off-palette colors)
-- Big stock-photo icons
-- Emojis as the primary visual (small inline emojis are okay sparingly, not as main icon)
-- Any third-party company logos as illustrations
+Use **small, hand-built SVG illustrations** that depict the concept: flat, two-color (`#1A1A1A` outlines and fills, `#FF6B35` for the one accent element), 2-3px strokes, rounded caps. Each sits in the 160px-tall illustration box from the template, with the SVG itself capped at 128px tall and roughly 280px wide.
 
-DO use: **small, hand-built SVG illustrations** that visually represent the concept. Keep them flat, 2-color (orange + dark slate), and concept-driven. Examples to model:
+`references/illustrations.md` has a ready-made library — reach for it first, and hand-build in the same style when no entry matches.
 
-- For "start fresh" or reset: a document with a slash through it and an arrow forward
-- For "code review": a code snippet with `+`/`-`/`!` lines and a magnifying glass
-- For "files / formats": three small folder/file rectangles
-- For "security check": a shield outline with risk tags scattered around it
-- For "subagents / network": a central node connected to surrounding nodes
-- For "summary / compression": two stacked documents with an X between them
-- For comparison content: split-screen rectangles
-- For data/stats: simple bar shapes
-- For workflows: numbered arrows or path lines
-
-Each illustration sits in a ~280px × 140px box centered above the card title. Use only `#1A1A1A` for outlines/dark fills and `#FF6B35` for the one accent element. Stroke width 2-3px, rounded line caps. See `references/illustrations.md` for ready-to-use SVG snippets.
+Guardrails, because each of these has produced a broken piece before: no AI-generated raster images (wrong logos, garbled text, off-palette color), no stock-photo icons, no emoji as the primary visual, and no third-party company logos. Where a real company must be named, set its name as text.
 
 ### Step 4: Assemble the HTML
 
-Use `assets/templates/infographic.html` as the base. It includes:
+Start from `assets/templates/infographic.html` and fill it in. It already carries the striped diagonal header, the category label and logo slots, the card structure, and the CTA footer, with the alignment CSS from `design_principles.md` baked in.
 
-- Striped diagonal header pattern (orange diagonal lines, ~6px wide)
-- Contextual category label (`BREAKDOWN / [topic]`, `PLAYBOOK / [topic]`, etc.) top-left
-- Nick Automations logo (top-right, embedded from `assets/logos/logo-white-bg.svg`)
-- Flexible editorial layout chosen from the source structure
-- Cards/sections with consistent spacing
-- **Clean cards: number, badge, illustration, title, body. No source tags.**
-- Soft CTA footer: `See how we automate / nickautomations.com`
+Two things the template can't do for you:
 
-The Nick Automations logo must appear at top-right of every infographic. Embed it directly as inline SVG (the file is in `assets/logos/logo-white-bg.svg`) — do not link externally. Pair it with the wordmark in mono caps: `Nick / AUTOMATIONS` where the slash is orange.
+- Embed the Nick Automations logo inline from `assets/logos/logo-white-bg.svg` at top-right of page 1, paired with the wordmark `Nick / AUTOMATIONS` in mono caps with an orange slash. Inline SVG only — an external link breaks portability.
+- End with exactly the one-line CTA footer: `See how we automate / nickautomations.com`. Nothing else goes at the bottom — no source list, no volume label.
 
 ### Step 5: Save and present
 
-1. Save to `/mnt/user-data/outputs/[topic-slug]-infographic.html`
-2. Call `present_files` with the path
-3. Brief the user:
-   - Open in browser to view
-   - Use browser DevTools → "Capture full size screenshot" for posting (Chrome: Cmd+Shift+P → "capture full size screenshot")
-   - Optimal width is 1080px for social posting; the design is responsive
-   - For LinkedIn carousel, screenshot each page separately
+Pick the output location from the environment:
 
-## Critical content rules
+- **`/mnt/user-data/outputs/` exists** (claude.ai / Cowork): save there and call `present_files` with the path.
+- **Otherwise** (Claude Code and everywhere else): save to `outputs/` in the working directory and give the user the absolute path. `present_files` does not exist here — calling it fails the run.
 
-1. **No invented facts.** If a point isn't in the source content, don't include it. If the source is thin, make a shorter infographic — six honest cards beat nine padded ones.
+Name the file `[topic-slug]-infographic.html` either way. Then brief the user:
 
-2. **No source tags on cards.** Cards have: number, badge, illustration, title, body. Clean bottom. Do not add gray attribution tags, orange callout tags as "sources," or any "based on" lines per card. The Nick Automations brand owns the piece — viewers don't need a receipt on every card.
+- Open it in a browser to view
+- Screenshot for posting via DevTools → "Capture full size screenshot" (Chrome: Cmd/Ctrl+Shift+P)
+- 1080px wide is optimal for social; the design is responsive
+- For a LinkedIn carousel, screenshot each page separately
 
-3. **No fake company logos.** Never use OpenAI, Anthropic, Google, or other company logos as illustrations. Use text labels or abstract SVG illustrations instead.
+**Done when** the file exists at the reported path and the user has been told how to view it.
 
-4. **Real, legible text only.** No placeholder text. No gibberish in illustrations. If you draw a diff illustration, the code in it should be real.
+## Content integrity rules
 
-5. **Soft CTA footer is mandatory.** Every infographic ends with the standard footer:
-   ```
-   See how we automate / nickautomations.com
-   ```
-   Set in mono caps, small, with the orange slash. No `Sources:` line, no `VOLUME XX` line, no other footer text. The CTA is the only thing at the bottom.
+These three are the skill's own; everything else about quality lives in the references.
 
-6. **Nick Automations logo + wordmark** in top-right of page 1, always. Embed the SVG inline. Don't substitute with emojis.
-
-7. **Contextual category label** in top-left of every piece. Pick from `BREAKDOWN`, `PLAYBOOK`, `TOOLKIT`, `BRIEFING`, `GUIDE`, `COMPARED`, `TAKE` based on what the content actually is. Format: `BREAKDOWN / [topic]` in mono caps. Don't use the same label twice in a row — vary based on content.
-
-8. **Layout variety is required.** Do not reuse the same 9-card, three-column composition by default. Choose the structure from the source pattern: compact brief, timeline, checklist, comparison split, hero + evidence, or editorial grid. Only use a three-column grid when the content is clearly list-heavy and has enough substance for equal columns.
-
-9. **Alignment discipline still applies inside the chosen layout.** For column grids, keep columns balanced (2/2/2 or 3/3/3) unless using a deliberate non-grid layout. Card bodies should usually be 25-50 words across 2-3 sentences, card titles should fit in 1-2 lines, and command badges should be 1-3 short tokens. If a point needs more space, switch layout shape instead of padding the grid.
-
-## Reference files
-
-- `references/design_principles.md` — Full design system (typography scale, spacing, layout rules, dos/don'ts)
-- `references/illustrations.md` — Library of ready-to-use SVG illustrations for common concepts
-- `references/voice_guide.md` — Editorial voice, tone examples, headline patterns
-- `assets/templates/infographic.html` — Base HTML template
-- `assets/logos/` — Logo SVGs (light bg, dark bg, favicon) — embed inline, don't link
-
-## Example trigger and response
-
-**User**: "Make an infographic from this video: https://youtube.com/watch?v=abc123"
-
-**You**:
-1. Briefly acknowledge: "Pulling the transcript and building the infographic now."
-2. Run `fetch_transcript.py`, extract transcript, title, channel
-3. Read transcript, identify the strongest 4-9 concepts grounded in what the source actually says
-4. Choose a layout variant from the source pattern instead of defaulting to a three-column grid
-5. Pick a contextual category label (`BREAKDOWN`, `PLAYBOOK`, etc.) based on content type
-6. Draft headline using the slash treatment
-7. Build the HTML, embedding the logo SVG and custom illustrations
-8. Save to outputs, call `present_files`
-9. Tell user: ready to view, here's how to screenshot it for posting
+1. **No invented facts.** Every point comes from the source content. A thin source gets a shorter infographic — six honest cards beat nine padded ones.
+2. **No fake company logos.** Never draw the OpenAI, Anthropic, Google, or any other company mark. Use a text label or an abstract SVG.
+3. **Real, legible text only.** No placeholder copy, no gibberish inside illustrations. If you draw a diff, the code in it is real code.

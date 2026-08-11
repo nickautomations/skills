@@ -34,7 +34,7 @@ Inside Claude Code:
 /plugin install content-skills@nick-automations-skills
 ```
 
-This installs the full **content-skills** bundle, which currently includes `youtube-to-infographic`. As we add more content-related skills, they'll be included automatically.
+This installs the full **content-skills** bundle, which currently includes `youtube-to-infographic` and `voice-forge`. As we add more content-related skills, they'll be included automatically.
 
 ### Option 3: Git clone (for forking or contributing)
 
@@ -52,6 +52,7 @@ nickautomations/skills/
 ├── .claude-plugin/           # Claude Code plugin marketplace manifest
 │   └── marketplace.json
 ├── skills/                   # All published skills
+│   ├── voice-forge/
 │   └── youtube-to-infographic/
 ├── template/                 # Starter scaffold for new skills
 ├── scripts/                  # Repo-level helper scripts (validation, etc.)

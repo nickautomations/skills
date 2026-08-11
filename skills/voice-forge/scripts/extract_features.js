@@ -8,10 +8,10 @@
  *
  * It replaces what would otherwise be a "cleaning" stage. The source actor
  * (capable_cauldron/linkedin-profile-posts-scraper) already pre-enriches 55
- * fields, so we only SELECT the 13 we need and DEDUPLICATE — never transform.
+ * fields, so we only SELECT the 14 we need and DEDUPLICATE — never transform.
  *
  * Usage:
- *   node extract_features.js --in data/raw_posts.json --out data/features.json
+ *   node extract_features.js --in data/<username>/raw_posts.json --out data/<username>/features.json
  *
  * Resume logic: if --out already exists, exits 0 with a notice.
  */
@@ -39,7 +39,9 @@ const SELECT_FIELDS = [
 
 // --- Argument parsing ---------------------------------------------------
 function parseArgs(argv) {
-  const args = { in: "data/raw_posts.json", out: "data/features.json" };
+  // `out` defaults to features.json beside the input, keeping each creator's
+  // artifacts together in their own data/<username>/ folder.
+  const args = { in: "data/raw_posts.json", out: null };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--in" || a === "-i") args.in = argv[++i];
@@ -275,7 +277,7 @@ function buildFeatures(posts) {
 async function main() {
   const args = parseArgs(process.argv);
   const inPath = path.resolve(args.in);
-  const outPath = path.resolve(args.out);
+  const outPath = path.resolve(args.out || path.join(path.dirname(inPath), "features.json"));
 
   if (!args.force && fs.existsSync(outPath)) {
     console.log(`SKIP: ${outPath} already exists. Use --force to re-extract.`);

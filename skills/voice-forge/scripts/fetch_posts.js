@@ -6,10 +6,12 @@
  * Uses only Node.js built-ins (fetch, fs). No npm install required.
  *
  * Usage:
- *   node fetch_posts.js --username <linkedinUsernameOrUrl> --max 100 --out data/raw_posts.json
+ *   node fetch_posts.js --username <linkedinUsernameOrUrl> --max 100 --out data/<username>/raw_posts.json
  *
- * Requires the APIFY_API_TOKEN environment variable. The token is NEVER
- * accepted as a CLI argument, NEVER logged, and NEVER written to the output.
+ * Requires APIFY_API_TOKEN, read from the environment or from scripts/.env
+ * beside this file. The token is NEVER accepted as a CLI argument, NEVER
+ * logged, and NEVER written to the output — an argument would leak it into
+ * shell history and process listings.
  *
  * Resume logic: if --out already exists, the script exits 0 with a notice
  * instead of re-scraping (and re-charging Apify).
@@ -22,9 +24,37 @@ const path = require("path");
 const ACTOR_ID = "capable_cauldron~linkedin-profile-posts-scraper";
 const API_BASE = "https://api.apify.com/v2";
 
+// --- Credentials ---------------------------------------------------------
+// Read scripts/.env beside this file, so the token is found no matter which
+// directory the script is invoked from. A real environment variable wins, so
+// setting APIFY_API_TOKEN in the shell always overrides the file.
+const ENV_PATH = path.join(__dirname, ".env");
+
+function loadEnvFile() {
+  const envPath = ENV_PATH;
+  if (!fs.existsSync(envPath)) return;
+
+  for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const eq = trimmed.indexOf("=");
+    if (eq === -1) continue;
+
+    const key = trimmed.slice(0, eq).trim();
+    let value = trimmed.slice(eq + 1).trim();
+    if (value.length >= 2 && value[0] === value[value.length - 1] && (value[0] === '"' || value[0] === "'")) {
+      value = value.slice(1, -1);
+    }
+    if (key && process.env[key] === undefined) process.env[key] = value;
+  }
+}
+
 // --- Argument parsing ---------------------------------------------------
 function parseArgs(argv) {
-  const args = { username: null, max: 100, out: "data/raw_posts.json" };
+  // `out` defaults to data/<username>/raw_posts.json once the username is known,
+  // so two creators never share a cache file (and never resume off each other).
+  const args = { username: null, max: 100, out: null };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--username" || a === "-u") args.username = argv[++i];
@@ -33,7 +63,8 @@ function parseArgs(argv) {
     else if (a === "--force") args.force = true;
     else if (a === "--help" || a === "-h") {
       console.log(
-        "Usage: node fetch_posts.js --username <url|username> [--max 100] [--out data/raw_posts.json] [--force]"
+        "Usage: node fetch_posts.js --username <url|username> [--max 100] " +
+          "[--out data/<username>/raw_posts.json] [--force]"
       );
       process.exit(0);
     }
@@ -50,6 +81,12 @@ function normalizeUsername(input) {
   if (m) return decodeURIComponent(m[1]);
   // Already a bare username
   return trimmed;
+}
+
+// Make a username safe to use as a single path segment.
+function slugForPath(username) {
+  const slug = username.toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/^-+|-+$/g, "");
+  return slug || "profile";
 }
 
 // --- Apify HTTP helpers -------------------------------------------------
@@ -116,8 +153,12 @@ async function main() {
     process.exit(2);
   }
 
+  const username = normalizeUsername(args.username);
+
   // Resume logic: skip if output exists and --force not set.
-  const outPath = path.resolve(args.out);
+  const outPath = path.resolve(
+    args.out || path.join("data", slugForPath(username), "raw_posts.json")
+  );
   if (!args.force && fs.existsSync(outPath)) {
     const existing = JSON.parse(fs.readFileSync(outPath, "utf8"));
     console.log(
@@ -126,17 +167,19 @@ async function main() {
     return;
   }
 
+  loadEnvFile();
   const token = process.env.APIFY_API_TOKEN;
   if (!token) {
     console.error(
-      "Error: APIFY_API_TOKEN environment variable is not set.\n" +
-        "Create a token at https://console.apify.com/account/integrations,\n" +
-        "then set it in your environment and restart Claude Code."
+      "Error: APIFY_API_TOKEN is not set.\n" +
+        "Get a token at https://console.apify.com/account/integrations, then do either:\n" +
+        `  - put this line in ${ENV_PATH}\n` +
+        "        APIFY_API_TOKEN=your_token_here\n" +
+        "  - or set APIFY_API_TOKEN in your environment and restart Claude Code."
     );
     process.exit(3);
   }
 
-  const username = normalizeUsername(args.username);
   const max = args.max || 100;
   console.log(`Scraping up to ${max} posts for "${username}" ...`);
 

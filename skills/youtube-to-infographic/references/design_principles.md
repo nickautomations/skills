@@ -38,6 +38,19 @@ Load via Fontshare (Satoshi) + Google Fonts (Geist, Cabinet Grotesk, JetBrains M
 
 **Inter is banned** in this design system per the design-taste check. Use `'Satoshi', 'Geist', 'Cabinet Grotesk', system-ui, sans-serif` exclusively.
 
+**Monospace stack** — for command names, file paths, badges, and category labels:
+`'JetBrains Mono', 'SF Mono', 'Menlo', 'Consolas', monospace`. Every command like `/clear`,
+every file like `SKILL.md`, every label like `BREAKDOWN / [topic]` gets the mono treatment.
+It signals "this is a real, technical thing." The `SF Mono`/`Menlo`/`Consolas` tiers keep
+macOS and Windows from dropping to a generic monospace when JetBrains Mono is slow to load.
+
+**Why this cascade**: Satoshi has the strongest editorial character (slightly humanist
+proportions, premium feel). Geist is Vercel's geometric sans and falls back cleanly when
+Fontshare is slow. Cabinet Grotesk is another high-end editorial sans as a third tier.
+System UI catches everything else without visible degradation. The tight tracking
+(`-0.03em` on display sizes) works across all three because they are geometric sans serifs
+with similar x-heights — a fallback swap won't visibly jolt the layout.
+
 Full type scale:
 
 ```css
