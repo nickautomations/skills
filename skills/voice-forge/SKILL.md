@@ -5,21 +5,23 @@ description: Clone a LinkedIn creator's writing voice into a reusable <name>-voi
 
 # Voice Forge: Clone a LinkedIn Voice Into a Reusable Skill
 
-This skill is a **meta-skill**: its output is *another* skill. The user invokes `voice-forge` once per target creator; `voice-forge` then scrapes, distills, analyzes, and — at the final step — calls the built-in **skill-creator** to install a new `<name>-voice` skill. The user never pastes a prompt, never opens a spreadsheet, never runs a script by hand.
+This skill is a **meta-skill**: its output is *another* skill. The user invokes `voice-forge` once per target creator; `voice-forge` then scrapes, distills, analyzes, and — at the final step — writes and installs a new `<name>-voice` skill. The user never pastes a prompt, never opens a spreadsheet, never runs a script by hand.
 
 ## Requirements
 
 - **Node.js 18+** — the scripts use the built-in `fetch`, so there's no `npm install`. If `node --version` is below 18, tell the user before running anything; the scripts will otherwise fail mid-run with an unhelpful error.
 - **`APIFY_API_TOKEN`** — in the environment, or in `scripts/.env` beside the fetch script. See Step 2. Never collected through chat or a form field.
-- **The `writing-for-agents` skill** — Step 6 writes the generated skill against it. Ships in the `mattpocock-skills` plugin. If it's absent, Step 6 still describes the structure to produce; you just lose the reasoning behind it.
-- **`skill-creator` is optional.** Despite reading like a built-in, it ships in the official plugin marketplace, so an install that hasn't enabled that plugin has no `skill-creator` at all — and a `~/.claude/skills/skill-creator/` folder with no `SKILL.md` inside is exactly that. Step 6 does not need it.
+**No other skill is required.** Step 6 writes the generated skill itself and carries everything it needs inline. Two skills make it better if they happen to be installed, and neither is worth installing solely for this:
+
+- **`writing-for-agents`** (`mattpocock-skills` plugin) — the reference Step 6's structure was derived from. Reading it adds the reasoning behind the structure; skipping it costs nothing, because the structure is spelled out.
+- **`skill-creator`** (official plugin marketplace) — a full draft→eval→iterate loop. Useful when you want to *measure* the generated skill, not to assemble it. Despite reading like a built-in it is a plugin, and a `~/.claude/skills/skill-creator/` folder with no `SKILL.md` inside means it is not installed.
 
 ## Architecture (two layers)
 
 ```
 voice-forge                       (this skill — runs once per creator)
    │
-   │  scrape → select+dedup → features.json → analyze → skill-creator
+   │  scrape → select+dedup → features.json → analyze → write skill
    ▼
 <name>-voice                      (the skill this produces — runs every post)
    │
@@ -29,14 +31,14 @@ finished post draft
 ```
 
 - **Layer 1 (this skill)** owns everything deterministic plus the one semantic step (voice analysis).
-- **Layer 2 (the generated skill)** is produced by the built-in `skill-creator` at step 6. Don't hand-write the second skill — delegate it.
+- **Layer 2 (the generated skill)** is written at step 6, to the structure specified there.
 
 ## The script / LLM split
 
 The whole design rests on a clean division of labor, and it's worth keeping intact because it's what makes the output trustworthy: scripts own everything *measurable*, so the LLM is never asked to do arithmetic it tends to get subtly wrong. The LLM owns only the semantic voice analysis and the final skill assembly.
 
 - **Scripts (deterministic):** fetching posts, selecting the 14 needed fields, deduplicating on `share_urn`, computing engagement percentiles, format distribution, top-30 selection, stratified sampling, opening/closing-line extraction.
-- **LLM (semantic only):** reading the feature digest plus the top-30 quoted posts to name rhetorical patterns and synthesize the VOICE PROFILE, then invoking `skill-creator`.
+- **LLM (semantic only):** reading the feature digest plus the top-30 quoted posts to name rhetorical patterns and synthesize the VOICE PROFILE, then writing the generated skill around it.
 
 If you ever find yourself about to ask the LLM to count, sum, average, or rank, stop — that belongs in a script. The LLM reads pre-computed numbers and reasons about *why* they look the way they do.
 
@@ -105,9 +107,11 @@ This is the **only** place the LLM does heavy semantic work.
 
 ### Step 6 — Write the skill
 
-Write `~/.claude/skills/<name>-voice/SKILL.md` yourself, using **`writing-for-agents`** as the reference for how to write it. Read that skill and its `SKILL-MECHANICS.md` first — the structure below is what applying it produces, and re-reading it catches what a template can't.
+Write `~/.claude/skills/<name>-voice/SKILL.md` yourself. Everything you need is below — this step has no dependency on any other skill.
 
-`skill-creator` is the alternative and it is optional (see *Requirements*). It is built to draft, eval and iterate a skill from a blank page; you are not starting from a blank page — you already hold a finished VOICE PROFILE and the contract below. Reach for it when you want its eval tooling, not to save effort here.
+If `writing-for-agents` is installed, read it and its `SKILL-MECHANICS.md` first: the structure below was derived from it, and the reasoning catches what a template can't. If it isn't installed, carry on — the structure is stated in full.
+
+`skill-creator` is for *measuring* a skill rather than assembling one: it drafts, evals and iterates from a blank page. You are starting from a finished VOICE PROFILE and the contract below, so its loop has nothing to add here.
 
 #### The generated skill is user-invoked
 
