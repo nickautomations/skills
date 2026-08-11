@@ -1,6 +1,6 @@
 # youtube-to-infographic
 
-A Claude skill that turns YouTube videos, articles, or pasted text into editorial-style infographics in the **Nick Automations design system** — heavy display typography, orange-slash separators, three-column layout, hand-coded SVG illustrations, soft CTA footer driving to nickautomations.com.
+A Claude skill that turns YouTube videos, articles, or pasted text into editorial-style infographics in the **Nick Automations design system** — heavy display typography, orange-slash separators, a layout chosen to fit the source, hand-coded SVG illustrations, soft CTA footer driving to nickautomations.com.
 
 Built and maintained by [Nick Automations](https://nickautomations.com).
 
@@ -76,6 +76,8 @@ Edit any of these to fork the design for your own brand.
 
 ## Troubleshooting
 
+**Windows opens the Microsoft Store instead of running the script** → Bare `python3` is a Store alias on Windows. Use `py -3 scripts/fetch_transcript.py "URL"` instead.
+
 **"RAPIDAPI_KEY is not set"** → Copy `skills/youtube-to-infographic/scripts/.env.example` to `skills/youtube-to-infographic/scripts/.env`, replace the placeholder key, then run the script again.
 
 **"RapidAPI returned HTTP 403"** → Your subscription expired or the key is wrong. Check the RapidAPI dashboard.
@@ -93,4 +95,4 @@ Edit any of these to fork the design for your own brand.
 
 ## License
 
-MIT. Fork it, modify it, use it. If you build something cool, [tell us](https://nickautomations.com).
+Apache 2.0 — see [LICENSE](../../LICENSE) at the repo root. Fork it, modify it, use it. If you build something cool, [tell us](https://nickautomations.com).
