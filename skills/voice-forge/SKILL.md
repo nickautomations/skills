@@ -11,7 +11,8 @@ This skill is a **meta-skill**: its output is *another* skill. The user invokes 
 
 - **Node.js 18+** — the scripts use the built-in `fetch`, so there's no `npm install`. If `node --version` is below 18, tell the user before running anything; the scripts will otherwise fail mid-run with an unhelpful error.
 - **`APIFY_API_TOKEN`** — in the environment, or in `scripts/.env` beside the fetch script. See Step 2. Never collected through chat or a form field.
-- **The `skill-creator` skill** — Step 6 delegates to it when it is available. It is *not* guaranteed to be: it ships in the official plugin marketplace rather than as a true built-in, so a Claude Code install that hasn't enabled that plugin has no `skill-creator` at all. Check before relying on it, and use the hand-assembly fallback in Step 6 if it's missing. An empty `~/.claude/skills/skill-creator/` directory does not count — look for a `SKILL.md` inside it.
+- **The `writing-for-agents` skill** — Step 6 writes the generated skill against it. Ships in the `mattpocock-skills` plugin. If it's absent, Step 6 still describes the structure to produce; you just lose the reasoning behind it.
+- **`skill-creator` is optional.** Despite reading like a built-in, it ships in the official plugin marketplace, so an install that hasn't enabled that plugin has no `skill-creator` at all — and a `~/.claude/skills/skill-creator/` folder with no `SKILL.md` inside is exactly that. Step 6 does not need it.
 
 ## Architecture (two layers)
 
@@ -102,29 +103,43 @@ This is the **only** place the LLM does heavy semantic work.
 - Save the output — a single block titled **VOICE PROFILE**, under 600 words — to `data/<username>/voice_profile.md`.
 - Skip this step when that file already exists, unless the user wants to re-analyze. Re-analysis is free: it reads the cached digest, so there is no re-scrape and no re-extract.
 
-### Step 6 — Build the skill via `skill-creator`
-Don't hand-write the new skill. Invoke the built-in **skill-creator** skill and hand it the materials below. Since you already have a finished VOICE PROFILE, ask skill-creator to generate and install the skill directly — you don't need its full draft→eval→iterate loop for this one-shot assembly.
+### Step 6 — Write the skill
 
-Hand `skill-creator`:
-- The VOICE PROFILE from `data/<username>/voice_profile.md`.
-- The target skill name (`<name>-voice`).
-- The behavioral contract the new skill must follow (below).
+Write `~/.claude/skills/<name>-voice/SKILL.md` yourself, using **`writing-for-agents`** as the reference for how to write it. Read that skill and its `SKILL-MECHANICS.md` first — the structure below is what applying it produces, and re-reading it catches what a template can't.
 
-> Create a skill called `<name>-voice`. Its single purpose: draft LinkedIn posts in the writing voice described in the VOICE PROFILE below.
->
-> The skill must, every time it is invoked:
-> 1. Use the AskUserQuestion tool to ask 2–3 questions tailored to this voice — enough to get the topic, angle, and any required specifics before drafting. Never draft with zero input.
-> 2. Produce 3 angle/hook options for the user to pick from, each matching the opening patterns in the VOICE PROFILE.
-> 3. After the user picks one, write the full caption in the cloned voice (matching sentence rhythm, line breaks, tone, structure) and describe what the media/image should contain.
-> 4. Never copy the source posts' wording — only their mechanics.
->
-> The entire VOICE PROFILE block below is the style spec. Embed it verbatim in the generated skill.
->
-> [PASTE THE FULL VOICE PROFILE HERE]
+`skill-creator` is the alternative and it is optional (see *Requirements*). It is built to draft, eval and iterate a skill from a blank page; you are not starting from a blank page — you already hold a finished VOICE PROFILE and the contract below. Reach for it when you want its eval tooling, not to save effort here.
 
-Let `skill-creator` produce and install the skill. **Done when** the generated `SKILL.md` exists on disk — read it back and confirm the VOICE PROFILE is embedded verbatim. Then tell the user the skill name, its install path, and the invocation (`/<name>-voice`).
+#### The generated skill is user-invoked
 
-**If `skill-creator` is unavailable** (see *Requirements*), don't stop — assemble the skill yourself and say that you did. Write `~/.claude/skills/<name>-voice/SKILL.md` with frontmatter whose `name` matches the folder exactly, a `description` that states both what it does and when to trigger it, the four numbered behaviours above as the body, and the full VOICE PROFILE embedded verbatim below them. The delegation exists to save effort and keep the assembly conventional, not because the output is beyond you. The outcome contract is unchanged: the file exists, the profile is verbatim, and the user can invoke it.
+Set `disable-model-invocation: true` and write a **human-facing** one-line `description`.
+
+This is the decision that scales. A model-invoked skill's description is a context pointer pinned in context every turn, forever, whether or not it fires. A voice skill only ever fires when its owner types it — nobody asks an agent to autonomously decide to sound like a particular person. Clone five creators with descriptions and you have five permanent always-loaded pointers competing for attention, all to save typing a name. Pay the cognitive load instead: the user remembers the skill exists, which they do anyway, because they chose the creator.
+
+#### Structure
+
+Two leading words carry the generated skill; name them explicitly and reuse them as tokens throughout.
+
+- **Mode** — the 3–6 recurring post types in the VOICE PROFILE (a launch, a metric, a tribute, a thesis…). One table maps each mode to its opening pattern and a word band. Modes are the branches, and the table is their single source of truth — state each band once, there, and let the steps refer to it.
+- **Spine** — the creator's recurring skeleton, written as beats: `name the thing → what it does → widen → exit`. Every mode writes to the same spine.
+
+Then the steps, each closing on a checkable completion criterion:
+
+1. **Fix the mode** — AskUserQuestion, 2–3 questions: which mode, the concrete noun or number the post is built on, and how it exits. *Done when* you can name the mode and the concrete detail. Ask again rather than inventing the detail.
+2. **Offer three hooks** — each from a *different* opening pattern. *Done when* three exist, each from a different pattern, none over two lines.
+3. **Draft** — on the spine, inside the mode's band. *Done when* all beats appear in order and the draft sits in the band.
+4. **Describe the media** — weight the suggestion by the digest's `format_distribution`. *Done when* the media line names what is on screen.
+
+Then the drafting rules, then the full VOICE PROFILE embedded verbatim under its own heading.
+
+#### Write the rules positively
+
+State the target behaviour rather than the ban. A prohibition drags the banned thing into context and makes it *more* available — "no emojis" puts emojis in the model's head.
+
+The move is to make the allowed set exhaustive, which closes the door without naming what's outside it: *"Warmth is punctuation and one word: a single exclamation mark, and `super` at most once, are the entire inventory."* That bans emojis without the word "emoji" appearing.
+
+The VOICE PROFILE's own **What they avoid** section is the exception and stays as written — it is reference *describing* the voice for the agent to reason about, not an instruction steering it.
+
+**Done when** the file exists at `~/.claude/skills/<name>-voice/SKILL.md`, its frontmatter `name` matches the folder exactly, `disable-model-invocation: true` is set, and the VOICE PROFILE is embedded verbatim — read it back and confirm. Then tell the user the skill name, its path, and that they invoke it with `/<name>-voice`.
 
 Step 6 has no skip check — it always runs, regenerating from the cached voice profile. So if the user dislikes the voice, they edit `data/<username>/voice_profile.md` (or re-run step 5) and step 6 rebuilds the skill with no re-scrape and no further Apify charge.
 
