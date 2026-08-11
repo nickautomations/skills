@@ -36,10 +36,15 @@ desktop.ini
 
 # Build artifacts
 *.skill
+skills/*.zip
 dist/
 build/
 out/
 .agents/
+
+# Skill run artifacts (generated locally, never committed)
+skills/*/outputs/
+skills/*/data/
 
 # Logs
 *.log

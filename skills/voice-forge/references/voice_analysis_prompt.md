@@ -1,8 +1,8 @@
 # Voice Analysis Prompt
 
 > **This is an internal asset of the `voice-forge` skill. The user never sees it.**
-> The orchestrator reads `data/features.json`, then applies this prompt to produce
-> a single VOICE PROFILE block saved to `data/voice_profile.md`.
+> The orchestrator reads `data/<username>/features.json`, then applies this prompt to
+> produce a single VOICE PROFILE block saved to `data/<username>/voice_profile.md`.
 
 ---
 

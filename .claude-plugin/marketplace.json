@@ -10,8 +10,8 @@
     {
       "name": "content-skills",
       "displayName": "Content Skills",
-      "description": "Skills for generating branded content — infographics, design assets, editorial pieces in the Nick Automations design system.",
-      "skills": ["youtube-to-infographic"]
+      "description": "Skills for generating branded content — infographics, design assets, editorial pieces in the Nick Automations design system, and LinkedIn posts written in a cloned creator voice.",
+      "skills": ["voice-forge", "youtube-to-infographic"]
     }
   ]
 }
