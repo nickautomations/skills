@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased]
 
 ### Added
+- `voice-forge` reads `APIFY_API_TOKEN` from `scripts/.env` as well as the environment, matching how `youtube-to-infographic` already handles its key. The file is resolved relative to the script, so it works from any working directory, and a real environment variable still takes precedence. Ships with `scripts/.env.example`. The token is still never accepted as a CLI argument — that would leak it into shell history and process listings.
 - `voice-forge` skill: clone any LinkedIn creator's writing voice into a reusable Agent Skill. Scrapes posts via Apify, distills deterministic features, analyzes voice, then delegates to the built-in skill-creator to install the output skill. Claude Code only.
 - `voice-forge` is now listed in the `content-skills` marketplace bundle, so it installs via `/plugin install content-skills@nick-automations-skills`.
 - `scripts/validate_skills.py` now fails CI when `skills/` and `.claude-plugin/marketplace.json` disagree — a new skill can no longer ship invisible to marketplace installs.

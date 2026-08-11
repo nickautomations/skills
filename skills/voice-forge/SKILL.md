@@ -10,7 +10,7 @@ This skill is a **meta-skill**: its output is *another* skill. The user invokes 
 ## Requirements
 
 - **Node.js 18+** — the scripts use the built-in `fetch`, so there's no `npm install`. If `node --version` is below 18, tell the user before running anything; the scripts will otherwise fail mid-run with an unhelpful error.
-- **`APIFY_API_TOKEN`** in the environment — see Step 2. Never collected through chat or a form field.
+- **`APIFY_API_TOKEN`** — in the environment, or in `scripts/.env` beside the fetch script. See Step 2. Never collected through chat or a form field.
 - **The built-in `skill-creator` skill** — Step 6 delegates to it.
 
 ## Architecture (two layers)
@@ -63,9 +63,10 @@ Each script skips its own work when its output already exists, and redoes it whe
 Parse the profile URL/username the user gave you. The actor's `usernames` field accepts a username (`satyanadella`), member ID, or full URL. Extract the username segment (`linkedin.com/in/<this>`). Confirm the skill name.
 
 ### Step 2 — Check the Apify token
-Check for the `APIFY_API_TOKEN` environment variable.
-- If **present**: proceed silently.
-- If **absent**: tell the user exactly how to set it, then stop. Never ask them to paste the token into chat, never put it in a form field, never log it. Example message: *"I need an Apify API token to scrape posts. Create one at https://console.apify.com/account/integrations, then set it as an environment variable: `APIFY_API_TOKEN=your_token_here`. Restart your Claude client so it picks up the variable, then tell me to continue."* Then wait.
+The token comes from one of two places, checked in this order: the `APIFY_API_TOKEN` environment variable, then `scripts/.env` beside the fetch script. A shell variable always overrides the file. The script resolves `.env` relative to its own location, so it is found regardless of which directory you invoke from.
+
+- If **either is set**: proceed silently.
+- If **neither**: tell the user how to set one, then stop and wait. The token belongs in the environment or in `.env` — never in chat, never in a form field, never in a log, and never as a CLI argument, which would leak it into shell history. Example message: *"I need an Apify API token to scrape posts. Create one at https://console.apify.com/account/integrations, then either copy `scripts/.env.example` to `scripts/.env` and put the token there, or set `APIFY_API_TOKEN` in your environment and restart your Claude client. Tell me when it's in place."*
 
 ### Step 3 — Fetch the posts
 Run the fetch script. It calls the Apify HTTP API directly (no MCP dependency) and writes the raw dataset.

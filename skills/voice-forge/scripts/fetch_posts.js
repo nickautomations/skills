@@ -8,8 +8,10 @@
  * Usage:
  *   node fetch_posts.js --username <linkedinUsernameOrUrl> --max 100 --out data/<username>/raw_posts.json
  *
- * Requires the APIFY_API_TOKEN environment variable. The token is NEVER
- * accepted as a CLI argument, NEVER logged, and NEVER written to the output.
+ * Requires APIFY_API_TOKEN, read from the environment or from scripts/.env
+ * beside this file. The token is NEVER accepted as a CLI argument, NEVER
+ * logged, and NEVER written to the output — an argument would leak it into
+ * shell history and process listings.
  *
  * Resume logic: if --out already exists, the script exits 0 with a notice
  * instead of re-scraping (and re-charging Apify).
@@ -21,6 +23,30 @@ const path = require("path");
 // --- Actor identifier ---------------------------------------------------
 const ACTOR_ID = "capable_cauldron~linkedin-profile-posts-scraper";
 const API_BASE = "https://api.apify.com/v2";
+
+// --- Credentials ---------------------------------------------------------
+// Read scripts/.env beside this file, so the token is found no matter which
+// directory the script is invoked from. A real environment variable wins, so
+// setting APIFY_API_TOKEN in the shell always overrides the file.
+function loadEnvFile() {
+  const envPath = path.join(__dirname, ".env");
+  if (!fs.existsSync(envPath)) return;
+
+  for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const eq = trimmed.indexOf("=");
+    if (eq === -1) continue;
+
+    const key = trimmed.slice(0, eq).trim();
+    let value = trimmed.slice(eq + 1).trim();
+    if (value.length >= 2 && value[0] === value[value.length - 1] && (value[0] === '"' || value[0] === "'")) {
+      value = value.slice(1, -1);
+    }
+    if (key && process.env[key] === undefined) process.env[key] = value;
+  }
+}
 
 // --- Argument parsing ---------------------------------------------------
 function parseArgs(argv) {
@@ -139,12 +165,14 @@ async function main() {
     return;
   }
 
+  loadEnvFile();
   const token = process.env.APIFY_API_TOKEN;
   if (!token) {
     console.error(
-      "Error: APIFY_API_TOKEN environment variable is not set.\n" +
-        "Create a token at https://console.apify.com/account/integrations,\n" +
-        "then set it in your environment and restart Claude Code."
+      "Error: APIFY_API_TOKEN is not set.\n" +
+        "Create a token at https://console.apify.com/account/integrations, then either:\n" +
+        "  - copy scripts/.env.example to scripts/.env and put the token there, or\n" +
+        "  - set APIFY_API_TOKEN in your environment and restart Claude Code."
     );
     process.exit(3);
   }
