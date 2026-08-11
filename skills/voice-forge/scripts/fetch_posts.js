@@ -28,8 +28,10 @@ const API_BASE = "https://api.apify.com/v2";
 // Read scripts/.env beside this file, so the token is found no matter which
 // directory the script is invoked from. A real environment variable wins, so
 // setting APIFY_API_TOKEN in the shell always overrides the file.
+const ENV_PATH = path.join(__dirname, ".env");
+
 function loadEnvFile() {
-  const envPath = path.join(__dirname, ".env");
+  const envPath = ENV_PATH;
   if (!fs.existsSync(envPath)) return;
 
   for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
@@ -170,9 +172,10 @@ async function main() {
   if (!token) {
     console.error(
       "Error: APIFY_API_TOKEN is not set.\n" +
-        "Create a token at https://console.apify.com/account/integrations, then either:\n" +
-        "  - copy scripts/.env.example to scripts/.env and put the token there, or\n" +
-        "  - set APIFY_API_TOKEN in your environment and restart Claude Code."
+        "Get a token at https://console.apify.com/account/integrations, then do either:\n" +
+        `  - put this line in ${ENV_PATH}\n` +
+        "        APIFY_API_TOKEN=your_token_here\n" +
+        "  - or set APIFY_API_TOKEN in your environment and restart Claude Code."
     );
     process.exit(3);
   }
