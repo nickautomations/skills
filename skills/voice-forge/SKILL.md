@@ -11,7 +11,7 @@ This skill is a **meta-skill**: its output is *another* skill. The user invokes 
 
 - **Node.js 18+** — the scripts use the built-in `fetch`, so there's no `npm install`. If `node --version` is below 18, tell the user before running anything; the scripts will otherwise fail mid-run with an unhelpful error.
 - **`APIFY_API_TOKEN`** — in the environment, or in `scripts/.env` beside the fetch script. See Step 2. Never collected through chat or a form field.
-- **The built-in `skill-creator` skill** — Step 6 delegates to it.
+- **The `skill-creator` skill** — Step 6 delegates to it when it is available. It is *not* guaranteed to be: it ships in the official plugin marketplace rather than as a true built-in, so a Claude Code install that hasn't enabled that plugin has no `skill-creator` at all. Check before relying on it, and use the hand-assembly fallback in Step 6 if it's missing. An empty `~/.claude/skills/skill-creator/` directory does not count — look for a `SKILL.md` inside it.
 
 ## Architecture (two layers)
 
@@ -87,7 +87,9 @@ Run the feature extractor. It writes the deterministic digest the analysis step 
 node scripts/extract_features.js --in "data/<username>/raw_posts.json" --out "data/<username>/features.json"
 ```
 
-What it does, in one pass: drops reposts and text-less posts, dedups on `share_urn` (falling back to exact post text when the URN is missing), keeps the 14 fields listed under *Source Actor Contract*, and computes every stat. Same `--force` semantics as step 3.
+What it does, in one pass: drops reposts, text-less posts and **posts written by someone other than the target creator**, dedups on `share_urn` (falling back to exact post text when the URN is missing), keeps the 14 fields listed under *Source Actor Contract*, and computes every stat. Same `--force` semantics as step 3.
+
+The foreign-author drop is the one to watch. Read the `authorship` block it writes into `features.json` and report `dropped_foreign_author` to the user — if it is a large share of the scrape, the creator's own post count may fall under the volume floor even though the raw scrape looked big enough. See *Guardrails*.
 
 This step replaces what would otherwise be a "cleaning" stage — the source actor already pre-enriches 55 fields, so we only *select + dedup*, never transform.
 
@@ -122,6 +124,8 @@ Hand `skill-creator`:
 
 Let `skill-creator` produce and install the skill. **Done when** the generated `SKILL.md` exists on disk — read it back and confirm the VOICE PROFILE is embedded verbatim. Then tell the user the skill name, its install path, and the invocation (`/<name>-voice`).
 
+**If `skill-creator` is unavailable** (see *Requirements*), don't stop — assemble the skill yourself and say that you did. Write `~/.claude/skills/<name>-voice/SKILL.md` with frontmatter whose `name` matches the folder exactly, a `description` that states both what it does and when to trigger it, the four numbered behaviours above as the body, and the full VOICE PROFILE embedded verbatim below them. The delegation exists to save effort and keep the assembly conventional, not because the output is beyond you. The outcome contract is unchanged: the file exists, the profile is verbatim, and the user can invoke it.
+
 Step 6 has no skip check — it always runs, regenerating from the cached voice profile. So if the user dislikes the voice, they edit `data/<username>/voice_profile.md` (or re-run step 5) and step 6 rebuilds the skill with no re-scrape and no further Apify charge.
 
 ## Source Actor Contract (do not drift)
@@ -132,6 +136,7 @@ The scraper is **`capable_cauldron/linkedin-profile-posts-scraper`**. Hard facts
 - **Pricing:** $0.003/post + $0.01/profile → 100 posts ≈ $0.31.
 - **No cookies required** — public-profile scraping only.
 - **55 pre-enriched fields** per post. We use only 14 (`SELECT_FIELDS` in `scripts/extract_features.js` is the source of truth). Read the fields the actor already provides — engagement totals, word counts, ISO dates, format flags — rather than recomputing them.
+- **The scrape is not single-author.** The actor returns everything on the profile's activity feed, which includes posts *written by other people*. They arrive with `is_repost: false`, so the repost filter never catches them. A 150-post `satyanadella` scrape contained 34 posts (23%) by fourteen other people — colleagues and fellow executives. `extract_features.js` drops them by comparing `author_username` against `profile_username`, both of which the actor supplies per post. Budget for the loss: scrape roughly 1.4× the number of posts you actually need.
 
 The 14 fields used: `text`, `posted_date_iso`, `content_category`, `media_type`, `total_engagement`, `reaction_like`, `reaction_love`, `reaction_celebrate`, `reaction_insight`, `num_comments`, `word_count`, `is_repost`, `share_urn`, `post_url`.
 
@@ -139,6 +144,7 @@ The 14 fields used: `text`, `posted_date_iso`, `content_category`, `media_type`,
 
 - **Volume floor.** `features.json` reports `volume_check.meets_floor`, true at 80+ usable posts. When it is `false`, tell the user the count, say plainly that voice patterns won't surface reliably at that size, and ask whether to proceed. The output is only as distinctive as the sample behind it — a weak sample gets an explicit warning, never a silent build.
 - **Dedup is mandatory.** LinkedIn emits multiple activity URNs per share (edits, re-feeds). Dedup stays inside `extract_features.js`, keyed on `share_urn` — without it engagement double-counts and the top-30 list repeats posts.
+- **One author, or it isn't a voice.** Every post in the digest must be written by the target creator. This is not a nicety: on the `satyanadella` run, leaving the other authors in moved median words from 38.5 to 50.5, and — worse — inflated the emoji rate from 0.01 to 0.14 per post and the hashtag rate from 0 to 0.1, because the colleagues use emojis and hashtags and he does not. The profile would have taught the generated skill habits the creator simply does not have. Never relax the author filter to hit the volume floor; scrape more posts instead.
 - **No credential leakage.** The token stays in the environment. It never appears in chat, in logs, in a comment, or in a generated file.
 - **Tool scope.** This skill is built for the Claude skill ecosystem (Claude Code / Cowork). The generated `<name>-voice` skill installs into the same place. Don't claim it works somewhere it doesn't.
 - **Honesty.** If a step fails (actor down, profile too small, token invalid), say so plainly. Don't fabricate a voice profile from thin air.
