@@ -1,0 +1,923 @@
+THE AI
+BUILDERS Home The course Journal
+Start building ↗ ← Back to the journal BUILDING — 12 min read
+The Human Claude Content Guide
+A five-skill writing system for strategy, persuasion, copy, natural editing and a reusable voice.
+TB Aug 13, 2026
+THE BUILDERS JOURNAL
+14 / THE BUILDERS JOURNAL
+MAKE
+IT
+HUMAN
+A practical field guide for builders who want a clear path from idea to useful output.
+The problem is usually the setup
+Generic AI writing is often a system problem. The prompt has no audience, voice samples, strategic goal, examples, copy rules or editing process. A useful content stack uses five capabilities in order: content strategy, marketing psychology, copywriting, humanizer and skill creator. The point is not to make Claude impersonate a person. It is to give the work a point of view and a repeatable quality bar.
+Strategy Choose what to say for this audience and goal.
+Psychology Choose why the angle should matter without manipulation.
+Copy Improve hook, promise, proof, CTA and flow.
+Humanizer Remove generic, inflated or robotic patterns.
+Skill Creator Turn your voice and workflow into reusable instructions.
+Source details: 5 Claude Skills to make your content sound more human, persuasive, and strategic
+A practical guide for creators, founders, marketers, copywriters, agency owners, and anyone tired of generic AI writing.
+Brand:
+Instagram:
+Keyword: Comment HUMAN to get this guide
+Best used with: Claude, Claude Code, Claude Skills, GitHub skills, reusable writing examples, and your own content voice
+Source details: Quick links to every Skill mentioned
+Use this section first. These are the exact repositories and Skill links mentioned in the carousel.
+Skill
+Repository
+Direct Skill link
+Install command
+Humanizer
+https://github.com/blader/humanizer
+https://github.com/blader/humanizer/blob/main/SKILL.md
+npx skills add blader/humanizer --global
+Copywriting
+https://github.com/coreyhaines31/marketingskills
+https://github.com/coreyhaines31/marketingskills/blob/main/skills/copywriting/SKILL.md
+npx skills add coreyhaines31/marketingskills --skill copywriting
+Marketing Psychology
+https://github.com/coreyhaines31/marketingskills
+https://github.com/coreyhaines31/marketingskills/blob/main/skills/marketing-psychology/SKILL.md
+npx skills add coreyhaines31/marketingskills --skill marketing-psychology
+Content Strategy
+https://github.com/coreyhaines31/marketingskills
+https://github.com/coreyhaines31/marketingskills/blob/main/skills/content-strategy/SKILL.md
+npx skills add coreyhaines31/marketingskills --skill content-strategy
+Skill Creator
+https://github.com/anthropics/skills
+https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md
+npx skills add https://github.com/anthropics/skills --skill skill-creator
+Optional install page links:
+Skill
+Skills directory page
+Copywriting
+https://www.skills.sh/coreyhaines31/marketingskills/copywriting
+Marketing Psychology
+https://www.skills.sh/coreyhaines31/marketingskills/marketing-psychology
+Content Strategy
+https://www.skills.sh/coreyhaines31/marketingskills/content-strategy
+Skill Creator
+https://www.skills.sh/anthropics/skills/skill-creator
+Source details: The brutal truth about "human-sounding" AI writing
+A lot of people try to humanize AI text at the end.
+That helps, but it is not enough.
+If the idea is weak, Humanizer will only make a weak idea sound less robotic.
+The real system is:
+Strategy first.
+Psychology second.
+Copywriting third.
+Humanizer fourth.
+Custom voice last. That order matters.
+If you start with Humanizer, you are polishing a draft before knowing whether the draft is worth publishing.
+Do not do that.
+Source details: The recommended workflow
+Use the 5 Skills in this order.
+Source details: Step 1: Content Strategy
+Use this to decide what you should create.
+Ask:
+What content should I create for this audience, goal, and offer?
+Source details: Step 2: Marketing Psychology
+Use this to decide why the message should work.
+Ask:
+What psychological principle makes this angle compelling without becoming manipulative?
+Source details: Step 3: Copywriting
+Use this to turn the idea into stronger copy.
+Ask:
+Improve the hook, promise, proof, CTA, and overall persuasion.
+Source details: Step 4: Humanizer
+Use this to remove AI tells.
+Ask:
+Make this sound more natural, specific, and human without adding unsupported facts.
+Source details: Step 5: Skill Creator
+Use this to turn your own voice and workflow into a reusable Skill.
+Ask:
+Create a custom Skill from my examples, voice rules, structure, and formatting preferences. This is how you move from random prompting to a repeatable writing system.
+Source details: Skill 01: Humanizer
+Source details: Repository
+Repo: https://github.com/blader/humanizer
+Direct Skill file: https://github.com/blader/humanizer/blob/main/SKILL.md
+Install: npx skills add blader/humanizer --global
+Source details: What it helps remove
+Use Humanizer to clean up:
+1. Inflated language
+Bad:
+This groundbreaking system empowers users to unlock unprecedented productivity. Better:
+This helps users get more done with less manual work. 2. Generic filler
+Bad:
+In today's fast-paced digital landscape, businesses must leverage innovative solutions. Better:
+Most teams waste hours moving the same information between tools. 3. Forced contrasts
+Bad:
+It is not just a tool, it is a transformation. Better:
+It works best when you use it for one repeated workflow. 4. Repetitive structure
+Bad:
+It saves time. It improves output. It increases productivity. It helps teams work smarter. Better:
+It saves time by turning repeated work into a reusable workflow. 5. Robotic transitions
+Bad:
+Furthermore, it is important to note that... Better:
+The important part is... 6. Overused AI phrases
+Watch for phrases like:
+unlock potential
+seamless experience
+cutting-edge
+robust solution
+game-changing
+transformative
+empowers users
+dynamic landscape
+These can be useful occasionally, but repeated together they make content sound machine-written.
+Source details: Humanizer prompt
+Paste this after drafting content.
+Use the Humanizer Skill on this draft.
+Goal:
+Make it sound more natural, specific, and human.
+Rules:
+1. Remove obvious AI tells.
+2. Keep the core meaning.
+3. Do not add unsupported facts.
+4. Do not make it overly casual.
+5. Preserve my point of view.
+6. Cut filler.
+7. Make sentences more varied.
+8. Keep it clear and direct.
+Draft:
+[Paste draft]
+Source details: Humanizer with voice calibration
+Use this when you want the rewrite closer to your own style.
+Use the Humanizer Skill.
+Here is a sample of my writing style:
+[Paste 2 to 3 examples of your own writing]
+Now humanize this draft so it sounds closer to my style:
+[Paste draft]
+Keep the meaning.
+Do not add facts.
+Do not over-polish.
+Keep it sharp and natural.
+Strategy before wording
+Start by deciding the audience, problem, offer, content pillar and desired action. Then identify the psychological tension: what does the reader believe, fear, want or misunderstand? Only after that should the Copywriting pass strengthen the message. If the idea is weak, a Humanizer can only make weak thinking sound smoother.
+Audience Who is this for and what do they already know?
+Tension What desire, obstacle or belief makes the message relevant?
+Proof What evidence or example supports the claim?
+CTA What is the natural next action?
+Source details: Quality checklist
+Before publishing, ask:
+Does it sound like a person wrote it?
+Is there a clear point of view?
+Did it remove vague AI phrasing?
+Did it preserve meaning?
+Did it avoid adding fake specificity?
+Is the final version shorter and clearer?
+If the answer is no, run another pass.
+Source details: Skill 02: Copywriting
+Source details: Repository
+Repo: https://github.com/coreyhaines31/marketingskills
+Direct Skill file: https://github.com/coreyhaines31/marketingskills/blob/main/skills/copywriting/SKILL.md
+Install: npx skills add coreyhaines31/marketingskills --skill copywriting
+Source details: The core copy structure
+A simple structure that works well:
+Problem -> Promise -> Proof -> CTA Problem
+Name what the audience already feels.
+Example:
+Your AI drafts sound polished but generic. Promise
+Show what improves.
+Example:
+Use Skills to make Claude write with strategy, voice, and structure. Proof
+Make the claim more believable.
+Example:
+The workflow uses reusable Skills for strategy, psychology, copywriting, humanizing, and custom voice. CTA
+Tell them what to do next.
+Example:
+Comment HUMAN and I will send you the full guide.
+Source details: Weak CTA vs stronger CTA
+Weak:
+Learn more Stronger:
+See the full setup Weak:
+Get started Stronger:
+Build your first content Skill Weak:
+Contact us Stronger:
+Book a 15-minute strategy call The stronger CTA tells the reader what will happen next.
+Source details: Copywriting prompt
+Use this when improving a page, post, or offer.
+Use the Copywriting Skill to improve this copy.
+Context:
+[What this is for]
+Audience:
+[Who this is for]
+Goal:
+[What action should they take?]
+Offer:
+[What is being offered]
+Proof:
+[Testimonials, metrics, examples, or credibility points]
+Current copy:
+[Paste copy]
+Please improve:
+1. Hook
+2. Problem
+3. Promise
+4. Proof
+5. CTA
+6. Clarity
+7. Specificity
+8. Objection handling
+Give me:
+- improved version
+- what changed
+- why it is stronger
+- 3 alternate hooks
+- 3 CTA options
+Source details: Copywriting review prompt
+Use this before publishing.
+Review this copy like a conversion copywriter.
+Check:
+1. Is the problem clear?
+2. Is the promise specific?
+3. Is the proof believable?
+4. Is the CTA obvious?
+5. Is there unnecessary filler?
+6. Is the value clear in 5 seconds?
+7. Does the copy match the audience's actual language?
+Draft:
+[Paste copy]
+Give me:
+- score out of 10
+- biggest weakness
+- what to cut
+- what to rewrite
+- final improved version
+Source details: Quality checklist
+Good copy should be:
+clear
+specific
+easy to skim
+audience-aware
+benefit-driven
+believable
+action-oriented
+free from empty hype
+If your copy sounds smart but does not make action easier, it is not good copy.
+Source details: Skill 03: Marketing Psychology
+Source details: Repository
+Repo: https://github.com/coreyhaines31/marketingskills
+Direct Skill file: https://github.com/coreyhaines31/marketingskills/blob/main/skills/marketing-psychology/SKILL.md
+Install: npx skills add coreyhaines31/marketingskills --skill marketing-psychology
+Source details: Useful principles to apply
+Framing
+How you present the same idea changes how it is perceived.
+Example:
+Instead of "AI helps you write faster," try "AI helps you stop starting from a blank page." Social proof
+People trust what other people have already validated.
+Example:
+Used by 200 agency owners to repurpose sales calls into content. Only use this if it is true.
+Anchoring
+The first number, comparison, or reference point shapes judgment.
+Example:
+Instead of spending 4 hours rewriting a post, use this 10-minute editing workflow. Curiosity
+A useful gap makes people want to continue.
+Example:
+Most AI writing sounds fake because it skips one step. Loss aversion
+People often act faster to avoid a loss than to gain a benefit.
+Example:
+You are not just saving time. You are stopping generic content from weakening trust. Specificity
+Specific claims are easier to believe than vague claims.
+Bad:
+Improve your content. Better:
+Turn one rough idea into a hook, outline, caption, and CTA. Decision friction
+People avoid action when the next step is unclear or feels risky.
+Bad:
+Get started now. Better:
+Comment HUMAN and I will send you the setup guide.
+Source details: Marketing Psychology prompt
+Use the Marketing Psychology Skill on this message.
+Context:
+[What this message is for]
+Audience:
+[Who will see it]
+Goal:
+[What action should they take]
+Draft:
+[Paste message]
+Analyze:
+1. Which psychological principles apply?
+2. Which principle fits best?
+3. What is the current weakness?
+4. Where is the decision friction?
+5. What would make this more specific?
+6. What would make this more trustworthy?
+7. What should be removed because it feels manipulative?
+Then rewrite the message using the best-fitting principle.
+Source details: Psychology selection prompt
+Use this when you are choosing an angle.
+I want to create content about:
+[Topic]
+Audience:
+[Audience]
+Goal:
+[Goal]
+Use the Marketing Psychology Skill to suggest 5 possible angles using:
+- curiosity
+- loss aversion
+- framing
+- specificity
+- social proof
+- contrast
+- decision friction
+For each angle, give:
+1. Hook
+2. Why it works
+3. Risk if overdone
+4. More ethical version
+Source details: Quality checklist
+Before using a psychology-driven message, check:
+Is the claim true?
+Is the promise believable?
+Is the audience respected?
+Is the principle relevant?
+Is the message clearer, not just more persuasive?
+Would I stand behind this publicly?
+If not, do not use it.
+Humanizer as a final pass
+Use a Humanizer when the draft is inflated, vague, repetitive, overly polished or full of generic AI phrasing. Ask it to preserve meaning, remove filler, add specificity only from supplied facts and flag unsupported claims. Do not use it to invent stories, personality or proof. The strongest voice comes from your examples, decisions and point of view.
+Remove Inflated language, filler, repetitive transitions and vague claims.
+Preserve Facts, meaning, examples and the author's real voice.
+Flag Claims that need evidence rather than smoothing them over.
+Source details: Skill 04: Content Strategy
+Source details: Repository
+Repo: https://github.com/coreyhaines31/marketingskills
+Direct Skill file: https://github.com/coreyhaines31/marketingskills/blob/main/skills/content-strategy/SKILL.md
+Install: npx skills add coreyhaines31/marketingskills --skill content-strategy
+Source details: The content strategy hierarchy
+Use this order:
+Audience -> Problem -> Promise -> Pillars -> Angles -> Formats -> Calendar Audience
+Who is this for?
+Problem
+What do they actually struggle with?
+Promise
+What do you help them do better?
+Pillars
+What topics should you be known for?
+Angles
+What point of view makes the topic interesting?
+Formats
+What form should the content take?
+Calendar
+How do you publish consistently?
+Source details: Example content pillars
+For , example pillars could be:
+AI
+Business systems
+Creator growth Each pillar needs angles.
+AI
+Possible angles:
+practical workflows
+Claude systems
+AI agents
+prompt systems
+tool breakdowns
+Business systems
+Possible angles:
+SOPs
+automation
+lead generation
+team workflows
+dashboards
+Creator growth
+Possible angles:
+content strategy
+hooks
+formats
+thumbnails
+personal brand systems
+repurposing
+Source details: Content Strategy prompt
+Use the Content Strategy Skill.
+Business:
+[What you do]
+Audience:
+[Who you serve]
+Offer:
+[What you sell or want people to care about]
+Goal:
+[Traffic, followers, leads, trust, sales, authority, education]
+Current content:
+[What you post now]
+Constraints:
+[Time, format, team, platform]
+Create:
+1. 3 to 5 content pillars
+2. 10 topic ideas per pillar
+3. 5 strong angles
+4. A 2-week content calendar
+5. 5 repeatable series concepts
+6. Repurposing plan
+7. What not to post
+Source details: Blank page to content plan prompt
+I am staring at a blank page.
+Use the Content Strategy Skill to help me decide what to create.
+Here is my context:
+- Audience:
+- Offer:
+- Expertise:
+- Current goal:
+- Platform:
+- Topics I can talk about:
+- Topics I should avoid:
+Give me:
+1. Best content pillar to focus on
+2. 10 post ideas
+3. 5 hooks
+4. 3 carousel ideas
+5. 3 reel ideas
+6. 1 weekly content plan
+7. What I should create first and why
+Source details: Quality checklist
+Good content strategy should answer:
+Who is this for?
+Why should they care?
+What should I be known for?
+What content builds trust?
+What content drives action?
+What should I repeat?
+What should I stop posting?
+If your content strategy is just a list of topics, it is incomplete.
+Source details: Skill 05: Skill Creator
+Source details: Repository
+Repo: https://github.com/anthropics/skills
+Direct Skill file: https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md
+Install: npx skills add https://github.com/anthropics/skills --skill skill-creator
+Source details: What to feed it
+Create a folder called:
+my-voice/ Inside it, add:
+my-voice/
+best-posts.md
+bad-phrases.md
+voice-rules.md
+structure-rules.md
+formatting-rules.md
+audience-context.md
+examples/
+Source details: What each file should contain
+best-posts.md
+Add 5 to 10 of your best posts.
+Choose posts that:
+performed well
+sound like you
+have a clear point of view
+represent the tone you want to repeat
+match the audience you want to attract
+bad-phrases.md
+List phrases you do not want Claude to use.
+Example:
+# Phrases to avoid
+- unlock your potential
+- in today's fast-paced world
+- game-changing
+- transformative
+- seamless
+- cutting-edge
+- delve
+- robust
+- leverage
+- elevate voice-rules.md
+Write your voice rules.
+Example:
+# Voice Rules
+- Be direct.
+- Use simple words.
+- Avoid corporate language.
+- Make one strong point at a time.
+- Use specific examples.
+- Do not over-explain.
+- Do not sound motivational unless the idea has substance.
+- Keep the tone practical and founder-focused. structure-rules.md
+Write how you like content structured.
+Example:
+# Structure Rules
+For educational posts:
+1. Start with a sharp claim.
+2. Name the mistake.
+3. Explain the better system.
+4. Give examples.
+5. End with a clear takeaway.
+For carousels:
+1. Hook slide
+2. Problem slide
+3. Framework slide
+4. Tactical examples
+5. Summary
+6. CTA formatting-rules.md
+Write your format preferences.
+Example:
+# Formatting Rules
+- Use short paragraphs.
+- Avoid walls of text.
+- Use bullets only when they improve clarity.
+- Keep captions skimmable.
+- Put the main idea near the top.
+- CTA should be clear and natural. audience-context.md
+Write who the content is for.
+Example:
+# Audience Context
+This content is for founders, creators, marketers, agency owners, operators, and AI-curious professionals.
+They want practical AI systems, not hype.
+They care about:
+- saving time
+- improving output
+- building workflows
+- creating better content
+- growing their business
+- avoiding generic AI results
+They dislike:
+- vague motivation
+- obvious AI writing
+- fake guru content
+- bloated frameworks
+- tools with no use case
+Source details: Skill Creator prompt
+Paste this after creating the files above.
+Use the Skill Creator Skill.
+I want to create a custom content voice Skill.
+Goal:
+Help Claude write and edit content in my voice.
+Use these files:
+- best-posts.md
+- bad-phrases.md
+- voice-rules.md
+- structure-rules.md
+- formatting-rules.md
+- audience-context.md
+- examples/
+Create:
+1. A folder structure for the Skill
+2. SKILL.md
+3. Clear trigger description
+4. Voice rules
+5. Structure rules
+6. Editing rules
+7. Example prompts
+8. Quality checklist
+9. Test cases
+The Skill should help Claude create better first drafts and edit existing drafts to sound more like me.
+Source details: Custom voice SKILL.md starter
+Use this if you want a simple manual version.
+# My Voice Content Skill
+## Description
+Use this Skill whenever I ask Claude to write, rewrite, edit, or improve content in my voice for social posts, scripts, captions, carousels, newsletters, or founder-led content.
+## Voice
+Write in a direct, practical, human style.
+The voice should be:
+- clear
+- sharp
+- simple
+- useful
+- specific
+- strategic
+- founder-focused
+Avoid:
+- generic AI language
+- hype
+- corporate jargon
+- long paragraphs
+- over-polished phrasing
+- fake urgency
+- unsupported claims
+## Audience
+The audience includes creators, founders, marketers, agency owners, operators, and AI-curious professionals who want practical systems.
+## Structure
+For educational content:
+1. Start with a strong claim or useful tension.
+2. Name the common mistake.
+3. Explain the better system.
+4. Give examples.
+5. End with a clear action or takeaway.
+## Editing rules
+When editing:
+1. Cut filler.
+2. Make the point sharper.
+3. Preserve meaning.
+4. Keep the tone human.
+5. Make the CTA clearer.
+6. Remove repeated phrasing.
+7. Do not add facts that were not provided.
+## Output
+When asked to create content, provide:
+- best hook
+- structured draft
+- caption if needed
+- CTA
+- 3 alternate hooks
+- final quality check
+Source details: Quality checklist
+Your custom voice Skill is working if:
+outputs sound closer to you
+Claude avoids your banned phrases
+drafts need fewer rewrites
+structure becomes more consistent
+hooks become sharper
+CTAs become clearer
+your examples influence the output
+the Skill activates only when relevant
+If it makes every post sound the same, the Skill is too rigid.
+If it barely changes anything, the instructions are too vague.
+Create your own content Skill
+Once you have examples you genuinely like, extract the patterns: sentence length, vocabulary, structure, rhythm, formatting, hooks, transitions and things you never say. Package those rules with examples, templates and a quality checklist. A Skill should make the next draft easier to start and easier to review. It should not become a rigid imitation of old work.
+Collect Five to fifteen strong examples and why each works.
+Extract Voice, structure, formatting, audience and quality rules.
+Test Run a new topic through the Skill and revise the instructions.
+Source details: Complete setup folder
+Use this folder structure if you want the full system.
+human-content-system/
+01-skills/
+humanizer/
+copywriting/
+marketing-psychology/
+content-strategy/
+skill-creator/
+02-voice/
+best-posts.md
+bad-phrases.md
+voice-rules.md
+structure-rules.md
+formatting-rules.md
+audience-context.md
+03-content-context/
+audience.md
+offer.md
+content-pillars.md
+proof.md
+examples.md
+04-workflows/
+reel-script-workflow.md
+carousel-workflow.md
+caption-workflow.md
+landing-page-workflow.md
+email-workflow.md
+05-outputs/
+drafts/
+reviewed/
+published/
+Source details: The master content workflow
+Use this when creating new content.
+I want to create content using my Human Claude Content System.
+Topic:
+[Topic]
+Audience:
+[Audience]
+Goal:
+[Save, share, comment, follow, lead, sale, trust]
+Platform:
+[Instagram, LinkedIn, X, YouTube, newsletter, landing page]
+My point of view:
+[Your argument or belief]
+Use this order:
+1. Content Strategy Skill to choose the best angle and structure.
+2. Marketing Psychology Skill to identify why the message should work.
+3. Copywriting Skill to strengthen the hook, promise, proof, and CTA.
+4. My Voice Skill to match my style.
+5. Humanizer Skill to remove AI tells.
+Output:
+1. Best angle
+2. Hook
+3. Draft
+4. CTA
+5. Why this should work
+6. Humanized final version
+7. 3 alternate hooks
+8. Quality checklist
+Source details: Workflow 1: Instagram Reel
+Create an Instagram Reel script.
+Topic:
+[Topic]
+Audience:
+[Audience]
+Goal:
+[Goal]
+Use the full content workflow:
+- Content Strategy
+- Marketing Psychology
+- Copywriting
+- My Voice Skill
+- Humanizer
+Output:
+1. Hook in the first 2 seconds
+2. 30 to 60 second script
+3. On-screen text suggestions
+4. B-roll ideas
+5. Caption
+6. CTA
+7. 5 alternate hooks
+Rules:
+- Keep it punchy.
+- Avoid generic AI phrasing.
+- Make the first line strong.
+- One clear idea only.
+Source details: Workflow 2: Instagram Carousel
+Create an Instagram carousel outline.
+Topic:
+[Topic]
+Audience:
+[Audience]
+Goal:
+[Save, comment, follow, lead]
+Use the full content workflow.
+Output:
+1. Carousel title
+2. Slide-by-slide outline
+3. Exact slide text
+4. Visual direction for each slide
+5. Caption
+6. CTA
+7. Lead magnet idea if relevant
+Rules:
+- Slide 1 should create tension.
+- Every slide should teach one idea.
+- Keep text mobile-readable.
+- Avoid over-explaining.
+- Make slide 7 conversion-focused.
+Source details: Workflow 3: LinkedIn post
+Create a LinkedIn post.
+Topic:
+[Topic]
+Audience:
+[Audience]
+Goal:
+[Goal]
+Use:
+- Content Strategy Skill
+- Marketing Psychology Skill
+- Copywriting Skill
+- My Voice Skill
+- Humanizer Skill
+Output:
+1. Strong opening line
+2. Full post
+3. Shorter version
+4. More direct version
+5. CTA
+6. 5 alternate hooks
+Rules:
+- No generic founder bro language.
+- No fake vulnerability.
+- No empty lessons.
+- Make the insight specific and useful.
+Source details: Workflow 4: Landing page section
+Improve this landing page section.
+Audience:
+[Audience]
+Offer:
+[Offer]
+Goal:
+[Primary action]
+Current copy:
+[Paste copy]
+Use:
+- Copywriting Skill
+- Marketing Psychology Skill
+- Humanizer Skill
+Improve:
+1. Headline
+2. Subheadline
+3. Problem framing
+4. Benefits
+5. Proof
+6. CTA
+7. Objection handling
+Output:
+- improved section
+- why it is stronger
+- risks or missing proof
+- 5 alternate headlines
+Source details: Workflow 5: Email
+Improve this email.
+Audience:
+[Audience]
+Goal:
+[Reply, book call, click, buy, confirm, follow up]
+Current email:
+[Paste email]
+Use:
+- Copywriting Skill
+- Marketing Psychology Skill
+- Humanizer Skill
+- My Voice Skill if available
+Rules:
+- Keep it concise.
+- Make the CTA clear.
+- Remove fake warmth.
+- Remove generic AI phrasing.
+- Keep it natural.
+- Do not overdo persuasion.
+Output:
+1. Improved email
+2. Shorter version
+3. Softer version
+4. More direct version
+5. Subject line options
+6. What changed and why
+Source details: Final publishing checklist
+Before publishing any AI-assisted content, check this.
+Source details: Claude still sounds generic
+Likely cause:
+not enough voice examples
+no banned phrase list
+no clear audience
+weak topic
+vague prompt
+Fix:
+Here are 5 examples of my best writing.
+Analyze the voice patterns, sentence rhythm, structure, word choices, and CTA style.
+Then rewrite the draft using those patterns.
+Source details: Claude is too casual
+Likely cause:
+Humanizer overcorrected
+voice rules are too loose
+no professional examples
+Fix:
+Make this more natural but keep it professional.
+Do not add slang.
+Do not make it casual.
+Keep the authority and clarity.
+Source details: Claude writes too much
+Likely cause:
+no length constraint
+unclear output format
+too many goals
+Fix:
+Rewrite this in under 120 words.
+Keep one idea.
+Cut every sentence that does not move the reader forward.
+Source details: Claude gets persuasive but inaccurate
+Likely cause:
+no proof file
+too much copywriting
+too little evidence
+Fix:
+Before improving the copy, list which claims are supported, unsupported, or unclear.
+Do not strengthen unsupported claims.
+Source details: Claude creates good ideas but weak hooks
+Likely cause:
+the topic is clear but tension is missing
+Fix:
+Create 10 hooks using these angles:
+1. Common mistake
+2. Contrarian belief
+3. Painful truth
+4. Specific outcome
+5. Before and after
+6. Curiosity gap
+7. Cost of ignoring this
+8. Simple framework
+9. Myth vs reality
+10. Direct command
+Then rank them by clarity and scroll-stopping power.
+Source details: Best prompt to save
+This is the one prompt to keep.
+Use my Human Claude Content System.
+Create content for:
+Topic:
+[Topic]
+Audience:
+[Audience]
+Goal:
+[Goal]
+Platform:
+[Platform]
+Point of view:
+[Point of view]
+Use this order:
+1. Content Strategy: choose the best angle and structure.
+2. Marketing Psychology: explain why the angle should work.
+3. Copywriting: strengthen the hook, promise, proof, and CTA.
+4. My Voice Skill: match my voice rules and examples.
+5. Humanizer: remove AI tells and make it sound natural.
+Output:
+- best angle
+- final draft
+- caption if needed
+- CTA
+- why it works
+- what proof is missing
+- 5 alternate hooks
+- final quality checklist
+Source details: Day 2
+Create your voice folder:
+my-voice/
+best-posts.md
+bad-phrases.md
+voice-rules.md
+structure-rules.md
+formatting-rules.md
+audience-context.md
+“ Human-sounding writing starts with better strategy and source material, not a last-minute polish pass. ” Keep the workflow close to the real problem. Use the source links, prompts and implementation details as working material, then review the result against your own context.
+END NOTE Back to the journal →
+IN THIS STORY
+0 1 The problem is usually the setup
+0 2 Strategy before wording
+0 3 Humanizer as a final pass
+0 4 Create your own content Skill
+SHARE IT
+X in ↗
+THE AI
+BUILDERS Build the asset you keep thinking about.
+Back to journal ↑

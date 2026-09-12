@@ -38,3 +38,11 @@ npx skills add nickautomations/skills --skill human-content
 ```
 
 Or in Claude Code: `/plugin install content-skills@nick-automations-skills`. No dependencies, no API keys.
+
+## Staying current
+
+A weekly GitHub Action (`.github/workflows/upstream-human-content.yml`) checks every source below for changes. When one moves, Claude folds the useful parts into this skill and opens a PR for review. Tracked sources and baselines live in `upstream/human-content.json`.
+
+## Credits
+
+Synthesized in our own words from [blader/humanizer](https://github.com/blader/humanizer), Corey Haines' [marketingskills](https://github.com/coreyhaines31/marketingskills) (copywriting, marketing-psychology, content-strategy), Peter Yang's [no-ai-slop](https://github.com/petergyang/no-ai-slop), [The Human Claude Content Guide](https://theaibuilders.co/blog/the-human-claude-content-guide), and structured with Matt Pocock's [writing-for-agents](https://github.com/mattpocock/skills).
