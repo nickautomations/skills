@@ -123,7 +123,8 @@ def validate_marketplace(skill_names: list[str]) -> list[str]:
     for plugin in manifest.get("plugins", []):
         plugin_name = plugin.get("name", "<unnamed plugin>")
         for skill in plugin.get("skills", []):
-            listed[skill] = plugin_name
+            # Claude Code requires paths ("./skills/<name>"); key by folder name.
+            listed[Path(skill).name] = plugin_name
 
     for name in skill_names:
         if name not in listed:

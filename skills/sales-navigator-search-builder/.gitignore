@@ -1,0 +1,7 @@
+.env
+.linkedin_token.json
+.linkedin_token.json.tmp
+*.tmp
+__pycache__/
+.DS_Store
+Thumbs.db
