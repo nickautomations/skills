@@ -167,6 +167,7 @@ jobs:
           git apply "$RUNNER_TEMP/draft/changes.patch"
           claude plugin eval skills/human-content $flags --json "$RUNNER_TEMP/after.json"
           mkdir -p eval-out
+          cp "$RUNNER_TEMP/before.json" "$RUNNER_TEMP/after.json" eval-out/
           python3 scripts/eval_compare.py "$RUNNER_TEMP/before.json" "$RUNNER_TEMP/after.json" > eval-out/eval.md
           cat eval-out/eval.md >> "$GITHUB_STEP_SUMMARY"
 
