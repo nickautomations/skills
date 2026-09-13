@@ -78,7 +78,7 @@ Every skill in `skills/` is a self-contained folder with its own `SKILL.md` (ins
 
 [Nick Automations](https://nickautomations.com) builds AI and automation systems for businesses. These skills encode the workflows and design system we use ourselves. You're welcome to fork them, adapt them, or use them as-is.
 
-If you want this kind of thing built for your business → [nickautomations.com](https://nickautomations.com)
+If you want this kind of thing built for your business → [nickautomations.com](https://www.nickautomations.com/)
 
 ## License
 
