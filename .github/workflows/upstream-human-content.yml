@@ -91,6 +91,8 @@ jobs:
                Done when the table has one row per change in the report.
 
             Edit only `skills/human-content/**` and `upstream/.summary.md`.
+            `skills/human-content/evals/` is the test that scores your edit
+            afterwards; leave it exactly as it is.
             If nothing is worth changing, still write the summary.
 
       - name: Package draft
@@ -112,10 +114,71 @@ jobs:
           name: upstream-draft
           path: out/
 
+  evaluate:
+    name: Score current skill vs draft
+    needs: draft
+    if: needs.draft.outputs.drafted == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Best effort: a failed eval still lets the PR open, marked "evals did not run".
+    continue-on-error: true
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: upstream-draft
+          path: ${{ runner.temp }}/draft
+
+      - name: Enforce allowed paths
+        run: |
+          # Evals always come from main, so a draft can never grade itself.
+          bad=$(git apply --numstat "$RUNNER_TEMP/draft/changes.patch" | cut -f3 \
+            | grep -E -v '^(skills/human-content/|upstream/)|^skills/human-content/evals/' || true)
+          evals=$(git apply --numstat "$RUNNER_TEMP/draft/changes.patch" | cut -f3 | grep -E '^skills/human-content/evals/' || true)
+          if [ -n "$bad$evals" ]; then
+            echo "::error::Draft touched disallowed paths:"; echo "$bad$evals"; exit 1
+          fi
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Score both versions
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          [ -z "$ANTHROPIC_API_KEY" ] && unset ANTHROPIC_API_KEY
+          [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && unset CLAUDE_CODE_OAUTH_TOKEN
+          flags="--ablation none --runs 3 -j 4 --threshold 0 --trust-plugin --no-publish --max-cost-usd 10"
+          claude plugin eval skills/human-content $flags --json "$RUNNER_TEMP/before.json"
+          git apply "$RUNNER_TEMP/draft/changes.patch"
+          claude plugin eval skills/human-content $flags --json "$RUNNER_TEMP/after.json"
+          mkdir -p eval-out
+          python3 scripts/eval_compare.py "$RUNNER_TEMP/before.json" "$RUNNER_TEMP/after.json" > eval-out/eval.md
+          cat eval-out/eval.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: upstream-eval
+          path: eval-out/
+
   publish:
     name: Open PR or issue
-    needs: draft
-    if: needs.draft.outputs.changed == 'true'
+    needs: [draft, evaluate]
+    if: always() && needs.draft.outputs.changed == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -133,11 +196,21 @@ jobs:
           name: upstream-draft
           path: ${{ runner.temp }}/draft
 
+      - uses: actions/download-artifact@v4
+        if: needs.draft.outputs.drafted == 'true'
+        continue-on-error: true
+        with:
+          name: upstream-eval
+          path: ${{ runner.temp }}/eval
+
       - name: Apply draft and enforce allowed paths
         if: needs.draft.outputs.drafted == 'true'
         run: |
           patch="$RUNNER_TEMP/draft/changes.patch"
-          bad=$(git apply --numstat "$patch" | cut -f3 | grep -vE '^(skills/human-content/|upstream/)' || true)
+          bad=$(git apply --numstat "$patch" | cut -f3 \
+            | grep -E -v '^(skills/human-content/|upstream/)|^skills/human-content/evals/' || true)
+          evals=$(git apply --numstat "$patch" | cut -f3 | grep -E '^skills/human-content/evals/' || true)
+          bad="$bad$evals"
           if [ -n "$bad" ]; then
             echo "::error::Draft touched files outside the allowed paths:"; echo "$bad"; exit 1
           fi
@@ -149,6 +222,12 @@ jobs:
         run: |
           {
             echo "Weekly upstream check found changes. Claude drafted the update below; review before merging."
+            echo; echo "## Eval: current skill vs this draft"; echo
+            if [ -f "$RUNNER_TEMP/eval/eval.md" ]; then
+              cat "$RUNNER_TEMP/eval/eval.md"
+            else
+              echo "⚠️ Evals did not run. See the evaluate job: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            fi
             echo; echo "## Verdicts"; echo
             cat "$RUNNER_TEMP/draft/summary.md"
             echo; echo "## Upstream diffs"; echo

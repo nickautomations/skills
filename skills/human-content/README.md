@@ -39,9 +39,29 @@ npx skills add nickautomations/skills --skill human-content
 
 Or in Claude Code: `/plugin install content-skills@nick-automations-skills`. No dependencies, no API keys.
 
+## Evals
+
+`evals/` holds one case per mode (humanize, detect, write without inventing, voice sample, plan). Each case pairs a realistic prompt with graders: a check that the skill fired, plus judged criteria such as "every fact preserved" and "no testimonial invented".
+
+```bash
+claude plugin eval skills/human-content
+```
+
+This runs each case 3 times with the skill and 3 times without, and reports the difference. Baseline on 2026-09-13 (Sonnet 5, Haiku judge):
+
+| Case | With | Without |
+|---|---|---|
+| detect-ai-patterns | 1.00 | 0.56 |
+| humanize-linkedin-post | 1.00 | 0.67 |
+| landing-hero-no-invention | 1.00 | 0.75 |
+| plan-content-quarter | 0.89 | 1.00 |
+| voice-sample-wins | 1.00 | 1.00 |
+
+A case moving by about 0.1 is one run out of three flipping on a judge vote; treat a drop of 0.2 or more as real.
+
 ## Staying current
 
-A weekly GitHub Action (`.github/workflows/upstream-human-content.yml`) checks every source below for changes. When one moves, Claude folds the useful parts into this skill and opens a PR for review. Tracked sources and baselines live in `upstream/human-content.json`.
+A weekly GitHub Action (`.github/workflows/upstream-human-content.yml`) checks every source below for changes. When one moves, Claude folds the useful parts into this skill, the eval suite scores the current skill against the draft, and a PR opens with that table. Tracked sources and baselines live in `upstream/human-content.json`.
 
 ## Credits
 
