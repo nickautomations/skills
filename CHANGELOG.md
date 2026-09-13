@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased]
 
 ### Added
+- `human-content` eval suite (`skills/human-content/evals/`, 5 cases) for `claude plugin eval`. The upstream-sync workflow now scores the current skill and Claude's draft in the same run and puts the comparison in the PR (`scripts/eval_compare.py`). Drafts cannot edit `evals/`.
 - `human-content` skill: write, edit, detect, and plan content that reads like a person wrote it. Listed in `content-skills`.
 - `sales-navigator-search-builder` skill: build a Sales Navigator search URL from a natural-language ICP, with optional city/metro resolution via the LinkedIn API. Listed in a new `sales-skills` plugin.
 - Weekly upstream sync for `human-content` (`.github/workflows/upstream-human-content.yml`, `scripts/check_upstream.py`, `upstream/human-content.json`). Checks the source repos and guide page it was built from; on change, Claude drafts the update in a read-only job and a PR opens after a path check and validation. Falls back to an issue when no Claude secret is set or Actions cannot open PRs.

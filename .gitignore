@@ -57,3 +57,6 @@ logs/
 /tmp/
 .coverage
 htmlcov/
+
+# claude plugin eval run output
+**/evals/results/
