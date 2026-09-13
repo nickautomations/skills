@@ -1,6 +1,8 @@
 ---
 name: my-skill-name
 description: A clear, specific description of what this skill does and when Claude should use it. Include trigger phrases — Claude reads this description to decide whether to activate the skill. Replace this placeholder before publishing.
+metadata:
+  internal: true # hides the template from `npx skills add`; delete this block in a real skill
 ---
 
 # My Skill Name
