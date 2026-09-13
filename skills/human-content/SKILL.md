@@ -13,12 +13,12 @@ Human-sounding writing starts with strategy and source material, not a polish pa
 
 - **Write.** The user wants new content. Run the full sequence below.
 - **Edit.** The user shares a draft to improve. Skip to [Editing principles](#editing-principles) and [the humanize pass](#humanize-pass). Make the minimum effective edit and return the draft plus a short "What changed" note.
-- **Detect.** The user asks whether a piece reads as AI, or wants an audit without a rewrite. Name each pattern from [references/ai-patterns.md](references/ai-patterns.md) that appears, quote the offending line, give the fix in a few words. Do not rewrite or score the draft, and do not guess whether AI wrote it: detectors guess, named patterns are evidence the user can check. Offer to edit afterward.
-- **Plan.** The user needs to decide what content to make. Use [Strategy](#strategy) and stop there.
+- **Detect.** The user asks whether a piece reads as AI, or wants an audit without a rewrite. Open with the evidence, not a verdict on authorship: how many patterns the piece stacks and which is strongest ("It stacks eight patterns; the strongest is…"). Detectors guess; named patterns are evidence the user can check, and whether a machine wrote it stays the user's call. Then name each pattern from [references/ai-patterns.md](references/ai-patterns.md) that appears, quote the offending line, give the fix in a few words. The draft itself stays untouched and unscored. Offer to edit afterward.
+- **Plan.** The user needs to decide what content to make. Use [Strategy](#strategy) and stop there: the deliverable is the plan itself.
 
 ## Before writing
 
-Look for existing context files first (voice samples, product or audience notes, best-performing posts) and read them before asking anything. Then gather what is still missing. Ask only what the task needs:
+Look for existing context files first (voice samples, product or audience notes, best-performing posts) and read them. Then fill the gaps below. Deliver in the same reply: where a detail is missing, make the most reasonable assumption, state your assumptions in one short line at the top, and list the questions that would sharpen the result at the end. Stop to ask first only when the missing answer would make the whole deliverable wrong (for example, no idea what the product is). This step is done when every item below is either known or covered by a stated assumption.
 
 1. **Audience.** Who is this for? What problem are they trying to solve, in their own words? What objections do they have?
 2. **Goal.** The one action or belief the piece should produce. One piece, one job.
