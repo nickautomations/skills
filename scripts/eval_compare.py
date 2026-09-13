@@ -31,6 +31,19 @@ def failures(case: dict) -> str:
     return ", ".join(f"{name} ({n}/{len(runs)})" for name, n in sorted(counts.items())) or "—"
 
 
+def fired(case: dict) -> str:
+    """How many runs invoked a Skill. A low count means the scores are measuring plain Claude."""
+    runs = case["arms"].get("with", [])
+    hits = sum(
+        1
+        for run in runs
+        if any(g.get("type") == "tool_used" and g["passed"] for g in run["graders"])
+        or any(g["name"] == "skill-fired" and g["passed"] for g in run["graders"])
+    )
+    errors = sum(1 for run in runs if run.get("error"))
+    return f"{hits}/{len(runs)}" + (f", {errors} errored" if errors else "")
+
+
 def main() -> int:
     before, after = load(sys.argv[1]), load(sys.argv[2])
     before_scores = {c["name"]: c["aggregates"]["score"] for c in before["cases"]}
@@ -45,13 +58,15 @@ def main() -> int:
             mark = " ⚠️"
             flagged.append(name)
         old_txt = "—" if old is None else f"{old:.2f}"
-        rows.append(f"| {name}{mark} | {old_txt} | {new:.2f} | {delta} | {failures(case)} |")
+        before_case = next(c for c in before["cases"] if c["name"] == name) if old is not None else None
+        fired_txt = f"{fired(before_case) if before_case else '—'} → {fired(case)}"
+        rows.append(f"| {name}{mark} | {old_txt} | {new:.2f} | {delta} | {fired_txt} | {failures(case)} |")
 
     b, a = before["aggregates"]["overallScore"], after["aggregates"]["overallScore"]
-    print("| Case | Before | After | Δ | Failing graders after |")
-    print("|---|---|---|---|---|")
+    print("| Case | Before | After | Δ | Skill fired | Failing graders after |")
+    print("|---|---|---|---|---|---|")
     print("\n".join(rows))
-    print(f"| **Overall** | **{b:.2f}** | **{a:.2f}** | **{a - b:+.2f}** | |")
+    print(f"| **Overall** | **{b:.2f}** | **{a:.2f}** | **{a - b:+.2f}** | | |")
     print()
     if flagged:
         print(f"⚠️ Score dropped {FLAG_DROP} or more on: {', '.join(flagged)}. Check those graders before merging.")
