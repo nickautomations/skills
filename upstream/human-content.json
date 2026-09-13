@@ -1,0 +1,54 @@
+{
+  "skill": "skills/human-content",
+  "sources": [
+    {
+      "id": "humanizer",
+      "type": "github",
+      "repo": "blader/humanizer",
+      "path": "SKILL.md",
+      "last_sha": "c6f7cc2021ced7de121b7880da7976ad3bedabd1"
+    },
+    {
+      "id": "copywriting",
+      "type": "github",
+      "repo": "coreyhaines31/marketingskills",
+      "path": "skills/copywriting",
+      "last_sha": "27cd9479a55188ed18910010c992a0caf5836234"
+    },
+    {
+      "id": "marketing-psychology",
+      "type": "github",
+      "repo": "coreyhaines31/marketingskills",
+      "path": "skills/marketing-psychology",
+      "last_sha": "30f9b9a729bbbe3da562fc1108c31f3a35afcca1"
+    },
+    {
+      "id": "content-strategy",
+      "type": "github",
+      "repo": "coreyhaines31/marketingskills",
+      "path": "skills/content-strategy",
+      "last_sha": "c4800ba0c3b96b7bc05cc322308e9215693880ad"
+    },
+    {
+      "id": "no-ai-slop",
+      "type": "github",
+      "repo": "petergyang/no-ai-slop",
+      "path": "skills/no-ai-slop",
+      "last_sha": "b53e2659b986093f7c681d8b4e998715e90da2a2"
+    },
+    {
+      "id": "writing-for-agents",
+      "type": "github",
+      "repo": "mattpocock/skills",
+      "path": "skills/productivity/writing-for-agents",
+      "role": "method",
+      "last_sha": "321658273cb1d20b76026717d027d505790106d4"
+    },
+    {
+      "id": "human-claude-content-guide",
+      "type": "web",
+      "url": "https://theaibuilders.co/blog/the-human-claude-content-guide",
+      "last_hash": "054bde8c6623d77c8b7f329cfd580d66f3e6701eadd125b9991d793154ed9e02"
+    }
+  ]
+}

@@ -7,12 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased]
 
 ### Added
+- `human-content` skill: write, edit, detect, and plan content that reads like a person wrote it. Listed in `content-skills`.
+- `sales-navigator-search-builder` skill: build a Sales Navigator search URL from a natural-language ICP, with optional city/metro resolution via the LinkedIn API. Listed in a new `sales-skills` plugin.
+- Weekly upstream sync for `human-content` (`.github/workflows/upstream-human-content.yml`, `scripts/check_upstream.py`, `upstream/human-content.json`). Checks the source repos and guide page it was built from; on change, Claude drafts the update in a read-only job and a PR opens after a path check and validation. Falls back to an issue when no Claude secret is set or Actions cannot open PRs.
 - `voice-forge` reads `APIFY_API_TOKEN` from `scripts/.env` as well as the environment, matching how `youtube-to-infographic` already handles its key. The file is resolved relative to the script, so it works from any working directory, and a real environment variable still takes precedence. Ships with `scripts/.env.example`. The token is still never accepted as a CLI argument — that would leak it into shell history and process listings.
 - `voice-forge` skill: clone any LinkedIn creator's writing voice into a reusable Agent Skill. Scrapes posts via Apify, distills deterministic features, analyzes voice, then delegates to the built-in skill-creator to install the output skill. Claude Code only.
 - `voice-forge` is now listed in the `content-skills` marketplace bundle, so it installs via `/plugin install content-skills@nick-automations-skills`.
 - `scripts/validate_skills.py` now fails CI when `skills/` and `.claude-plugin/marketplace.json` disagree — a new skill can no longer ship invisible to marketplace installs.
 
 ### Fixed
+- `/plugin marketplace add nickautomations/skills` never worked: `claude plugin validate` rejected `marketplace.json` for a missing `owner`, missing per-plugin `source`, and skills listed as bare names instead of paths. The manifest now uses `source: "./"`, `strict: false`, and `./skills/<name>` paths, and passes validation. `validate_skills.py` reads the path form.
 - `skills-lock.json` had no `voice-forge` entry, and its `youtube-to-infographic` hash had been stale since the commit that introduced it — the recorded value matched the skill folder two commits earlier. Both entries now carry hashes reproduced with the CLI's own `computeSkillFolderHash` algorithm and verified against a clean clone.
 - `youtube-to-infographic` step 5 saved only to `/mnt/user-data/outputs/` and called `present_files` — neither exists in Claude Code, the runtime the skill recommends, so the final step failed there. It now picks the output location from the environment.
 - `youtube-to-infographic` hardcoded `python3` and `/tmp`, neither of which works on Windows (bare `python3` opens the Microsoft Store). The launcher fallbacks are documented and the transcript now lands in `outputs/`.

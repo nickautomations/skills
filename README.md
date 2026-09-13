@@ -10,6 +10,8 @@ Skills are folders of instructions, scripts, and resources that Claude loads dyn
 |-------|-------------|---------|
 | [youtube-to-infographic](./skills/youtube-to-infographic) | Turn a YouTube video, article, or text into a branded editorial infographic in the Nick Automations design system | `npx skills add nickautomations/skills --skill youtube-to-infographic` |
 | [voice-forge](./skills/voice-forge) | Clone any LinkedIn creator's writing voice into a reusable skill — scrape, analyze, and install a drafting skill | `npx skills add nickautomations/skills --skill voice-forge` |
+| [human-content](./skills/human-content) | Write, edit, audit, and plan content that reads like a person wrote it | `npx skills add nickautomations/skills --skill human-content` |
+| [sales-navigator-search-builder](./skills/sales-navigator-search-builder) | Build a LinkedIn Sales Navigator search URL from a natural-language ICP | `npx skills add nickautomations/skills --skill sales-navigator-search-builder` |
 
 More coming soon. See [CONTRIBUTING.md](./CONTRIBUTING.md) if you want to add one.
 
@@ -32,9 +34,15 @@ Inside Claude Code:
 ```
 /plugin marketplace add nickautomations/skills
 /plugin install content-skills@nick-automations-skills
+/plugin install sales-skills@nick-automations-skills
 ```
 
-This installs the full **content-skills** bundle, which currently includes `youtube-to-infographic` and `voice-forge`. As we add more content-related skills, they'll be included automatically.
+| Plugin | Skills |
+|--------|--------|
+| `content-skills` | `human-content`, `voice-forge`, `youtube-to-infographic` |
+| `sales-skills` | `sales-navigator-search-builder` |
+
+Update later with `/plugin marketplace update nick-automations-skills`.
 
 ### Option 3: Git clone (for forking or contributing)
 
@@ -52,6 +60,8 @@ nickautomations/skills/
 ├── .claude-plugin/           # Claude Code plugin marketplace manifest
 │   └── marketplace.json
 ├── skills/                   # All published skills
+│   ├── human-content/
+│   ├── sales-navigator-search-builder/
 │   ├── voice-forge/
 │   └── youtube-to-infographic/
 ├── template/                 # Starter scaffold for new skills
