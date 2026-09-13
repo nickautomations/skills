@@ -162,7 +162,8 @@ jobs:
         run: |
           [ -z "$ANTHROPIC_API_KEY" ] && unset ANTHROPIC_API_KEY
           [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && unset CLAUDE_CODE_OAUTH_TOKEN
-          flags="--ablation none --runs 3 -j 4 --threshold 0 --trust-plugin --no-publish --max-cost-usd 10"
+          # Pinned: scores shift a lot between models (Opus reads the references, Sonnet often doesn't).
+          flags="--model claude-sonnet-5 --judge-model claude-haiku-4-5 --ablation none --runs 3 -j 4 --threshold 0 --trust-plugin --no-publish --max-cost-usd 10"
           claude plugin eval skills/human-content $flags --json "$RUNNER_TEMP/before.json"
           git apply "$RUNNER_TEMP/draft/changes.patch"
           claude plugin eval skills/human-content $flags --json "$RUNNER_TEMP/after.json"

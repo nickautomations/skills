@@ -44,20 +44,22 @@ Or in Claude Code: `/plugin install content-skills@nick-automations-skills`. No 
 `evals/` holds one case per mode (humanize, detect, write without inventing, voice sample, plan). Each case pairs a realistic prompt with graders: a check that the skill fired, plus judged criteria such as "every fact preserved" and "no testimonial invented".
 
 ```bash
-claude plugin eval skills/human-content
+claude plugin eval skills/human-content --model claude-sonnet-5 --judge-model claude-haiku-4-5
 ```
 
-This runs each case 3 times with the skill and 3 times without, and reports the difference. Baseline on 2026-09-13 (Sonnet 5, Haiku judge):
+This runs each case 3 times with the skill and 3 times without, and reports the difference. Always pin `--model`: the default follows your Claude Code settings, and scores differ a lot by model (Opus reads the reference files; Sonnet often answers from `SKILL.md` alone). CI uses the command above.
 
-| Case | With | Without |
-|---|---|---|
-| detect-ai-patterns | 1.00 | 0.56 |
-| humanize-linkedin-post | 1.00 | 0.67 |
-| landing-hero-no-invention | 1.00 | 0.75 |
-| plan-content-quarter | 0.89 | 1.00 |
-| voice-sample-wins | 1.00 | 1.00 |
+Baseline, 2026-09-13:
 
-A case moving by about 0.1 is one run out of three flipping on a judge vote; treat a drop of 0.2 or more as real.
+| Case | Sonnet 5 with | Sonnet 5 without | Opus 5 with | Opus 5 without |
+|---|---|---|---|---|
+| detect-ai-patterns | 0.78 | 0.67 | 1.00 | 0.56 |
+| humanize-linkedin-post | 0.71 | 0.48 | 1.00 | 0.67 |
+| landing-hero-no-invention | 0.92 | 0.25 | 1.00 | 0.75 |
+| plan-content-quarter | 1.00 | 1.00 | 0.89 | 1.00 |
+| voice-sample-wins | 0.89 | 0.78 | 1.00 | 1.00 |
+
+The Opus column predates the plan-mode fix (assume and deliver instead of stopping to ask), which took Sonnet's plan score from 0.50 to 1.00. A case moving by about 0.1 is one run out of three flipping on a judge vote; treat a drop of 0.2 or more as real. `detect-ai-patterns` is the noisiest case.
 
 ## Staying current
 
