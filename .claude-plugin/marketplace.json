@@ -4,7 +4,7 @@
   "description": "Open-source Agent Skills from Nick Automations. AI/automation consulting & implementation workflows packaged as installable skills.",
   "owner": {
     "name": "Nick Automations",
-    "url": "https://nickautomations.com"
+    "url": "https://www.nickautomations.com"
   },
   "plugins": [
     {

@@ -79,4 +79,4 @@ The `description` field is the most important part — it's what Claude reads to
 
 ## Questions?
 
-Open a discussion or reach out at [nickautomations.com](https://nickautomations.com).
+Open a discussion or reach out at [nickautomations.com](https://www.nickautomations.com).

@@ -2,7 +2,7 @@
 
 A Claude skill that turns YouTube videos, articles, or pasted text into editorial-style infographics in the **Nick Automations design system** — heavy display typography, orange-slash separators, a layout chosen to fit the source, hand-coded SVG illustrations, soft CTA footer driving to nickautomations.com.
 
-Built and maintained by [Nick Automations](https://nickautomations.com).
+Built and maintained by [Nick Automations](https://www.nickautomations.com).
 
 ## Install
 
@@ -95,4 +95,4 @@ Edit any of these to fork the design for your own brand.
 
 ## License
 
-Apache 2.0 — see [LICENSE](../../LICENSE) at the repo root. Fork it, modify it, use it. If you build something cool, [tell us](https://nickautomations.com).
+Apache 2.0 — see [LICENSE](../../LICENSE) at the repo root. Fork it, modify it, use it. If you build something cool, [tell us](https://www.nickautomations.com).
