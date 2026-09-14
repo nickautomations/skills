@@ -4,9 +4,11 @@ The catalog for the humanize pass and detect mode. These tells exist because lan
 
 Rewrite whole sentences around their point. Do not patch the flagged phrase and leave the sentence's shape intact.
 
+Word habits drift with every model release, so treat the cut-outright list below as the most perishable part of this catalog. Structural tells (contrasts, staged rhythm, forced triads, formatting applied by rule) persist across model generations; weight them more heavily when a call is close. Any pattern can also repeat at a scale larger than one sentence: the same closer after every section, three parallel examples instead of one triad, a "despite these challenges" move that shows up as a phrase, then a section, then a send-off paragraph. Check paragraph and document shape with the same eye you use on sentences.
+
 ## Words and phrases
 
-**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
+**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, bolstered, deep dive, unlock potential, unprecedented, in today's fast-paced world.
 
 **Often-empty adverbs:** just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably. Cut when they add nothing; keep when they carry real emphasis, uncertainty, contrast, or the writer's spoken rhythm.
 
@@ -20,13 +22,15 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Inflated importance.** Watch for: stands as, serves as, marks a pivotal moment, plays a vital role, reflects broader, setting the stage for, key turning point, indelible mark, solidifies its position. Ordinary facts get dressed as milestones. "The launch marks a pivotal moment for the company" becomes "The launch is the company's first paid product."
 
-**Sales language.** Watch for: boasts, nestled, in the heart of, breathtaking, stunning, renowned, must-visit, rich (figurative), commitment to. "Nestled in the breathtaking region of Gonder, the town stands as a vibrant community" becomes "The town is in the Gonder region of Ethiopia."
+**Sales language.** Watch for: boasts, nestled, in the heart of, breathtaking, stunning, renowned, must-visit, rich (figurative), commitment to, featuring, diverse array. "Nestled in the breathtaking region of Gonder, the town stands as a vibrant community" becomes "The town is in the Gonder region of Ethiopia."
 
-**Shallow -ing analysis.** A trailing participle phrase that pretends to explain meaning: highlighting, underscoring, reflecting, symbolizing, showcasing, fostering, ensuring. Replace with a real consequence or cut. "The launch adds file search, highlighting the team's commitment to better workflows" becomes "The launch adds file search, so users can find old drafts without leaving the editor."
+**Shallow -ing analysis.** A trailing participle phrase that pretends to explain meaning: highlighting, underscoring, reflecting, symbolizing, showcasing, fostering, ensuring. Replace with a real consequence or cut. "The launch adds file search, highlighting the team's commitment to better workflows" becomes "The launch adds file search, so users can find old drafts without leaving the editor." Attaching the rider to a named source doesn't make the claim true; check that the source actually supports what the rider claims.
 
-**Vague or weasel attribution.** "Experts agree", "industry reports suggest", "many argue", "studies show", "widely regarded as". Name the source or cut the claim. Never invent a source; if none exists, ask.
+**Vague or weasel attribution.** "Experts agree", "industry reports suggest", "many argue", "studies show", "widely regarded as", "trade publications". Name the source or cut the claim. Never invent a source; if none exists, ask. A missing citation alone is not a tell; most writing is unsourced.
 
-**Name-dropping as proof.** A list of famous outlets or a follower count with no context. Keep a citation only when it says what was said and where.
+**Name-dropping as proof.** A list of famous outlets, a "cited/featured/profiled in" list, or a follower count with no context. Keep a citation only when it says what was said and where.
+
+**Vague or unexplained connection.** "Associated with", "linked to", "connected to", "tied to", "in association with" where the text never says how. "He was associated with the leadership of ExampleCorp" hides whether he was the CEO, a board member, or a consultant. Name the relationship the source gives; if the source doesn't say, keep the vague wording rather than inventing a role.
 
 **Stock challenges-and-outlook sections.** "Despite these challenges... continues to thrive." Replace with the concrete facts, or cut the section.
 
@@ -44,7 +48,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Repeated sentence openings.** Several sentences starting with the same subject. Merge sentences or lead with the action. Fix the pattern, not the word; the remaining sentence may still start with "She".
 
-**Fake-strong verbs.** "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
+**Fake-strong verbs.** Watch for: serves as, stands as, functions as, operates as, marks, represents, boasts, features, maintains, refers to. "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
 
 **Passive voice and missing actors.** "The results are preserved automatically" becomes "The system preserves the results automatically." Say who acts.
 
@@ -82,7 +86,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 - **Bold spam.** Bold sprinkled mid-sentence for emphasis, or list items that each open with a bold label and colon. Unbold, or fold the list into prose when two sentences would read better.
 - **Emoji decoration** in headings and list items. Remove.
-- **Title Case Headings.** Use sentence case.
+- **Title Case Headings.** Use sentence case. Same rule for a horizontal rule between every section, or a top-level heading that just repeats the piece's own title: cut the decoration and let the title stand once.
 - **Curly quotes** where the writer or format uses straight quotes.
 - **Em and en dashes.** Do not use them as a rhythm crutch. In short copy, none. In longer drafts, one or two only where they clearly beat commas, periods, or parentheses; remove clusters, spaced dashes, and double hyphens. A user's writing sample that uses them overrides this: match the sample's rate.
 - **Over-structuring.** Headers over two-sentence sections, bullets where prose would flow. Format follows content.
@@ -100,11 +104,13 @@ No single item below proves anything; look for several patterns stacked in one p
 
 - Perfect grammar, consistent style, or dry prose. Polish is not AI; generic dryness without specific tells is just dry writing.
 - Formal words in isolation. Only the specific overused words above count, and mostly in groups.
-- One transition word, one em dash, one short punchy sentence, curly quotes alone. Editors and word processors produce all of these.
+- One transition word, one em dash, one short punchy sentence, curly quotes alone, one stacked qualifier, one hyphenated pair, one passive sentence. Editors and word processors produce all of these; each needs company from other tells before it counts.
 - Deliberate repeated openings that build rhythm ("She came. She saw. She conquered.").
 - Useful scope statements, legal and safety notices, real corrections, named objections, FAQ answers.
 - Real alternatives a reader might genuinely weigh in a design doc, tutorial, or argument.
 - Watched phrases inside quotes, titles, proper names, or examples where the phrase is discussed rather than used.
+- Text written before ChatGPT's public launch (November 30, 2022). With rare exceptions, it is not AI-written.
+- A gut call made on feel alone. People judge AI authorship barely better than chance, and human writing keeps absorbing AI habits. Several stacked patterns are the evidence; a hunch is not.
 
 ## Human details to protect
 
