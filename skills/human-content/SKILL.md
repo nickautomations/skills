@@ -81,10 +81,11 @@ Run this on every draft before returning it.
 1. Check the text against every pattern in [references/ai-patterns.md](references/ai-patterns.md). Mark each hit.
 2. Rewrite around the point, not around the flagged phrase. Patching one phrase at a time leaves the skeleton showing; if a sentence stays awkward, rewrite the paragraph.
 3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived.
-4. Verify no claim was added, lost, or changed. Any drift is an error; fix it.
-5. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate.
+4. Search the draft specifically for the five tells that most often survive a rewrite: a not-X-but-Y contrast, a one-line closer, a dash, a forced triad, a bold label.
+5. Verify no claim was added, lost, or changed. Any drift is an error; fix it.
+6. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate.
 
-The pass is done when every catalog pattern has been checked, every remaining flag is a deliberate voice choice, and the fact check in step 4 passes clean.
+The pass is done when every catalog pattern has been checked, every remaining flag is a deliberate voice choice, and the fact check in step 5 passes clean.
 
 ## Output
 
