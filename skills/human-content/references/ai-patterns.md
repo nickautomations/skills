@@ -2,19 +2,21 @@
 
 The catalog for the humanize pass and detect mode. These tells exist because language models drift toward the most statistically likely phrasing that fits the widest range of cases: generic, inflated, evenly paced. The fix in every case is the same move: state the specific point plainly and let the reader judge its weight.
 
+A tell counts in proportion to how rarely a careful writer would make it on purpose. Some patterns below are marked *weak alone*: real, but only worth a flag once another pattern turns up in the same passage. Treat a lone instance as neutral.
+
 Rewrite whole sentences around their point. Do not patch the flagged phrase and leave the sentence's shape intact.
 
 ## Words and phrases
 
-**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
+**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, bolstered, deep dive, in today's fast-paced world. Cut *robust* and *gate/gated/gating* only in figurative use ("a robust commitment," "gatekeeping the narrative"); keep them in technical writing ("robust error handling," "the API gate").
 
 **Often-empty adverbs:** just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably. Cut when they add nothing; keep when they carry real emphasis, uncertainty, contrast, or the writer's spoken rhythm.
 
 **Filler phrases.** "In order to" becomes "to". "Due to the fact that" becomes "because". "At this point in time" becomes "now". "Has the ability to" becomes "can". "It is important to note that the data shows" becomes "the data shows". Same treatment for: it's worth noting, at the end of the day, when it comes to, at its core, in today's world, the reality is, in terms of, with regard to, going forward, let's dive in.
 
-**Stacked qualifiers.** "It could potentially possibly be argued that the policy might have some effect" becomes "The policy may affect outcomes." Keep a qualifier only when the source supports it and the meaning needs it.
+**Stacked qualifiers.** "It could potentially possibly be argued that the policy might have some effect" becomes "The policy may affect outcomes." Keep a qualifier only when the source supports it and the meaning needs it. *Weak alone*: one ordinary hedge ("perhaps", "tends to") is a normal writing habit, not a tell.
 
-**Hyphenated-pair spam.** Keep the hyphen only where grammar needs it, before a noun: "a high-quality report", but "the report is high quality".
+**Hyphenated-pair spam.** Keep the hyphen only where grammar needs it, before a noun: "a high-quality report", but "the report is high quality". *Weak alone*: flag only when several pairs cluster in one passage.
 
 ## Content patterns
 
@@ -26,6 +28,8 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Vague or weasel attribution.** "Experts agree", "industry reports suggest", "many argue", "studies show", "widely regarded as". Name the source or cut the claim. Never invent a source; if none exists, ask.
 
+**Vague connection or association.** "Associated with", "linked to", "connected with", "tied to" hide the actual relationship: employee, founder, board member, consultant. Name the relationship the source gives; if the source doesn't say, keep the vague wording rather than inventing a role.
+
 **Name-dropping as proof.** A list of famous outlets or a follower count with no context. Keep a citation only when it says what was said and where.
 
 **Stock challenges-and-outlook sections.** "Despite these challenges... continues to thrive." Replace with the concrete facts, or cut the section.
@@ -34,9 +38,9 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Sentence patterns
 
-**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." State Y directly. "The question isn't the model. It's the eval." becomes "The eval matters more than the model."
+**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." State Y directly. "The question isn't the model. It's the eval." becomes "The eval matters more than the model." The same contrast split across two sentences ("This doesn't mean X. It means Y.") is the same tell.
 
-**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. Break the rhythm; say what is actually there.
+**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. Break the rhythm; say what is actually there. The same shape appears as three parallel sentences or examples in a row, not just one line with three items; treat it the same way.
 
 **False ranges.** "From the Big Bang to the cosmic web, from stars to dark matter" where X and Y form no real range. List the actual topics.
 
@@ -46,7 +50,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Fake-strong verbs.** "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
 
-**Passive voice and missing actors.** "The results are preserved automatically" becomes "The system preserves the results automatically." Say who acts.
+**Passive voice and missing actors.** "The results are preserved automatically" becomes "The system preserves the results automatically." Say who acts. *Weak alone*; flag only alongside other tells in the passage.
 
 **Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing."
 
@@ -68,11 +72,11 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Answering objections nobody raised.** "This isn't mainly about X, and I'm not arguing Y." Unattributed defenses against absent critics. Keep an objection only when the text names its source or answers it in full; otherwise state the positive claim alone.
 
-**Rejecting fake alternatives.** "A tempting approach would be... but". An option no reader would consider, introduced only to be dismissed, usually a leftover drafting artifact. Cut the fake option and state the real constraint.
+**Rejecting fake alternatives.** "A tempting approach would be... but". An option no reader would consider, introduced only to be dismissed, usually a leftover drafting artifact. Cut the fake option and state the real constraint. One rejected option may be genuine; several unrelated ones in a row are the tell.
 
 **Rhetorical setups.** "What if I told you...", "Think about it:", "Plot twist:", self-answered question-answer pairs. Drop them and make the point.
 
-**Fake-profound kickers.** A closing metaphor, aphorism, or mic-drop line. Delete it; do not rewrite it into a better metaphor. End on the clearest concrete sentence already in the draft, a plain takeaway, or a next action.
+**Fake-profound kickers.** A closing metaphor, aphorism, or mic-drop line. Delete it; do not rewrite it into a better metaphor. End on the clearest concrete sentence already in the draft, a plain takeaway, or a next action. The same tell shows up mid-document as an identical one-line recap repeated after every section ("That's the real win."); cut the repeats and keep only a point that's actually new.
 
 **Summary-recap endings and generic optimism.** "In conclusion", "Ultimately", a final paragraph restating the piece, or "the future looks bright" send-offs. The reader was just there. End on the last concrete point.
 
@@ -85,7 +89,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 - **Title Case Headings.** Use sentence case.
 - **Curly quotes** where the writer or format uses straight quotes.
 - **Em and en dashes.** Do not use them as a rhythm crutch. In short copy, none. In longer drafts, one or two only where they clearly beat commas, periods, or parentheses; remove clusters, spaced dashes, and double hyphens. A user's writing sample that uses them overrides this: match the sample's rate.
-- **Over-structuring.** Headers over two-sentence sections, bullets where prose would flow. Format follows content.
+- **Over-structuring.** Headers over two-sentence sections, bullets where prose would flow, a horizontal rule between every section, a top-level heading that just repeats the document's own title. Format follows content.
 
 ## Chatbot artifacts
 
@@ -105,6 +109,7 @@ No single item below proves anything; look for several patterns stacked in one p
 - Useful scope statements, legal and safety notices, real corrections, named objections, FAQ answers.
 - Real alternatives a reader might genuinely weigh in a design doc, tutorial, or argument.
 - Watched phrases inside quotes, titles, proper names, or examples where the phrase is discussed rather than used.
+- Content written before ChatGPT's public launch (November 2022); it predates the tells, with rare exceptions.
 
 ## Human details to protect
 
