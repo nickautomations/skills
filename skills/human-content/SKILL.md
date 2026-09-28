@@ -76,12 +76,12 @@ These apply to every draft, whether you wrote it or the user did.
 
 ## Humanize pass
 
-Run this on every draft before returning it.
+Run this on every draft before returning it. Rewrite prose only; leave code blocks, inline code, commands, paths, and link targets untouched.
 
 1. Check the text against every pattern in [references/ai-patterns.md](references/ai-patterns.md). Mark each hit.
 2. Rewrite around the point, not around the flagged phrase. Patching one phrase at a time leaves the skeleton showing; if a sentence stays awkward, rewrite the paragraph.
-3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived.
-4. Verify no claim was added, lost, or changed. Any drift is an error; fix it.
+3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived. Then scan again for the patterns most likely to survive a first pass: binary contrasts, forced triads, dashes, and bold labels.
+4. Verify no claim was added, lost, or changed, including a ranking or a claim that things happened at once; triad, bold-list, and heading edits drop these most often. Any drift is an error; fix it.
 5. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate.
 
 The pass is done when every catalog pattern has been checked, every remaining flag is a deliberate voice choice, and the fact check in step 4 passes clean.
