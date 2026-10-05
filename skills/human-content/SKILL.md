@@ -23,7 +23,7 @@ Look for existing context files first (voice samples, product or audience notes,
 1. **Audience.** Who is this for? What problem are they trying to solve, in their own words? What objections do they have?
 2. **Goal.** The one action or belief the piece should produce. One piece, one job.
 3. **Product or subject.** What makes it different, the key transformation, real proof points (numbers, testimonials, outcomes). No proof point may be invented.
-4. **Placement.** Platform, format, what the reader already knows on arrival.
+4. **Placement.** Platform, format, what the reader already knows on arrival. In a reply, the reader already has the background: lead with the decision.
 5. **Voice.** If the user provides a writing sample, analyze it before drafting: sentence length, word choice, punctuation habits, repeated phrases, formality, humor. Match those habits. The sample overrides every style rule in this skill, including the dash rule.
 
 ## Strategy
@@ -58,7 +58,7 @@ Every lever is used honestly or not at all. Fake scarcity, invented testimonials
 - **Customer language.** Use the words customers use in reviews, calls, and tickets, not the company's internal vocabulary. What is obvious to you is jargon to them.
 - **One idea per section.** Each section advances one argument; the page builds a single logical case toward one action.
 - **Argument spine:** problem (show you understand their situation), promise (the transformation), proof (numbers, testimonials, mechanism), call to action.
-- Headline formulas that work: "{Outcome} without {pain}", "The {category} for {audience}", "Never {unpleasant event} again", or a question naming the main pain.
+- Headline formulas that work: "{Outcome} without {pain}", "The {category} for {audience}", "Never {unpleasant event} again", or a question naming the main pain. Fill every slot with a specific, and follow a "without" or "Never again" headline with what happens, not a list of absences.
 - CTA formula: action verb + what they get. "Start my free trial", "Get the checklist", "See pricing for my team". A CTA tells the reader exactly what happens next.
 
 ## Editing principles
@@ -71,7 +71,7 @@ These apply to every draft, whether you wrote it or the user did.
 - **Portability test.** If a sentence could move unchanged to another company, product, or country, it is filler. Replace it with a fact, mechanism, consequence, or judgment specific to this subject.
 - **Show, don't tell.** Let facts and consequences carry the emphasis. Cut commentary that labels a point important, surprising, or subtle instead of demonstrating why.
 - **Active voice, simple verbs.** "The team shipped it Tuesday", not "the decision emerged". Prefer "is", "has", "can" over "serves as", "boasts", "has the ability to". "Decided", not "made a decision".
-- **Never invent.** No new fact, name, number, date, quote, or source, ever. If a sentence needs a missing detail, ask for it or write a simpler sentence. Unsupported claims get an audit, not a polish: sort claims into supported, unsupported, and unclear before strengthening any of them. (Fiction is exempt; invented detail is the job there.)
+- **Never invent.** No new fact, name, number, date, quote, or source, ever. If a sentence needs a missing detail, ask for it, write a simpler sentence, or in copy mark the gap `[NEED: proof]` or `[NEED: differentiator]`. Unsupported claims get an audit, not a polish: sort claims into supported, unsupported, and unclear before strengthening any of them. (Fiction is exempt; invented detail is the job there.)
 - **Vary the rhythm.** Real writing alternates short and long sentences. Keep spoken-length sentences, fragments, and pace changes when they are clear and characteristic. One short sentence for emphasis is fine; a row of dramatic fragments is a tell.
 
 ## Humanize pass
@@ -81,8 +81,9 @@ Run this on every draft before returning it.
 1. Check the text against every pattern in [references/ai-patterns.md](references/ai-patterns.md). Mark each hit.
 2. Rewrite around the point, not around the flagged phrase. Patching one phrase at a time leaves the skeleton showing; if a sentence stays awkward, rewrite the paragraph.
 3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived.
-4. Verify no claim was added, lost, or changed. Any drift is an error; fix it.
-5. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate.
+4. Verify no claim was added, lost, or changed, including any fact, number, ranking, or claim that things happen at once. Shape edits to triads, dashes, and bold labels drop these most often. Any drift is an error; fix it.
+5. Search again for the tells that most often survive a rewrite: contrasts ("not", "isn't", "no", "without"), repeated closers, triads, bold labels, and in short copy any "?" or ":" reveal. Read every sentence over 20 words for a trailing pile-on.
+6. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate. Leave dashes inside code, commands, paths, and URLs alone.
 
 The pass is done when every catalog pattern has been checked, every remaining flag is a deliberate voice choice, and the fact check in step 4 passes clean.
 

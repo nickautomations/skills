@@ -6,14 +6,14 @@
       "type": "github",
       "repo": "blader/humanizer",
       "path": "SKILL.md",
-      "last_sha": "c6f7cc2021ced7de121b7880da7976ad3bedabd1"
+      "last_sha": "d4b81278e6604e237bf32f0f7ce5c217aee94269"
     },
     {
       "id": "copywriting",
       "type": "github",
       "repo": "coreyhaines31/marketingskills",
       "path": "skills/copywriting",
-      "last_sha": "27cd9479a55188ed18910010c992a0caf5836234"
+      "last_sha": "12188f1e3d3d8538fd32a96c925a8f6d7641827e"
     },
     {
       "id": "marketing-psychology",
@@ -27,14 +27,14 @@
       "type": "github",
       "repo": "coreyhaines31/marketingskills",
       "path": "skills/content-strategy",
-      "last_sha": "c4800ba0c3b96b7bc05cc322308e9215693880ad"
+      "last_sha": "a798b7faf2f8b7603842c918242a30c8994e57c2"
     },
     {
       "id": "no-ai-slop",
       "type": "github",
       "repo": "petergyang/no-ai-slop",
       "path": "skills/no-ai-slop",
-      "last_sha": "b53e2659b986093f7c681d8b4e998715e90da2a2"
+      "last_sha": "000650b156983f5159695b441477f4e63b25dc85"
     },
     {
       "id": "writing-for-agents",
