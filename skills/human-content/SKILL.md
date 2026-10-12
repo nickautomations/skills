@@ -34,6 +34,7 @@ Decide what the piece is for before writing a word.
 - A healthy calendar runs roughly 60% searchable, 30% shareable, 10% experimental. Searchable compounds; shareable keeps you visible.
 - Map topics to buyer stage with query modifiers: awareness ("what is", "how to"), consideration ("best", "vs", "alternatives"), decision ("pricing", "reviews"), implementation ("template", "tutorial", "setup").
 - Prioritize ideas by how often the pain shows up in real customer conversations, how close the topic sits to what the product solves, search potential, and effort. Customer evidence outweighs keyword volume.
+- Gate every searchable piece on information gain: read the current top results for its query and write one sentence on what yours adds that none of them have (original data, a real product example, a working tool, a clearer answer, a stronger opinion). If you cannot write that sentence, drop the piece.
 - Build distribution into the piece at creation time: subheads that stand alone as social posts, sections that lift out cleanly, quotable one-line stats. Route attention toward channels you own (email, site); social reach is rented and can vanish overnight.
 - Write 10 title or hook options before drafting and pick the strongest. The title does most of the work. Useful hook angles: common mistake, contrarian belief, painful truth, specific outcome, before/after, curiosity gap, cost of ignoring, framework, myth vs reality, direct command.
 
@@ -68,10 +69,11 @@ These apply to every draft, whether you wrote it or the user did.
 - **Preserve the writer's voice.** Before editing, note 3 to 5 voice signals: vocabulary, cadence, bluntness, humor, uncertainty, digressions. Keep them. Keep strong opinions, profanity, self-interruptions, and honest admissions that belong to the writer. An edited rough draft should still sound like the same person.
 - **Minimum effective edit.** Fix patterns, errors, and unclear passages. Leave strong human sentences alone.
 - **Be concrete.** Abstraction is where writing goes to die. Names, numbers, dates, mechanisms, and examples carry every point. Protect specific facts: never smooth "cut review time from 30 minutes to 8" into "significantly improves productivity".
+- **Earn every sentence.** Keep a sentence only if it gives the reader something they did not already have from earlier in the text or the conversation around it.
 - **Portability test.** If a sentence could move unchanged to another company, product, or country, it is filler. Replace it with a fact, mechanism, consequence, or judgment specific to this subject.
 - **Show, don't tell.** Let facts and consequences carry the emphasis. Cut commentary that labels a point important, surprising, or subtle instead of demonstrating why.
 - **Active voice, simple verbs.** "The team shipped it Tuesday", not "the decision emerged". Prefer "is", "has", "can" over "serves as", "boasts", "has the ability to". "Decided", not "made a decision".
-- **Never invent.** No new fact, name, number, date, quote, or source, ever. If a sentence needs a missing detail, ask for it or write a simpler sentence. Unsupported claims get an audit, not a polish: sort claims into supported, unsupported, and unclear before strengthening any of them. (Fiction is exempt; invented detail is the job there.)
+- **Never invent.** No new fact, name, number, date, quote, or source, ever. If a sentence needs a missing detail, ask for it or write a simpler sentence; in copy, mark the gap `[NEED: proof]` rather than filling it. Unsupported claims get an audit, not a polish: sort claims into supported, unsupported, and unclear before strengthening any of them. (Fiction is exempt; invented detail is the job there.)
 - **Vary the rhythm.** Real writing alternates short and long sentences. Keep spoken-length sentences, fragments, and pace changes when they are clear and characteristic. One short sentence for emphasis is fine; a row of dramatic fragments is a tell.
 
 ## Humanize pass
@@ -81,7 +83,7 @@ Run this on every draft before returning it.
 1. Check the text against every pattern in [references/ai-patterns.md](references/ai-patterns.md). Mark each hit.
 2. Rewrite around the point, not around the flagged phrase. Patching one phrase at a time leaves the skeleton showing; if a sentence stays awkward, rewrite the paragraph.
 3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived.
-4. Verify no claim was added, lost, or changed. Any drift is an error; fix it.
+4. Verify no claim was added, lost, or changed, including any ranking or claim that things happen at once, which shape edits drop most often. Any drift is an error; fix it. Then search again for the tells that most often survive a rewrite: contrasts, one-line closers, triads, dashes, and bold labels.
 5. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate.
 
 The pass is done when every catalog pattern has been checked, every remaining flag is a deliberate voice choice, and the fact check in step 4 passes clean.
