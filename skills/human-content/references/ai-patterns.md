@@ -6,7 +6,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Words and phrases
 
-**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
+**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), bolstered, deep dive, interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
 
 **Often-empty adverbs:** just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably. Cut when they add nothing; keep when they carry real emphasis, uncertainty, contrast, or the writer's spoken rhythm.
 
@@ -26,17 +26,21 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Vague or weasel attribution.** "Experts agree", "industry reports suggest", "many argue", "studies show", "widely regarded as". Name the source or cut the claim. Never invent a source; if none exists, ask.
 
+**Vague association.** "Associated with the leadership of ExampleCorp", "in connection with", "linked to", "tied to" hide the actual relationship (CEO, board member, consultant). Name the relationship the source gives; if it gives none, keep the vague wording rather than inventing a role.
+
 **Name-dropping as proof.** A list of famous outlets or a follower count with no context. Keep a citation only when it says what was said and where.
 
 **Stock challenges-and-outlook sections.** "Despite these challenges... continues to thrive." Replace with the concrete facts, or cut the section.
 
-**Knowledge-gap guessing.** "While details are scarce, it appears...", "she likely grew up...", "it is believed that". State what the sources do not show, or cut the sentence. Never present a guess as a fact.
+**Knowledge-gap guessing.** "While details are scarce, it appears...", "not widely documented", "in the available sources", "she likely grew up...", "it is believed that". State what the sources do not show, or cut the sentence. Never present a guess as a fact.
 
 ## Sentence patterns
 
-**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." State Y directly. "The question isn't the model. It's the eval." becomes "The eval matters more than the model."
+**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." Also the reversed "X rather than Y", the contrast split over two sentences ("This does not mean X. It means Y."), and the same shape in any language. The negative half names something nobody claimed, so the positive half sounds bigger. State Y directly. "The question isn't the model. It's the eval." becomes "The eval matters more than the model." Keep a contrast only when the negative half corrects a belief the reader really holds.
 
-**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. Break the rhythm; say what is actually there.
+**Negation lists and pile-ons.** "No setup call, no templates, no waiting on IT." Define the product by what happens. State one real absence once, near the CTA ("No card required"). The same goes for a finished claim followed by a comma and more clauses ("...the data you already have, no exports, no second copy"): end the sentence at the claim.
+
+**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content, whether in one sentence, three parallel examples, or three short facts followed by a lesson. Check that each item adds a distinct idea; merge or develop them, or vary the structure. Keep three when the meaning has three.
 
 **False ranges.** "From the Big Bang to the cosmic web, from stars to dark matter" where X and Y form no real range. List the actual topics.
 
@@ -44,11 +48,11 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Repeated sentence openings.** Several sentences starting with the same subject. Merge sentences or lead with the action. Fix the pattern, not the word; the remaining sentence may still start with "She".
 
-**Fake-strong verbs.** "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
+**Fake-strong verbs.** (serves as, functions as, operates as, boasts, maintains, refers to) "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
 
 **Passive voice and missing actors.** "The results are preserved automatically" becomes "The system preserves the results automatically." Say who acts.
 
-**Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing."
+**Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing." Same for a sentence after an example, scene, or number that names what it showed ("This shows the importance of...", "It was a lesson in patience."): cut it unless it adds a fact or consequence the example does not.
 
 **Colon reveals.** Noun phrase, colon, dramatic reveal: "The best part: it learns." Rewrite as a plain sentence. Colons are for lists, labels, and quotes.
 
@@ -56,7 +60,9 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Rhetoric patterns
 
-**Throat-clearing and fake-candid openers.** "Here's the thing", "Let me be clear", "Honestly?", "Look," "Real talk" as a staged pause before an ordinary point. Cut the opener, state the point. ("Honestly" mid-sentence in casual writing is fine; the tell is the standalone theatrical opener.)
+**Marketing stock phrases.** "Say goodbye to X", "X, reimagined", "Unlock the power of", "Take it to the next level", "Whether you're X or Y", "Imagine never...", "Join thousands of happy customers". Replace with the fact each one stands in for (the new workflow, the real count, the named customer). A synonym swap only creates a new tell, so rewrite from the facts, and vary the fixes so one replacement shape does not become the next tic.
+
+**Throat-clearing and fake-candid openers.** "Here's the thing", "Let me be clear", "Honestly?", "Look," "Real talk", "I'll be honest, I was skeptical too" with no real story behind it, as a staged pause before an ordinary point. Cut the opener, state the point. ("Honestly" mid-sentence in casual writing is fine; the tell is the standalone theatrical opener.)
 
 **Announcing the next point.** "Let's dive into how caching works. Here's what you need to know." State the content instead. The casual version ("one thing that bit me hard, so pay attention:") is the same pattern; remove the announcement, not just its formal tone.
 
@@ -78,11 +84,16 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Heading echoed in the first sentence.** A heading followed by a one-liner that restates it. Cut the echo.
 
+**Re-explaining what the reader already knows.** In a reply, the reader has the context. A short reply that restates the problem, walks through the diagnosis, and proves the plan before reaching the decision buries the point, and it survives sentence-level cleanup because each sentence reads fine. Lead with the decision; keep only reasoning that would change whether the reader agrees (usually one fact they lack, plus any link they need). Diagnosis and proof belong in the ticket or document that follows. Act on this only when you can see the conversation or the text plainly is a reply; otherwise ask or leave it.
+
+**Writing about the text itself.** Lines that describe how it was assembled ("compiled from", "anything unconfirmed is flagged rather than guessed") or a layout the reader can already see ("the table below compares", "organized by owner"). Cut them. Keep a source credit the reader can follow, a caveat that changes what they should do, and a convention they cannot infer (stated once).
+
 ## Formatting
 
 - **Bold spam.** Bold sprinkled mid-sentence for emphasis, or list items that each open with a bold label and colon. Unbold, or fold the list into prose when two sentences would read better.
 - **Emoji decoration** in headings and list items. Remove.
-- **Title Case Headings.** Use sentence case.
+- **Parallel bullet openers and hype punctuation.** Every bullet starting "Ensures... / Provides... / Enables...": lead with the outcome and vary the grammar. "Ready to level up?!" in body copy: drop the exclamation.
+- **Title Case Headings.** Use sentence case. Also drop rules between every section, a top-level heading that repeats the title, and headings written for effect; name what the section holds.
 - **Curly quotes** where the writer or format uses straight quotes.
 - **Em and en dashes.** Do not use them as a rhythm crutch. In short copy, none. In longer drafts, one or two only where they clearly beat commas, periods, or parentheses; remove clusters, spaced dashes, and double hyphens. A user's writing sample that uses them overrides this: match the sample's rate.
 - **Over-structuring.** Headers over two-sentence sections, bullets where prose would flow. Format follows content.
