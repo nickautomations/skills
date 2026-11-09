@@ -30,6 +30,7 @@ Look for existing context files first (voice samples, product or audience notes,
 
 Decide what the piece is for before writing a word.
 
+- **Information-gain gate.** Before committing to a searchable piece, read the current top results for its query and write one sentence on what yours adds that none of them have: original data, a real product example, a working tool or template, a clearer answer, a stronger opinion. If you cannot write that sentence, pick a different piece.
 - Every piece must be **searchable** (captures existing demand: targets a real query, matches search intent, answers it completely) or **shareable** (creates demand: a novel insight, original data, a counterintuitive take, an honest story) or both. If it is neither, it has no job; pick a different topic.
 - A healthy calendar runs roughly 60% searchable, 30% shareable, 10% experimental. Searchable compounds; shareable keeps you visible.
 - Map topics to buyer stage with query modifiers: awareness ("what is", "how to"), consideration ("best", "vs", "alternatives"), decision ("pricing", "reviews"), implementation ("template", "tutorial", "setup").
@@ -65,7 +66,7 @@ Every lever is used honestly or not at all. Fake scarcity, invented testimonials
 
 These apply to every draft, whether you wrote it or the user did.
 
-- **Preserve the writer's voice.** Before editing, note 3 to 5 voice signals: vocabulary, cadence, bluntness, humor, uncertainty, digressions. Keep them. Keep strong opinions, profanity, self-interruptions, and honest admissions that belong to the writer. An edited rough draft should still sound like the same person.
+- **Preserve the writer's voice.** Before editing, note the voice traits: vocabulary, cadence, bluntness, humor, uncertainty, digressions. Keep them. Keep strong opinions, profanity, self-interruptions, and honest admissions that belong to the writer. An edited rough draft should still sound like the same person.
 - **Minimum effective edit.** Fix patterns, errors, and unclear passages. Leave strong human sentences alone.
 - **Be concrete.** Abstraction is where writing goes to die. Names, numbers, dates, mechanisms, and examples carry every point. Protect specific facts: never smooth "cut review time from 30 minutes to 8" into "significantly improves productivity".
 - **Portability test.** If a sentence could move unchanged to another company, product, or country, it is filler. Replace it with a fact, mechanism, consequence, or judgment specific to this subject.
@@ -80,8 +81,8 @@ Run this on every draft before returning it.
 
 1. Check the text against every pattern in [references/ai-patterns.md](references/ai-patterns.md). Mark each hit.
 2. Rewrite around the point, not around the flagged phrase. Patching one phrase at a time leaves the skeleton showing; if a sentence stays awkward, rewrite the paragraph.
-3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived.
-4. Verify no claim was added, lost, or changed. Any drift is an error; fix it.
+3. Read the result aloud in your head. Check rhythm, formality level, and that simple verbs survived. Then search again for the tells that most often survive a rewrite: binary contrasts, echo closers, triads, dashes, and bold labels.
+4. Verify no claim was added, lost, or changed, including rankings ("the biggest") and claims that things happen at once. Shape edits to triads, fragments, and bold lists drop these most often. Any drift is an error; fix it.
 5. Search the final text for em and en dashes and remove each one (replace with a period, comma, colon, or parentheses) unless the user's own writing sample uses them, in which case match the sample's rate.
 
 The pass is done when every catalog pattern has been checked, every remaining flag is a deliberate voice choice, and the fact check in step 4 passes clean.
@@ -91,6 +92,7 @@ The pass is done when every catalog pattern has been checked, every remaining fl
 - **Write mode:** the copy organized by section, brief annotations on the load-bearing choices, and 2 to 3 alternatives for the headline and CTA with a one-line rationale each.
 - **Edit mode:** the full edited draft plus a short "What changed" section. If you reorganized the structure, say why.
 - **Detect mode:** the findings list only.
+- **File mode** (the user names a file): write only the final text to the file, change prose only, and leave code blocks, inline code, commands, paths, metadata, and link targets unchanged. Then give a short summary.
 - **Embedded mode** (another task is using this skill for a PR description, commit message, or document): return only the final text.
 
 Before returning, verify: it sounds like a person with a point of view wrote it; the meaning survived intact; nothing was invented; and the final version is shorter and clearer than the draft.
