@@ -6,7 +6,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Words and phrases
 
-**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
+**Cut outright:** bolstered, deep dive, delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
 
 **Often-empty adverbs:** just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably. Cut when they add nothing; keep when they carry real emphasis, uncertainty, contrast, or the writer's spoken rhythm.
 
@@ -34,9 +34,9 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Sentence patterns
 
-**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." State Y directly. "The question isn't the model. It's the eval." becomes "The eval matters more than the model."
+**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." / "X rather than Y." Also the version split across two sentences ("This does not mean every choice is equal. It means no system confirms which is right."), and the same formula in any language. The negative half names something nobody claimed, so the positive half sounds bigger than it is. State Y directly. Keep a contrast only when the negative half corrects a belief the reader actually holds. "The question isn't the model. It's the eval." becomes "The eval matters more than the model."
 
-**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. Break the rhythm; say what is actually there.
+**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. Break the rhythm; say what is actually there. The triad also works at paragraph scale: three parallel examples followed by a lesson. Check that each item adds a distinct idea; merge or develop the rest.
 
 **False ranges.** "From the Big Bang to the cosmic web, from stars to dark matter" where X and Y form no real range. List the actual topics.
 
@@ -44,11 +44,13 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Repeated sentence openings.** Several sentences starting with the same subject. Merge sentences or lead with the action. Fix the pattern, not the word; the remaining sentence may still start with "She".
 
-**Fake-strong verbs.** "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
+**Vague association.** "Associated with", "connected to", "in connection with", "linked to", "tied to" where the source gives a real relationship. Name it (founded, runs, funds, consults for). If the source does not say, keep the vague wording rather than inventing a role.
+
+**Fake-strong verbs** (serves as, functions as, operates as, maintains, boasts, refers to). "Serves as a centralized hub for sponsor management" becomes "tracks sponsors, drafts, and due dates in one place". Prefer is, are, has when they are clearer.
 
 **Passive voice and missing actors.** "The results are preserved automatically" becomes "The system preserves the results automatically." Say who acts.
 
-**Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing."
+**Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing.", "Read that again", "Let that sink in", one word in ALL CAPS for emphasis, and periods between single words ("every. single. day.").
 
 **Colon reveals.** Noun phrase, colon, dramatic reveal: "The best part: it learns." Rewrite as a plain sentence. Colons are for lists, labels, and quotes.
 
@@ -63,6 +65,8 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 **Faux-insight setups.** "What most people get wrong", "here's what nobody tells you", "the part everyone misses". Cut the setup; the claim stands on its own. "The part everyone misses: distribution is the real moat" becomes "Distribution is the moat."
 
 **Fake-deep framing.** "The real question is", "at its core", "what really matters", "the heart of the matter", and X-is-the-Y-of-Z sayings ("symmetry is the language of trust"). Replace the profundity with the specific claim.
+
+**Echo closers.** A one-sentence paragraph that restates the one before it ("That is the real win."), especially the same line after several sections, or a sentence after an example that names what it showed ("This shows the importance of patience", "The message was clear:"). Cut it. Keep a closing line only when it adds a fact or consequence the example does not already show.
 
 **Interpretive metadiscourse.** Lines that step outside the subject to tell the reader what to notice: "That last part matters more than it sounds", "As you can see", "This distinction matters", redundant "in other words". If the point is clear, delete the aside; if not, add support instead.
 
@@ -80,6 +84,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Formatting
 
+- **Decorative headings.** Headings written for effect ("The decision, on one screen") instead of naming what the section holds ("How the six options compare"); a horizontal rule between every section; a top-level heading that repeats the document title; arrows (→) chaining phrases into a mock flow chart.
 - **Bold spam.** Bold sprinkled mid-sentence for emphasis, or list items that each open with a bold label and colon. Unbold, or fold the list into prose when two sentences would read better.
 - **Emoji decoration** in headings and list items. Remove.
 - **Title Case Headings.** Use sentence case.
@@ -87,16 +92,21 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 - **Em and en dashes.** Do not use them as a rhythm crutch. In short copy, none. In longer drafts, one or two only where they clearly beat commas, periods, or parentheses; remove clusters, spaced dashes, and double hyphens. A user's writing sample that uses them overrides this: match the sample's rate.
 - **Over-structuring.** Headers over two-sentence sections, bullets where prose would flow. Format follows content.
 
+## Replies that rebuild shared context
+
+In a thread, the reader already has the background. A short reply that restates the problem, walks through the diagnosis, and offers evidence before reaching the decision buries the point, and each sentence reads fine alone, so sentence-level cleanup misses it. Lead with the decision; keep only the reasoning that would change whether the reader agrees (usually one fact they lack, plus any link they need to act). Move the full diagnosis to the ticket or document that follows. Apply this only when the surrounding conversation is visible or the text is plainly a reply; otherwise leave it alone.
+
 ## Chatbot artifacts
 
 - **Leftover chat text.** "I hope this helps!", "Certainly!", "Would you like me to...", "Let me know if..." in text that should stand alone. Cut.
 - **Agreeable padding.** "Great question! You're absolutely right that..." before the answer. Cut; keep only the substantive part.
 - **Cutoff disclaimers.** "As of my last update...". Cut.
+- **Writing about the document itself.** Accounts of how the text was assembled ("compiled from", "anything unconfirmed is flagged rather than guessed") and legends of a layout the reader can see ("the table below compares"). Keep a source credit the reader can follow and any caveat that changes what they should do; cut the rest. One such line alone is weak.
 - **Writing about the previous version.** Docs and comments describe current behavior; the old approach belongs only in changelogs and migration guides. "Added to replace the previous O(n²) approach" becomes "uses a hash map for O(1) lookups".
 
 ## What NOT to flag
 
-No single item below proves anything; look for several patterns stacked in one passage.
+No single item below proves anything; look for several patterns stacked in one passage. A tell counts in proportion to how rarely a careful writer would make it on purpose: a standalone "Let that sink in" is strong evidence, one dash or one passive sentence is weak.
 
 - Perfect grammar, consistent style, or dry prose. Polish is not AI; generic dryness without specific tells is just dry writing.
 - Formal words in isolation. Only the specific overused words above count, and mostly in groups.
