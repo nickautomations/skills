@@ -6,13 +6,13 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 ## Words and phrases
 
-**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, unlock potential, unprecedented, in today's fast-paced world.
+**Cut outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, game-changer, game-changing, transformative, paradigm shift, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, elevate, embark, supercharge, harness, ever-evolving, landscape (abstract), testament, pivotal, crucial, showcase, underscore (verb), highlight (verb), interplay, vibrant, enduring, garner, bolstered, deep dive, unlock potential, unprecedented, in today's fast-paced world.
 
 **Often-empty adverbs:** just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably. Cut when they add nothing; keep when they carry real emphasis, uncertainty, contrast, or the writer's spoken rhythm.
 
 **Filler phrases.** "In order to" becomes "to". "Due to the fact that" becomes "because". "At this point in time" becomes "now". "Has the ability to" becomes "can". "It is important to note that the data shows" becomes "the data shows". Same treatment for: it's worth noting, at the end of the day, when it comes to, at its core, in today's world, the reality is, in terms of, with regard to, going forward, let's dive in.
 
-**Stacked qualifiers.** "It could potentially possibly be argued that the policy might have some effect" becomes "The policy may affect outcomes." Keep a qualifier only when the source supports it and the meaning needs it.
+**Stacked qualifiers.** "It could potentially possibly be argued that the policy might have some effect" becomes "The policy may affect outcomes." Keep a qualifier only when the source supports it and the meaning needs it. A single ordinary hedge (perhaps, tends to) is a human habit, not a tell.
 
 **Hyphenated-pair spam.** Keep the hyphen only where grammar needs it, before a noun: "a high-quality report", but "the report is high quality".
 
@@ -30,13 +30,15 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Stock challenges-and-outlook sections.** "Despite these challenges... continues to thrive." Replace with the concrete facts, or cut the section.
 
-**Knowledge-gap guessing.** "While details are scarce, it appears...", "she likely grew up...", "it is believed that". State what the sources do not show, or cut the sentence. Never present a guess as a fact.
+**Vague association.** "Associated with", "in connection with", "linked to" hiding the actual relationship. Name it (founded, chairs, consulted for); if the source does not say, keep the vague wording.
+
+**Knowledge-gap guessing.** "While details are scarce, it appears...", "not available in the provided sources" followed by a plausible guess, "she likely grew up...", "it is believed that". State what the sources do not show, or cut the sentence. Never present a guess as a fact.
 
 ## Sentence patterns
 
-**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." State Y directly. "The question isn't the model. It's the eval." becomes "The eval matters more than the model."
+**Binary contrasts.** "It's not just X, it's Y." / "The question isn't X, it's Y." / "Not a X. Not a Y. A Z." / "X rather than Y" / the same contrast split across two sentences ("This does not mean X. It means Y."), in any language. The negative half names something nobody claimed, so the positive half sounds bigger. State Y directly. Keep a contrast only when the negative half corrects a belief the reader really holds, or both halves carry information. "The question isn't the model. It's the eval." becomes "The eval matters more than the model."
 
-**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. Break the rhythm; say what is actually there.
+**Forced groups of three.** "Innovation, inspiration, and industry insights." Triads used for completeness rather than content. The same shape appears at paragraph scale: three parallel examples, or three short facts and then a lesson. Check that each item adds a distinct idea; merge, or develop the strongest. Break the rhythm; say what is actually there.
 
 **False ranges.** "From the Big Bang to the cosmic web, from stars to dark matter" where X and Y form no real range. List the actual topics.
 
@@ -48,7 +50,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Passive voice and missing actors.** "The results are preserved automatically" becomes "The system preserves the results automatically." Say who acts.
 
-**Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing."
+**Dramatic fragmentation.** "No aesthetic prior. No nostalgia. The old rules were gone." One short sentence adds emphasis; a row of fragments is staging. Same for "That's it. That's the whole thing." The one-line paragraph that restates the paragraph before it ("That is the real win.", "Read that again.") is the same move, worse when it repeats after several sections. Cut it unless it adds a fact or consequence.
 
 **Colon reveals.** Noun phrase, colon, dramatic reveal: "The best part: it learns." Rewrite as a plain sentence. Colons are for lists, labels, and quotes.
 
@@ -58,13 +60,13 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Throat-clearing and fake-candid openers.** "Here's the thing", "Let me be clear", "Honestly?", "Look," "Real talk" as a staged pause before an ordinary point. Cut the opener, state the point. ("Honestly" mid-sentence in casual writing is fine; the tell is the standalone theatrical opener.)
 
-**Announcing the next point.** "Let's dive into how caching works. Here's what you need to know." State the content instead. The casual version ("one thing that bit me hard, so pay attention:") is the same pattern; remove the announcement, not just its formal tone.
+**Announcing the next point.** "Let's dive into how caching works. Here's what you need to know." State the content instead. "The part" does this too: "the hard part is X", "the part worth sharing" stage X or point at something never named. Name the thing, or state X. A literal part (one part of a multipart upload) stays. The casual version ("one thing that bit me hard, so pay attention:") is the same pattern; remove the announcement, not just its formal tone.
 
 **Faux-insight setups.** "What most people get wrong", "here's what nobody tells you", "the part everyone misses". Cut the setup; the claim stands on its own. "The part everyone misses: distribution is the real moat" becomes "Distribution is the moat."
 
 **Fake-deep framing.** "The real question is", "at its core", "what really matters", "the heart of the matter", and X-is-the-Y-of-Z sayings ("symmetry is the language of trust"). Replace the profundity with the specific claim.
 
-**Interpretive metadiscourse.** Lines that step outside the subject to tell the reader what to notice: "That last part matters more than it sounds", "As you can see", "This distinction matters", redundant "in other words". If the point is clear, delete the aside; if not, add support instead.
+**Interpretive metadiscourse.** Lines that step outside the subject to tell the reader what to notice: "That last part matters more than it sounds", "As you can see", "This distinction matters", redundant "in other words", and a sentence after an example that names what it showed ("This shows the importance of...", "It was a lesson in patience."). If the point is clear, delete the aside; if not, add support instead.
 
 **Answering objections nobody raised.** "This isn't mainly about X, and I'm not arguing Y." Unattributed defenses against absent critics. Keep an objection only when the text names its source or answers it in full; otherwise state the positive claim alone.
 
@@ -78,11 +80,13 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 
 **Heading echoed in the first sentence.** A heading followed by a one-liner that restates it. Cut the echo.
 
+**Re-explaining what the reader knows.** In a reply, the reader already has the context. A short reply that restates the problem, walks through the diagnosis, and shows the evidence before reaching the decision buries the point. Lead with the decision; keep only the reasoning that could change the reader's mind (usually one fact they lack, plus any link they need). Act on this only when the surrounding conversation is visible or the text is clearly a reply.
+
 ## Formatting
 
 - **Bold spam.** Bold sprinkled mid-sentence for emphasis, or list items that each open with a bold label and colon. Unbold, or fold the list into prose when two sentences would read better.
 - **Emoji decoration** in headings and list items. Remove.
-- **Title Case Headings.** Use sentence case.
+- **Title Case Headings.** Use sentence case. Also cut a horizontal rule between every section, a top-level heading that repeats the document title, and a heading written for effect ("The decision, on one screen"): name what the section holds.
 - **Curly quotes** where the writer or format uses straight quotes.
 - **Em and en dashes.** Do not use them as a rhythm crutch. In short copy, none. In longer drafts, one or two only where they clearly beat commas, periods, or parentheses; remove clusters, spaced dashes, and double hyphens. A user's writing sample that uses them overrides this: match the sample's rate.
 - **Over-structuring.** Headers over two-sentence sections, bullets where prose would flow. Format follows content.
@@ -93,6 +97,7 @@ Rewrite whole sentences around their point. Do not patch the flagged phrase and 
 - **Agreeable padding.** "Great question! You're absolutely right that..." before the answer. Cut; keep only the substantive part.
 - **Cutoff disclaimers.** "As of my last update...". Cut.
 - **Writing about the previous version.** Docs and comments describe current behavior; the old approach belongs only in changelogs and migration guides. "Added to replace the previous O(n²) approach" becomes "uses a hash map for O(1) lookups".
+- **Writing about the document itself.** Method narration ("compiled from...; anything unconfirmed is flagged rather than guessed") and legends the reader can already see ("the table below compares"). Keep a source credit the reader can follow and any caveat that changes what they should do; state a convention once, only when it cannot be inferred.
 
 ## What NOT to flag
 
@@ -100,6 +105,7 @@ No single item below proves anything; look for several patterns stacked in one p
 
 - Perfect grammar, consistent style, or dry prose. Polish is not AI; generic dryness without specific tells is just dry writing.
 - Formal words in isolation. Only the specific overused words above count, and mostly in groups.
+- Informal text: lowercase, "lmk", fragments, "Worst. Service. Ever.". That is the register, not a tell; a lone tell is not enough there (except chatbot residue). Keep the writer's anger at full strength.
 - One transition word, one em dash, one short punchy sentence, curly quotes alone. Editors and word processors produce all of these.
 - Deliberate repeated openings that build rhythm ("She came. She saw. She conquered.").
 - Useful scope statements, legal and safety notices, real corrections, named objections, FAQ answers.
